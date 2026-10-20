@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Models\Environment;
+use App\Models\Project;
 use App\Models\User;
 use App\Models\WebhookDelivery;
 use App\Models\WebhookEvent;
@@ -442,6 +444,30 @@ it('keeps authenticated webhook responses aligned with their documented schemas,
         ['GET', '/v1/webhooks/{webhook}', '/v1/webhooks/' . $granted->id],
         ['GET', '/v1/webhooks', '/v1/webhooks'],
         ['GET', '/v1/webhooks/{webhook}/deliveries', '/v1/webhooks/' . $subscription->id . '/deliveries'],
+    ];
+
+    foreach ($checks as [$method, $documented, $uri]) {
+        $response = $this->withToken($token)->getJson($uri)->assertOk();
+        $schema = documentedResponseSchema($spec, $documented, $method, 200);
+
+        expect($schema)->not->toBeNull();
+        assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
+    }
+});
+
+it('keeps project and environment responses aligned with their documented schemas', function (): void {
+    $spec = generateOpenApiSpec(forceGenerate: true);
+    $user = User::factory()->create();
+    $project = Project::factory()->for($user)->create(['key' => 'checkout']);
+    Environment::factory()->for($project)->create(['key' => 'production']);
+
+    $token = $user->createToken('contract', ['projects:read'])->plainTextToken;
+
+    $checks = [
+        ['GET', '/v1/projects', '/v1/projects'],
+        ['GET', '/v1/projects/{project}', '/v1/projects/checkout'],
+        ['GET', '/v1/projects/{project}/environments', '/v1/projects/checkout/environments'],
+        ['GET', '/v1/projects/{project}/environments/{environment}', '/v1/projects/checkout/environments/production'],
     ];
 
     foreach ($checks as [$method, $documented, $uri]) {

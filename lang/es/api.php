@@ -41,4 +41,14 @@ return [
     'sunset' => [
         'endpoint_unavailable' => 'Este endpoint ha sido retirado y ya no esta disponible.',
     ],
+    'keys' => [
+        'format' => 'Las claves son letras minúsculas y dígitos, en grupos separados por un solo guion.',
+        'immutable' => 'Las claves no se pueden cambiar.',
+    ],
+    'projects' => [
+        'key_taken' => 'Ya tienes un proyecto con esta clave.',
+    ],
+    'environments' => [
+        'key_taken' => 'Este proyecto ya tiene un entorno con esta clave.',
+    ],
 ];

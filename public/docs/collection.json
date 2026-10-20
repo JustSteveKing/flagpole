@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel API Documentation",
-        "_postman_id": "85480295-50a0-41c1-bdc1-878a79a97a85",
+        "_postman_id": "f92c3e99-b783-442d-b406-9e8720986c81",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -56,7 +56,7 @@
                                 {
                                     "header": [],
                                     "code": 201,
-                                    "body": "{\"data\":{\"id\":\"01m5cjb70r9fgm3p1vsa3t5kbd\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-20T11:49:59+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5df512gv50sdatpvtmykq97\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-20T20:13:25+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Registration succeeded."
                                 },
                                 {
@@ -100,7 +100,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5cjb75mxp8226rd0k5yd7gz\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-20T11:49:59+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5df5179j2n5kzrfeb096zp2\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-20T20:13:25+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Login succeeded."
                                 },
                                 {
@@ -138,7 +138,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5cjb7b0xwcwsjy7am2c6xm2\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-20T11:49:59+00:00\",\"created_at\":null,\"updated_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5df51cjjefthxwyg7mjmpfj\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-20T20:13:25+00:00\",\"created_at\":null,\"updated_at\":null}}",
                                     "name": "Authenticated user profile."
                                 },
                                 {
@@ -653,6 +653,674 @@
                                     "name": "Authentication failed."
                                 }
                             ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Environments",
+            "description": "",
+            "item": [
+                {
+                    "name": "List Environments",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/environments",
+                            "query": [
+                                {
+                                    "key": "cursor",
+                                    "value": "architecto",
+                                    "description": "Opaque cursor from a Link header. Omit it for the first page.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/environments?cursor=architecto",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "List a project's environments, ordered by key, 25 to a page. Use it to find the environment keys that flag settings and SDK keys are addressed by. Returns an array of environments; follow the Link header's rel=\"next\" for the next page."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "[{\"key\":\"production\",\"name\":\"Production\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}]",
+                            "name": "One page of environments."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:read ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user."
+                        }
+                    ]
+                },
+                {
+                    "name": "Create Environment",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/environments",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/environments",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"key\":\"staging\",\"name\":\"Staging\"}"
+                        },
+                        "description": "Add an environment to a project, such as staging. Use it when an application gains a deployment that needs its own flag settings; send an Idempotency-Key so a retry does not create it twice. Returns the environment; every flag in the project starts disabled in it."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"key\":\"production\",\"name\":\"Production\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "Environment created."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/validation-failed\",\"title\":\"Validation Failed\",\"status\":422,\"detail\":\"Keys are lowercase letters and digits, in runs separated by single hyphens.\",\"errors\":{\"key\":[\"Keys are lowercase letters and digits, in runs separated by single hyphens.\"]}}",
+                            "name": "The key is malformed or already used in this project, or the name is missing."
+                        }
+                    ]
+                },
+                {
+                    "name": "Show Environment",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/environments\/:environment",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/environments\/:environment",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "environment",
+                                    "key": "environment",
+                                    "value": "production",
+                                    "description": "The environment key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Fetch one environment by its key. Use it before renaming an environment: the response's ETag goes in If-Match on the update. Returns the environment, or 304 with no body when If-None-Match still matches."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"production\",\"name\":\"Production\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The environment, with its ETag."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:read ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no environment with this key."
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Environment",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/environments\/:environment",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/environments\/:environment",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "environment",
+                                    "key": "environment",
+                                    "value": "production",
+                                    "description": "The environment key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"key\":\"production\",\"name\":\"Live\"}"
+                        },
+                        "description": "Rename an environment with a JSON Merge Patch (application\/merge-patch+json). Use it when only the name should change; the key is permanent. Send the ETag from Show Environment in If-Match, so a change someone else made first is not overwritten. Returns the updated environment."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"production\",\"name\":\"Production\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The environment after the change."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no environment with this key."
+                        },
+                        {
+                            "header": [],
+                            "code": 412,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-failed\",\"title\":\"Precondition Failed\",\"status\":412,\"detail\":\"The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.\"}",
+                            "name": "If-Match does not match the current ETag: someone else changed it first."
+                        },
+                        {
+                            "header": [],
+                            "code": 415,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unsupported-media-type\",\"title\":\"Unsupported Media Type\",\"status\":415,\"detail\":\"The Content-Type 'application\\\/json' is not supported. Supported content types: application\\\/merge-patch+json.\"}",
+                            "name": "The body is not application\/merge-patch+json."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/validation-failed\",\"title\":\"Validation Failed\",\"status\":422,\"detail\":\"Keys cannot be changed.\",\"errors\":{\"key\":[\"Keys cannot be changed.\"]}}",
+                            "name": "The key differs from the current one, or the name was removed."
+                        },
+                        {
+                            "header": [],
+                            "code": 428,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-required\",\"title\":\"Precondition Required\",\"status\":428,\"detail\":\"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.\"}",
+                            "name": "The request has no If-Match."
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Environment",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/environments\/:environment",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/environments\/:environment",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "environment",
+                                    "key": "environment",
+                                    "value": "production",
+                                    "description": "The environment key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Delete an environment with its flag settings, their history and its SDK keys. Use it when a deployment is retired, because every application using one of its SDK keys stops getting flags at once. Returns 204 with no body."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": null,
+                            "name": "Environment deleted."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no environment with this key."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Projects",
+            "description": "",
+            "item": [
+                {
+                    "name": "List Projects",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects",
+                            "query": [
+                                {
+                                    "key": "cursor",
+                                    "value": "architecto",
+                                    "description": "Opaque cursor from a Link header. Omit it for the first page.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/v1\/projects?cursor=architecto"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "List the authenticated user's projects, ordered by key, 25 to a page. Use it to find a project's key, which every other project URL is built from. Returns an array of projects; follow the Link header's rel=\"next\" for the next page."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "[{\"key\":\"checkout\",\"name\":\"Checkout\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}]",
+                            "name": "One page of projects."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:read ability."
+                        }
+                    ]
+                },
+                {
+                    "name": "Create Project",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"key\":\"checkout\",\"name\":\"Checkout\"}"
+                        },
+                        "description": "Create a project, with development and production environments to start with. Use it once per application whose flags you manage; send an Idempotency-Key so a retry does not create it twice. Returns the project; its key cannot be changed afterwards."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"key\":\"checkout\",\"name\":\"Checkout\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "Project created, with its two starting environments."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/validation-failed\",\"title\":\"Validation Failed\",\"status\":422,\"detail\":\"Keys are lowercase letters and digits, in runs separated by single hyphens.\",\"errors\":{\"key\":[\"Keys are lowercase letters and digits, in runs separated by single hyphens.\"]}}",
+                            "name": "The key is malformed or already used by another of your projects, or the name is missing."
+                        }
+                    ]
+                },
+                {
+                    "name": "Show Project",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Fetch one project by its key. Use it before changing a project: the response's ETag goes in If-Match on the update. Returns the project, or 304 with no body when If-None-Match still matches."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"checkout\",\"name\":\"Checkout\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The project, with its ETag."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:read ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user."
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Project",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"key\":\"checkout\",\"name\":\"Checkout flow\"}"
+                        },
+                        "description": "Rename a project with a JSON Merge Patch (application\/merge-patch+json). Use it when only the name should change; the key is permanent. Send the ETag from Show Project in If-Match, so a change someone else made first is not overwritten. Returns the updated project."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"checkout\",\"name\":\"Checkout\",\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The project after the change."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user."
+                        },
+                        {
+                            "header": [],
+                            "code": 412,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-failed\",\"title\":\"Precondition Failed\",\"status\":412,\"detail\":\"The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.\"}",
+                            "name": "If-Match does not match the current ETag: someone else changed it first."
+                        },
+                        {
+                            "header": [],
+                            "code": 415,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unsupported-media-type\",\"title\":\"Unsupported Media Type\",\"status\":415,\"detail\":\"The Content-Type 'application\\\/json' is not supported. Supported content types: application\\\/merge-patch+json.\"}",
+                            "name": "The body is not application\/merge-patch+json."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/validation-failed\",\"title\":\"Validation Failed\",\"status\":422,\"detail\":\"Keys cannot be changed.\",\"errors\":{\"key\":[\"Keys cannot be changed.\"]}}",
+                            "name": "The key differs from the current one, or the name was removed."
+                        },
+                        {
+                            "header": [],
+                            "code": 428,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-required\",\"title\":\"Precondition Required\",\"status\":428,\"detail\":\"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.\"}",
+                            "name": "The request has no If-Match."
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Project",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Delete a project and everything in it: environments, flags, settings, history and SDK keys. Use it only when the project is retired, because every application using one of its SDK keys stops getting flags at once. Returns 204 with no body."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": null,
+                            "name": "Project deleted."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the projects:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user."
                         }
                     ]
                 }

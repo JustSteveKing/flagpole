@@ -15,6 +15,10 @@ ignore:
       - POST /v1/auth/tokens
       - POST /v1/webhooks
       - PATCH /v1/webhooks/*
+      - POST /v1/projects
+      - PATCH /v1/projects/*
+      - POST /v1/projects/*/environments
+      - PATCH /v1/projects/*/environments/*
     reason: >
       Validation problems add an errors member keyed by field, which apiguide.dev's
       validation-failed type defines. Every problem shares type, title, status and detail.

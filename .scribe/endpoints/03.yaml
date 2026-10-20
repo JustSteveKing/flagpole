@@ -1,0 +1,484 @@
+name: Environments
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'v1/projects/{project}/environments'
+    metadata:
+      custom: []
+      groupName: Environments
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List Environments'
+      description: 'List a project''s environments, ordered by key, 25 to a page. Use it to find the environment keys that flag settings and SDK keys are addressed by. Returns an array of environments; follow the Link header''s rel="next" for the next page.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      project:
+        custom: []
+        name: project
+        description: 'The project key.'
+        required: true
+        example: checkout
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      project: checkout
+    queryParameters:
+      cursor:
+        custom: []
+        name: cursor
+        description: 'Opaque cursor from a Link header. Omit it for the first page.'
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      cursor: architecto
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"key":"production","name":"Production","created_at":"2026-10-21T09:00:00+00:00","updated_at":"2026-10-21T09:00:00+00:00"}]'
+        headers: []
+        description: 'One page of environments.'
+      -
+        custom: []
+        status: 401
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/unauthorized","title":"Unauthorized","status":401,"detail":"Unauthenticated."}'
+        headers: []
+        description: 'Authentication failed.'
+      -
+        custom: []
+        status: 403
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/forbidden","title":"Forbidden","status":403,"detail":"Forbidden."}'
+        headers: []
+        description: 'Token is missing the projects:read ability.'
+      -
+        custom: []
+        status: 404
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/resource-not-found","title":"Resource Not Found","status":404,"detail":"The resource was not found."}'
+        headers: []
+        description: 'No project with this key belongs to the authenticated user.'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'v1/projects/{project}/environments'
+    metadata:
+      custom: []
+      groupName: Environments
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Create Environment'
+      description: 'Add an environment to a project, such as staging. Use it when an application gains a deployment that needs its own flag settings; send an Idempotency-Key so a retry does not create it twice. Returns the environment; every flag in the project starts disabled in it.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      project:
+        custom: []
+        name: project
+        description: 'The project key.'
+        required: true
+        example: checkout
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      project: checkout
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      key:
+        custom: []
+        name: key
+        description: 'Lowercase letters and digits in runs separated by single hyphens, at most 64 characters, unique within the project.'
+        required: true
+        example: staging
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'A name for people to read, up to 255 characters.'
+        required: true
+        example: Staging
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      key: staging
+      name: Staging
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: '{"data":{"key":"production","name":"Production","created_at":"2026-10-21T09:00:00+00:00","updated_at":"2026-10-21T09:00:00+00:00"}}'
+        headers: []
+        description: 'Environment created.'
+      -
+        custom: []
+        status: 401
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/unauthorized","title":"Unauthorized","status":401,"detail":"Unauthenticated."}'
+        headers: []
+        description: 'Authentication failed.'
+      -
+        custom: []
+        status: 403
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/forbidden","title":"Forbidden","status":403,"detail":"Forbidden."}'
+        headers: []
+        description: 'Token is missing the projects:write ability.'
+      -
+        custom: []
+        status: 404
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/resource-not-found","title":"Resource Not Found","status":404,"detail":"The resource was not found."}'
+        headers: []
+        description: 'No project with this key belongs to the authenticated user.'
+      -
+        custom: []
+        status: 422
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/validation-failed","title":"Validation Failed","status":422,"detail":"Keys are lowercase letters and digits, in runs separated by single hyphens.","errors":{"key":["Keys are lowercase letters and digits, in runs separated by single hyphens."]}}'
+        headers: []
+        description: 'The key is malformed or already used in this project, or the name is missing.'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'v1/projects/{project}/environments/{environment}'
+    metadata:
+      custom: []
+      groupName: Environments
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Show Environment'
+      description: "Fetch one environment by its key. Use it before renaming an environment: the response's ETag goes in If-Match on the update. Returns the environment, or 304 with no body when If-None-Match still matches."
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      project:
+        custom: []
+        name: project
+        description: 'The project key.'
+        required: true
+        example: checkout
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      environment:
+        custom: []
+        name: environment
+        description: 'The environment key, unique within the project.'
+        required: true
+        example: production
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      project: checkout
+      environment: production
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"key":"production","name":"Production","created_at":"2026-10-21T09:00:00+00:00","updated_at":"2026-10-21T09:00:00+00:00"}}'
+        headers: []
+        description: 'The environment, with its ETag.'
+      -
+        custom: []
+        status: 401
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/unauthorized","title":"Unauthorized","status":401,"detail":"Unauthenticated."}'
+        headers: []
+        description: 'Authentication failed.'
+      -
+        custom: []
+        status: 403
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/forbidden","title":"Forbidden","status":403,"detail":"Forbidden."}'
+        headers: []
+        description: 'Token is missing the projects:read ability.'
+      -
+        custom: []
+        status: 404
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/resource-not-found","title":"Resource Not Found","status":404,"detail":"The resource was not found."}'
+        headers: []
+        description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'v1/projects/{project}/environments/{environment}'
+    metadata:
+      custom: []
+      groupName: Environments
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update Environment'
+      description: 'Rename an environment with a JSON Merge Patch (application/merge-patch+json). Use it when only the name should change; the key is permanent. Send the ETag from Show Environment in If-Match, so a change someone else made first is not overwritten. Returns the updated environment.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      project:
+        custom: []
+        name: project
+        description: 'The project key.'
+        required: true
+        example: checkout
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      environment:
+        custom: []
+        name: environment
+        description: 'The environment key, unique within the project.'
+        required: true
+        example: production
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      project: checkout
+      environment: production
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      key:
+        custom: []
+        name: key
+        description: 'May be sent only with its current value.'
+        required: false
+        example: production
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'The new name, up to 255 characters.'
+        required: false
+        example: Live
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      key: production
+      name: Live
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"key":"production","name":"Production","created_at":"2026-10-21T09:00:00+00:00","updated_at":"2026-10-21T09:00:00+00:00"}}'
+        headers: []
+        description: 'The environment after the change.'
+      -
+        custom: []
+        status: 401
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/unauthorized","title":"Unauthorized","status":401,"detail":"Unauthenticated."}'
+        headers: []
+        description: 'Authentication failed.'
+      -
+        custom: []
+        status: 403
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/forbidden","title":"Forbidden","status":403,"detail":"Forbidden."}'
+        headers: []
+        description: 'Token is missing the projects:write ability.'
+      -
+        custom: []
+        status: 404
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/resource-not-found","title":"Resource Not Found","status":404,"detail":"The resource was not found."}'
+        headers: []
+        description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+      -
+        custom: []
+        status: 412
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/precondition-failed","title":"Precondition Failed","status":412,"detail":"The resource has changed since you last fetched it. Fetch it again and retry with its current ETag."}'
+        headers: []
+        description: 'If-Match does not match the current ETag: someone else changed it first.'
+      -
+        custom: []
+        status: 415
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/unsupported-media-type","title":"Unsupported Media Type","status":415,"detail":"The Content-Type ''application\/json'' is not supported. Supported content types: application\/merge-patch+json."}'
+        headers: []
+        description: 'The body is not application/merge-patch+json.'
+      -
+        custom: []
+        status: 422
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/validation-failed","title":"Validation Failed","status":422,"detail":"Keys cannot be changed.","errors":{"key":["Keys cannot be changed."]}}'
+        headers: []
+        description: 'The key differs from the current one, or the name was removed.'
+      -
+        custom: []
+        status: 428
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/precondition-required","title":"Precondition Required","status":428,"detail":"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match."}'
+        headers: []
+        description: 'The request has no If-Match.'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'v1/projects/{project}/environments/{environment}'
+    metadata:
+      custom: []
+      groupName: Environments
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete Environment'
+      description: 'Delete an environment with its flag settings, their history and its SDK keys. Use it when a deployment is retired, because every application using one of its SDK keys stops getting flags at once. Returns 204 with no body.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      project:
+        custom: []
+        name: project
+        description: 'The project key.'
+        required: true
+        example: checkout
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      environment:
+        custom: []
+        name: environment
+        description: 'The environment key, unique within the project.'
+        required: true
+        example: production
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      project: checkout
+      environment: production
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 204
+        content: null
+        headers: []
+        description: 'Environment deleted.'
+      -
+        custom: []
+        status: 401
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/unauthorized","title":"Unauthorized","status":401,"detail":"Unauthenticated."}'
+        headers: []
+        description: 'Authentication failed.'
+      -
+        custom: []
+        status: 403
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/forbidden","title":"Forbidden","status":403,"detail":"Forbidden."}'
+        headers: []
+        description: 'Token is missing the projects:write ability.'
+      -
+        custom: []
+        status: 404
+        content: '{"type":"https:\/\/apiguide.dev\/errors\/resource-not-found","title":"Resource Not Found","status":404,"detail":"The resource was not found."}'
+        headers: []
+        description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null

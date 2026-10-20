@@ -92,6 +92,8 @@ return [
             'auth:tokens:delete',
             'webhooks:read',
             'webhooks:write',
+            'projects:read',
+            'projects:write',
         ],
         'default' => [
             'auth:me',
@@ -102,6 +104,8 @@ return [
             'auth:tokens:delete',
             'webhooks:read',
             'webhooks:write',
+            'projects:read',
+            'projects:write',
         ],
     ],
 

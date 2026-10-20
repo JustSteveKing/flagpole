@@ -41,4 +41,14 @@ return [
     'sunset' => [
         'endpoint_unavailable' => 'This endpoint has been sunset and is no longer available.',
     ],
+    'keys' => [
+        'format' => 'Keys are lowercase letters and digits, in runs separated by single hyphens.',
+        'immutable' => 'Keys cannot be changed.',
+    ],
+    'projects' => [
+        'key_taken' => 'You already have a project with this key.',
+    ],
+    'environments' => [
+        'key_taken' => 'This project already has an environment with this key.',
+    ],
 ];

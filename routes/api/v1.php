@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Flags\Key;
 use App\Http\Controllers\Api\V1\Auth\CreateTokenController;
 use App\Http\Controllers\Api\V1\Auth\DeleteAllTokensController;
 use App\Http\Controllers\Api\V1\Auth\DeleteTokenController;
@@ -15,6 +16,16 @@ use App\Http\Controllers\Api\V1\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\V1\Auth\SendEmailVerificationNotificationController;
 use App\Http\Controllers\Api\V1\Auth\ShowResetPasswordTokenController;
 use App\Http\Controllers\Api\V1\Auth\VerifyEmailController;
+use App\Http\Controllers\Api\V1\Environments\CreateEnvironmentController;
+use App\Http\Controllers\Api\V1\Environments\DeleteEnvironmentController;
+use App\Http\Controllers\Api\V1\Environments\ListEnvironmentsController;
+use App\Http\Controllers\Api\V1\Environments\ShowEnvironmentController;
+use App\Http\Controllers\Api\V1\Environments\UpdateEnvironmentController;
+use App\Http\Controllers\Api\V1\Projects\CreateProjectController;
+use App\Http\Controllers\Api\V1\Projects\DeleteProjectController;
+use App\Http\Controllers\Api\V1\Projects\ListProjectsController;
+use App\Http\Controllers\Api\V1\Projects\ShowProjectController;
+use App\Http\Controllers\Api\V1\Projects\UpdateProjectController;
 use App\Http\Controllers\Api\V1\Webhooks\CreateWebhookController;
 use App\Http\Controllers\Api\V1\Webhooks\DeleteWebhookController;
 use App\Http\Controllers\Api\V1\Webhooks\GrantWebhookConsentController;
@@ -123,3 +134,39 @@ Route::middleware(['auth:sanctum', 'throttle:auth-protected'])->group(function (
         ->middleware(['abilities:webhooks:write', 'throttle:6,1'])
         ->name('v1.webhooks.deliveries.redeliver');
 });
+
+Route::middleware(['auth:sanctum', 'throttle:auth-protected'])
+    ->where(['project' => Key::ROUTE_PATTERN, 'environment' => Key::ROUTE_PATTERN])
+    ->group(function (): void {
+        Route::get('/projects', ListProjectsController::class)
+            ->middleware('abilities:projects:read')
+            ->name('v1.projects.index');
+        Route::post('/projects', CreateProjectController::class)
+            ->middleware(['abilities:projects:write', 'idempotent'])
+            ->name('v1.projects.store');
+        Route::get('/projects/{project}', ShowProjectController::class)
+            ->middleware(['abilities:projects:read', 'conditional'])
+            ->name('v1.projects.show');
+        Route::patch('/projects/{project}', UpdateProjectController::class)
+            ->middleware(['abilities:projects:write', 'consumes:application/merge-patch+json', 'merge-patch', 'conditional', 'preconditions.required'])
+            ->name('v1.projects.update');
+        Route::delete('/projects/{project}', DeleteProjectController::class)
+            ->middleware('abilities:projects:write')
+            ->name('v1.projects.destroy');
+
+        Route::get('/projects/{project}/environments', ListEnvironmentsController::class)
+            ->middleware('abilities:projects:read')
+            ->name('v1.environments.index');
+        Route::post('/projects/{project}/environments', CreateEnvironmentController::class)
+            ->middleware(['abilities:projects:write', 'idempotent'])
+            ->name('v1.environments.store');
+        Route::get('/projects/{project}/environments/{environment}', ShowEnvironmentController::class)
+            ->middleware(['abilities:projects:read', 'conditional'])
+            ->name('v1.environments.show');
+        Route::patch('/projects/{project}/environments/{environment}', UpdateEnvironmentController::class)
+            ->middleware(['abilities:projects:write', 'consumes:application/merge-patch+json', 'merge-patch', 'conditional', 'preconditions.required'])
+            ->name('v1.environments.update');
+        Route::delete('/projects/{project}/environments/{environment}', DeleteEnvironmentController::class)
+            ->middleware('abilities:projects:write')
+            ->name('v1.environments.destroy');
+    });

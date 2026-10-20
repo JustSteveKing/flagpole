@@ -11,6 +11,12 @@ tags:
     name: Authentication
     description: ''
   -
+    name: Environments
+    description: ''
+  -
+    name: Projects
+    description: ''
+  -
     name: Webhooks
     description: ''
 components:
@@ -38,10 +44,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5cjb70r9fgm3p1vsa3t5kbd
+                    id: 01m5df512gv50sdatpvtmykq97
                     name: 'Justina Gaylord'
                     email: lafayette.considine@example.com
-                    email_verified_at: '2026-10-20T11:49:59+00:00'
+                    email_verified_at: '2026-10-20T20:13:25+00:00'
                     created_at: null
                     updated_at: null
                   meta:
@@ -54,7 +60,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5cjb70r9fgm3p1vsa3t5kbd
+                        example: 01m5df512gv50sdatpvtmykq97
                       name:
                         type: string
                         example: 'Justina Gaylord'
@@ -63,7 +69,7 @@ paths:
                         example: lafayette.considine@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-20T11:49:59+00:00'
+                        example: '2026-10-20T20:13:25+00:00'
                       created_at:
                         type: string
                         example: null
@@ -166,10 +172,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5cjb75mxp8226rd0k5yd7gz
+                    id: 01m5df5179j2n5kzrfeb096zp2
                     name: 'Justina Gaylord'
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-10-20T11:49:59+00:00'
+                    email_verified_at: '2026-10-20T20:13:25+00:00'
                     created_at: null
                     updated_at: null
                   meta:
@@ -182,7 +188,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5cjb75mxp8226rd0k5yd7gz
+                        example: 01m5df5179j2n5kzrfeb096zp2
                       name:
                         type: string
                         example: 'Justina Gaylord'
@@ -191,7 +197,7 @@ paths:
                         example: cormier.nick@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-20T11:49:59+00:00'
+                        example: '2026-10-20T20:13:25+00:00'
                       created_at:
                         type: string
                         example: null
@@ -615,10 +621,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5cjb7b0xwcwsjy7am2c6xm2
+                    id: 01m5df51cjjefthxwyg7mjmpfj
                     name: 'Morgan Hirthe'
                     email: dare.emelie@example.com
-                    email_verified_at: '2026-10-20T11:49:59+00:00'
+                    email_verified_at: '2026-10-20T20:13:25+00:00'
                     created_at: null
                     updated_at: null
                 properties:
@@ -627,7 +633,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5cjb7b0xwcwsjy7am2c6xm2
+                        example: 01m5df51cjjefthxwyg7mjmpfj
                       name:
                         type: string
                         example: 'Morgan Hirthe'
@@ -636,7 +642,7 @@ paths:
                         example: dare.emelie@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-20T11:49:59+00:00'
+                        example: '2026-10-20T20:13:25+00:00'
                       created_at:
                         type: string
                         example: null
@@ -1211,6 +1217,1397 @@ paths:
                     example: Unauthenticated.
       tags:
         - Authentication
+  '/v1/projects/{project}/environments':
+    get:
+      summary: 'List Environments'
+      operationId: listEnvironments
+      description: 'List a project''s environments, ordered by key, 25 to a page. Use it to find the environment keys that flag settings and SDK keys are addressed by. Returns an array of environments; follow the Link header''s rel="next" for the next page.'
+      parameters:
+        -
+          in: query
+          name: cursor
+          description: 'Opaque cursor from a Link header. Omit it for the first page.'
+          example: architecto
+          required: false
+          schema:
+            type: string
+            description: 'Opaque cursor from a Link header. Omit it for the first page.'
+            example: architecto
+      responses:
+        200:
+          description: 'One page of environments.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                      example: production
+                    name:
+                      type: string
+                      example: Production
+                    created_at:
+                      type: string
+                      example: '2026-10-21T09:00:00+00:00'
+                    updated_at:
+                      type: string
+                      example: '2026-10-21T09:00:00+00:00'
+                example:
+                  -
+                    key: production
+                    name: Production
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:read ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - Environments
+    post:
+      summary: 'Create Environment'
+      operationId: createEnvironment
+      description: 'Add an environment to a project, such as staging. Use it when an application gains a deployment that needs its own flag settings; send an Idempotency-Key so a retry does not create it twice. Returns the environment; every flag in the project starts disabled in it.'
+      parameters: []
+      responses:
+        201:
+          description: 'Environment created.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    key: production
+                    name: Production
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: production
+                      name:
+                        type: string
+                        example: Production
+                      created_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+        422:
+          description: 'The key is malformed or already used in this project, or the name is missing.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/validation-failed'
+                  title: 'Validation Failed'
+                  status: 422
+                  detail: 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                  errors:
+                    key:
+                      - 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/validation-failed'
+                  title:
+                    type: string
+                    example: 'Validation Failed'
+                  status:
+                    type: integer
+                    example: 422
+                  detail:
+                    type: string
+                    example: 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                  errors:
+                    type: object
+                    properties:
+                      key:
+                        type: array
+                        example:
+                          - 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                        items:
+                          type: string
+      tags:
+        - Environments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: 'Lowercase letters and digits in runs separated by single hyphens, at most 64 characters, unique within the project.'
+                  example: staging
+                name:
+                  type: string
+                  description: 'A name for people to read, up to 255 characters.'
+                  example: Staging
+              required:
+                - key
+                - name
+    parameters:
+      -
+        in: path
+        name: project
+        description: 'The project key.'
+        example: checkout
+        required: true
+        schema:
+          type: string
+  '/v1/projects/{project}/environments/{environment}':
+    get:
+      summary: 'Show Environment'
+      operationId: showEnvironment
+      description: "Fetch one environment by its key. Use it before renaming an environment: the response's ETag goes in If-Match on the update. Returns the environment, or 304 with no body when If-None-Match still matches."
+      parameters: []
+      responses:
+        200:
+          description: 'The environment, with its ETag.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    key: production
+                    name: Production
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: production
+                      name:
+                        type: string
+                        example: Production
+                      created_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:read ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - Environments
+    patch:
+      summary: 'Update Environment'
+      operationId: updateEnvironment
+      description: 'Rename an environment with a JSON Merge Patch (application/merge-patch+json). Use it when only the name should change; the key is permanent. Send the ETag from Show Environment in If-Match, so a change someone else made first is not overwritten. Returns the updated environment.'
+      parameters: []
+      responses:
+        200:
+          description: 'The environment after the change.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    key: production
+                    name: Production
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: production
+                      name:
+                        type: string
+                        example: Production
+                      created_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+        412:
+          description: 'If-Match does not match the current ETag: someone else changed it first.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/precondition-failed'
+                  title: 'Precondition Failed'
+                  status: 412
+                  detail: 'The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/precondition-failed'
+                  title:
+                    type: string
+                    example: 'Precondition Failed'
+                  status:
+                    type: integer
+                    example: 412
+                  detail:
+                    type: string
+                    example: 'The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.'
+        415:
+          description: 'The body is not application/merge-patch+json.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unsupported-media-type'
+                  title: 'Unsupported Media Type'
+                  status: 415
+                  detail: "The Content-Type 'application/json' is not supported. Supported content types: application/merge-patch+json."
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unsupported-media-type'
+                  title:
+                    type: string
+                    example: 'Unsupported Media Type'
+                  status:
+                    type: integer
+                    example: 415
+                  detail:
+                    type: string
+                    example: "The Content-Type 'application/json' is not supported. Supported content types: application/merge-patch+json."
+        422:
+          description: 'The key differs from the current one, or the name was removed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/validation-failed'
+                  title: 'Validation Failed'
+                  status: 422
+                  detail: 'Keys cannot be changed.'
+                  errors:
+                    key:
+                      - 'Keys cannot be changed.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/validation-failed'
+                  title:
+                    type: string
+                    example: 'Validation Failed'
+                  status:
+                    type: integer
+                    example: 422
+                  detail:
+                    type: string
+                    example: 'Keys cannot be changed.'
+                  errors:
+                    type: object
+                    properties:
+                      key:
+                        type: array
+                        example:
+                          - 'Keys cannot be changed.'
+                        items:
+                          type: string
+        428:
+          description: 'The request has no If-Match.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/precondition-required'
+                  title: 'Precondition Required'
+                  status: 428
+                  detail: 'This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/precondition-required'
+                  title:
+                    type: string
+                    example: 'Precondition Required'
+                  status:
+                    type: integer
+                    example: 428
+                  detail:
+                    type: string
+                    example: 'This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.'
+      tags:
+        - Environments
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: 'May be sent only with its current value.'
+                  example: production
+                name:
+                  type: string
+                  description: 'The new name, up to 255 characters.'
+                  example: Live
+    delete:
+      summary: 'Delete Environment'
+      operationId: deleteEnvironment
+      description: 'Delete an environment with its flag settings, their history and its SDK keys. Use it when a deployment is retired, because every application using one of its SDK keys stops getting flags at once. Returns 204 with no body.'
+      parameters: []
+      responses:
+        204:
+          description: 'Environment deleted.'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - Environments
+    parameters:
+      -
+        in: path
+        name: project
+        description: 'The project key.'
+        example: checkout
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: environment
+        description: 'The environment key, unique within the project.'
+        example: production
+        required: true
+        schema:
+          type: string
+  /v1/projects:
+    get:
+      summary: 'List Projects'
+      operationId: listProjects
+      description: "List the authenticated user's projects, ordered by key, 25 to a page. Use it to find a project's key, which every other project URL is built from. Returns an array of projects; follow the Link header's rel=\"next\" for the next page."
+      parameters:
+        -
+          in: query
+          name: cursor
+          description: 'Opaque cursor from a Link header. Omit it for the first page.'
+          example: architecto
+          required: false
+          schema:
+            type: string
+            description: 'Opaque cursor from a Link header. Omit it for the first page.'
+            example: architecto
+      responses:
+        200:
+          description: 'One page of projects.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                      example: checkout
+                    name:
+                      type: string
+                      example: Checkout
+                    created_at:
+                      type: string
+                      example: '2026-10-21T09:00:00+00:00'
+                    updated_at:
+                      type: string
+                      example: '2026-10-21T09:00:00+00:00'
+                example:
+                  -
+                    key: checkout
+                    name: Checkout
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:read ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+      tags:
+        - Projects
+    post:
+      summary: 'Create Project'
+      operationId: createProject
+      description: 'Create a project, with development and production environments to start with. Use it once per application whose flags you manage; send an Idempotency-Key so a retry does not create it twice. Returns the project; its key cannot be changed afterwards.'
+      parameters: []
+      responses:
+        201:
+          description: 'Project created, with its two starting environments.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    key: checkout
+                    name: Checkout
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: checkout
+                      name:
+                        type: string
+                        example: Checkout
+                      created_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        422:
+          description: 'The key is malformed or already used by another of your projects, or the name is missing.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/validation-failed'
+                  title: 'Validation Failed'
+                  status: 422
+                  detail: 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                  errors:
+                    key:
+                      - 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/validation-failed'
+                  title:
+                    type: string
+                    example: 'Validation Failed'
+                  status:
+                    type: integer
+                    example: 422
+                  detail:
+                    type: string
+                    example: 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                  errors:
+                    type: object
+                    properties:
+                      key:
+                        type: array
+                        example:
+                          - 'Keys are lowercase letters and digits, in runs separated by single hyphens.'
+                        items:
+                          type: string
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: 'Lowercase letters and digits in runs separated by single hyphens, at most 64 characters, unique among your projects. Used in every URL for the project.'
+                  example: checkout
+                name:
+                  type: string
+                  description: 'A name for people to read, up to 255 characters.'
+                  example: Checkout
+              required:
+                - key
+                - name
+  '/v1/projects/{project}':
+    get:
+      summary: 'Show Project'
+      operationId: showProject
+      description: "Fetch one project by its key. Use it before changing a project: the response's ETag goes in If-Match on the update. Returns the project, or 304 with no body when If-None-Match still matches."
+      parameters: []
+      responses:
+        200:
+          description: 'The project, with its ETag.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    key: checkout
+                    name: Checkout
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: checkout
+                      name:
+                        type: string
+                        example: Checkout
+                      created_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:read ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - Projects
+    patch:
+      summary: 'Update Project'
+      operationId: updateProject
+      description: 'Rename a project with a JSON Merge Patch (application/merge-patch+json). Use it when only the name should change; the key is permanent. Send the ETag from Show Project in If-Match, so a change someone else made first is not overwritten. Returns the updated project.'
+      parameters: []
+      responses:
+        200:
+          description: 'The project after the change.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    key: checkout
+                    name: Checkout
+                    created_at: '2026-10-21T09:00:00+00:00'
+                    updated_at: '2026-10-21T09:00:00+00:00'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: checkout
+                      name:
+                        type: string
+                        example: Checkout
+                      created_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+                      updated_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+        412:
+          description: 'If-Match does not match the current ETag: someone else changed it first.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/precondition-failed'
+                  title: 'Precondition Failed'
+                  status: 412
+                  detail: 'The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/precondition-failed'
+                  title:
+                    type: string
+                    example: 'Precondition Failed'
+                  status:
+                    type: integer
+                    example: 412
+                  detail:
+                    type: string
+                    example: 'The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.'
+        415:
+          description: 'The body is not application/merge-patch+json.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unsupported-media-type'
+                  title: 'Unsupported Media Type'
+                  status: 415
+                  detail: "The Content-Type 'application/json' is not supported. Supported content types: application/merge-patch+json."
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unsupported-media-type'
+                  title:
+                    type: string
+                    example: 'Unsupported Media Type'
+                  status:
+                    type: integer
+                    example: 415
+                  detail:
+                    type: string
+                    example: "The Content-Type 'application/json' is not supported. Supported content types: application/merge-patch+json."
+        422:
+          description: 'The key differs from the current one, or the name was removed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/validation-failed'
+                  title: 'Validation Failed'
+                  status: 422
+                  detail: 'Keys cannot be changed.'
+                  errors:
+                    key:
+                      - 'Keys cannot be changed.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/validation-failed'
+                  title:
+                    type: string
+                    example: 'Validation Failed'
+                  status:
+                    type: integer
+                    example: 422
+                  detail:
+                    type: string
+                    example: 'Keys cannot be changed.'
+                  errors:
+                    type: object
+                    properties:
+                      key:
+                        type: array
+                        example:
+                          - 'Keys cannot be changed.'
+                        items:
+                          type: string
+        428:
+          description: 'The request has no If-Match.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/precondition-required'
+                  title: 'Precondition Required'
+                  status: 428
+                  detail: 'This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/precondition-required'
+                  title:
+                    type: string
+                    example: 'Precondition Required'
+                  status:
+                    type: integer
+                    example: 428
+                  detail:
+                    type: string
+                    example: 'This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.'
+      tags:
+        - Projects
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: 'May be sent only with its current value.'
+                  example: checkout
+                name:
+                  type: string
+                  description: 'The new name, up to 255 characters.'
+                  example: 'Checkout flow'
+    delete:
+      summary: 'Delete Project'
+      operationId: deleteProject
+      description: 'Delete a project and everything in it: environments, flags, settings, history and SDK keys. Use it only when the project is retired, because every application using one of its SDK keys stops getting flags at once. Returns 204 with no body.'
+      parameters: []
+      responses:
+        204:
+          description: 'Project deleted.'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the projects:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - Projects
+    parameters:
+      -
+        in: path
+        name: project
+        description: 'The project key.'
+        example: checkout
+        required: true
+        schema:
+          type: string
   '/v1/webhooks/{webhook}/consent':
     get:
       summary: 'Open Webhook Consent Link'
