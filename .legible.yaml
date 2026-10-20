@@ -26,3 +26,17 @@ ignore:
     reason: >
       Validation problems add an errors member keyed by field, which apiguide.dev's
       validation-failed type defines. Every problem shares type, title, status and detail.
+  - rule: naming-style
+    operations:
+      - POST /ofrep/v1/evaluate/flags
+      - POST /ofrep/v1/evaluate/flags/*
+    reason: >
+      OpenFeature's Remote Evaluation Protocol fixes these names (targetingKey, errorCode,
+      errorDetails). Providers read them as OFREP spells them (ADR-0001).
+  - rule: error-shape
+    operations:
+      - POST /ofrep/v1/evaluate/flags
+      - POST /ofrep/v1/evaluate/flags/*
+    reason: >
+      OFREP defines its own error bodies for 400, 404 and 500, which its providers read; problem
+      details would be lost on them (ADR-0002). Every other error here is problem details.

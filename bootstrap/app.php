@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Middleware\AddSecurityHeaders;
 use App\Http\Middleware\EnforceTransportSecurity;
+use App\Http\Middleware\EnsureSdkKey;
 use App\Http\Middleware\RetireSunsetEndpoints;
 use App\Http\Middleware\SetRequestLocale;
 use App\Support\SecurityAudit;
@@ -34,6 +35,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
+            'sdk-key' => EnsureSdkKey::class,
         ]);
 
         // There is no login page to send a guest to; a 401 problem is the whole answer.

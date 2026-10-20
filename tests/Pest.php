@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 use App\Flags\FlagType;
 use App\Flags\FlagWriter;
+use App\Flags\SdkKeys;
 use App\Models\Flag;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -123,4 +126,47 @@ function environmentVersions(Project $project): array
 function flagToken(User $user, array $abilities = ['flags:read', 'flags:write']): string
 {
     return ownerToken($user, $abilities);
+}
+
+/**
+ * An SDK key for an environment of the project, the way the API issues one.
+ */
+function sdkKey(Project $project, string $environment = 'production', ?Carbon $expiresAt = null): string
+{
+    return app(SdkKeys::class)->issue($project->environments()->where('key', $environment)->sole(), 'test', $expiresAt)->plainTextToken;
+}
+
+/**
+ * An OFREP call: a raw POST, so a test can send a body that is not valid JSON.
+ *
+ * @param  array<string, string>  $headers
+ */
+function ofrep(string $path, string $key, string $body = '{"context":{}}', array $headers = []): TestResponse
+{
+    $server = ['CONTENT_TYPE' => 'application/json', 'HTTP_ACCEPT' => 'application/json', 'HTTP_AUTHORIZATION' => "Bearer {$key}"];
+
+    foreach ($headers as $name => $value) {
+        $server['HTTP_' . mb_strtoupper(str_replace('-', '_', $name))] = $value;
+    }
+
+    // The test client keeps the authenticated guard between requests in one test; Octane and
+    // PHP-FPM start every request without one.
+    app('auth')->forgetGuards();
+
+    return test()->call('POST', '/ofrep/v1/evaluate/' . $path, [], [], [], $server, $body);
+}
+
+/**
+ * @param  array<string, mixed>  $settings
+ */
+function setSettings(Flag $flag, string $environment, array $settings): void
+{
+    $setting = $flag->settings()->whereHas('environment', fn(Builder $query) => $query->where('key', $environment))->sole();
+
+    app(FlagWriter::class)->updateSettings($setting, [
+        'enabled' => $settings['enabled'] ?? $setting->enabled,
+        'off_variant' => $settings['off_variant'] ?? $setting->off_variant,
+        'default' => $settings['default'] ?? $setting->default,
+        'rules' => $settings['rules'] ?? $setting->rules,
+    ]);
 }

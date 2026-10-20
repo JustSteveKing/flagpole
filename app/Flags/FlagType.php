@@ -34,7 +34,7 @@ enum FlagType: string
             // JSON array, which is not an object.
             self::Object => is_array($value)
                 && ([] === $value || ! array_is_list($value))
-                && mb_strlen((string) json_encode($value)) <= self::MAX_OBJECT_BYTES,
+                && mb_strlen((string) json_encode($value), '8bit') <= self::MAX_OBJECT_BYTES,
         };
     }
 

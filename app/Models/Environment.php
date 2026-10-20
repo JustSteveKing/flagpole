@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use JustSteveKing\Toolbox\ConditionalRequests\Contracts\HasValidators;
 use Laravel\Sanctum\HasApiTokens;
@@ -48,6 +49,17 @@ final class Environment extends Model implements HasValidators
      */
     #[Override]
     protected $fillable = ['key', 'name'];
+
+    /**
+     * The environment whose SDK key authenticated the request, if one did. Read through the user
+     * resolver, because static analysis assumes every authenticated user is a User (ADR-0004).
+     */
+    public static function authenticating(Request $request): ?self
+    {
+        $user = ($request->getUserResolver())();
+
+        return $user instanceof self ? $user : null;
+    }
 
     /**
      * @return BelongsTo<Project, $this>

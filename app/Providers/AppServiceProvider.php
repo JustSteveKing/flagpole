@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use JustSteveKing\Toolbox\MessageSignatures\Contracts\KeyResolver;
 use Knuckles\Scribe\Scribe;
+use Laravel\Sanctum\PersonalAccessToken;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -65,6 +66,14 @@ final class AppServiceProvider extends ServiceProvider
         RateLimiter::for('auth-password', fn(Request $request): array => [
             Limit::perMinute(5)->by(sprintf('%s|%s', $request->ip(), $request->string('email')->value())),
         ]);
+
+        // Keyed by SDK key: Kit's auth-protected limiter keys by user, and an SDK key's owner is an
+        // environment (RFC-0005).
+        RateLimiter::for('ofrep', static function (Request $request): array {
+            $token = Environment::authenticating($request)?->currentAccessToken();
+
+            return [Limit::perMinute(600)->by('ofrep|' . ($token instanceof PersonalAccessToken ? $token->id : $request->ip()))];
+        });
 
         RateLimiter::for('auth-protected', fn(Request $request): array => [
             Limit::perMinute(60)->by(

@@ -31,7 +31,7 @@ final class ProblemDetailsOpenApiGenerator extends OpenApiGenerator
                 continue;
             }
 
-            if (self::isOfrepBody($endpoint, (int) $status)) {
+            if ($this->isOfrepBody($endpoint, (int) $status)) {
                 continue;
             }
 
@@ -52,7 +52,7 @@ final class ProblemDetailsOpenApiGenerator extends OpenApiGenerator
      * OFREP defines its own bodies for 400, 404 and 500, sent as application/json (ADR-0002). Its
      * other errors are problem details like everywhere else.
      */
-    private static function isOfrepBody(OutputEndpointData $endpoint, int $status): bool
+    private function isOfrepBody(OutputEndpointData $endpoint, int $status): bool
     {
         return str_starts_with($endpoint->uri, 'ofrep/') && in_array($status, [400, 404, 500], true);
     }

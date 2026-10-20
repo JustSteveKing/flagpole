@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Flags\FlagType;
 use App\Flags\SdkKeys;
 use App\Models\Environment;
 use App\Models\Project;
@@ -120,6 +121,18 @@ function assertMatchesOpenApiSchema(array $spec, array $schema, mixed $value, st
         return;
     }
 
+    if (isset($resolvedSchema['allOf']) && is_array($resolvedSchema['allOf'])) {
+        foreach ($resolvedSchema['allOf'] as $part) {
+            if (is_array($part)) {
+                assertMatchesOpenApiSchema($spec, $part, $value, $path);
+            }
+        }
+    }
+
+    if (isset($resolvedSchema['enum']) && is_array($resolvedSchema['enum']) && null !== $value) {
+        test()->assertContains($value, $resolvedSchema['enum'], sprintf('Value at %s is not one of the enum.', $path));
+    }
+
     if (isset($resolvedSchema['oneOf']) && is_array($resolvedSchema['oneOf'])) {
         foreach ($resolvedSchema['oneOf'] as $candidate) {
             if ( ! is_array($candidate)) {
@@ -156,7 +169,8 @@ function assertMatchesOpenApiSchema(array $spec, array $schema, mixed $value, st
         test()->fail(sprintf('Value at %s did not match any anyOf schema.', $path));
     }
 
-    $type = $resolvedSchema['type'] ?? null;
+    // A schema with properties but no type, as an allOf part often is, describes an object.
+    $type = $resolvedSchema['type'] ?? (isset($resolvedSchema['properties']) || isset($resolvedSchema['required']) ? 'object' : null);
     if ( ! is_string($type)) {
         return;
     }
@@ -228,7 +242,7 @@ function assertOpenApiArray(array $spec, array $schema, mixed $value, string $pa
     }
 }
 
-it('generates openapi and documents every v1 route', function (): void {
+it('generates openapi and documents every v1 and OFREP route', function (): void {
     $spec = generateOpenApiSpec(forceGenerate: true);
     $paths = $spec['paths'] ?? [];
 
@@ -247,7 +261,7 @@ it('generates openapi and documents every v1 route', function (): void {
         ->values();
 
     $routeOperations = collect(Route::getRoutes()->getRoutes())
-        ->filter(fn(Illuminate\Routing\Route $route): bool => str_starts_with($route->uri(), 'v1/'))
+        ->filter(fn(Illuminate\Routing\Route $route): bool => str_starts_with($route->uri(), 'v1/') || str_starts_with($route->uri(), 'ofrep/'))
         ->flatMap(function (Illuminate\Routing\Route $route) {
             $uri = '/' . $route->uri();
 
@@ -523,5 +537,71 @@ it('keeps SDK key responses aligned with their documented schemas, nulls include
     $schema = documentedResponseSchema($spec, '/v1/projects/{project}/environments/{environment}/sdk-keys', 'GET', 200);
 
     expect($schema)->not->toBeNull();
+    assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
+});
+
+/**
+ * OFREP's own OpenAPI document, kept at the version Flagpole implements (RFC-0005).
+ *
+ * @return array<string, mixed>
+ */
+function ofrepSpec(): array
+{
+    /** @var array<string, mixed> $spec */
+    $spec = Yaml::parseFile(base_path('tests/Fixtures/ofrep/openapi.yaml'));
+
+    return $spec;
+}
+
+it('answers OFREP the way OFREP\'s own OpenAPI document describes', function (): void {
+    $spec = ofrepSpec();
+    $project = projectWithEnvironments(User::factory()->create());
+    $key = sdkKey($project);
+
+    $boolean = flagIn($project, 'boolean');
+    setSettings($boolean, 'production', ['enabled' => true, 'rules' => [['conditions' => [['attribute' => 'plan', 'operator' => 'in', 'values' => ['pro']]], 'serve' => ['variant' => 'on']]]]);
+    flagIn($project, 'string', FlagType::String, [['name' => 'blue', 'value' => '#0055ff'], ['name' => 'green', 'value' => '#00aa55']]);
+    flagIn($project, 'integer', FlagType::Integer, [['name' => 'small', 'value' => 10], ['name' => 'large', 'value' => 100]]);
+    flagIn($project, 'float', FlagType::Float, [['name' => 'low', 'value' => 0.25], ['name' => 'high', 'value' => 2.0]]);
+    flagIn($project, 'object', FlagType::Object, [['name' => 'a', 'value' => ['limit' => 5]], ['name' => 'b', 'value' => ['limit' => 50]]]);
+    $rollout = flagIn($project, 'rollout');
+    setSettings($rollout, 'production', ['enabled' => true, 'default' => ['split' => [['variant' => 'on', 'weight' => 10_000]]]]);
+
+    $single = '/ofrep/v1/evaluate/flags/{key}';
+    $bulk = '/ofrep/v1/evaluate/flags';
+    $checks = [
+        [$single, 200, ofrep('flags/boolean', $key, '{"context":{"plan":"pro"}}')],
+        [$single, 200, ofrep('flags/string', $key)],
+        [$single, 200, ofrep('flags/integer', $key)],
+        [$single, 200, ofrep('flags/float', $key)],
+        [$single, 200, ofrep('flags/object', $key)],
+        [$single, 200, ofrep('flags/rollout', $key, '{"context":{"targetingKey":"user-1"}}')],
+        [$single, 400, ofrep('flags/rollout', $key)],
+        [$single, 400, ofrep('flags/boolean', $key, '{"context":"x"}')],
+        [$single, 400, ofrep('flags/boolean', $key, '{"context":')],
+        [$single, 404, ofrep('flags/missing', $key)],
+        [$bulk, 200, ofrep('flags', $key)],
+        [$bulk, 400, ofrep('flags', $key, '{"context":[1]}')],
+    ];
+
+    foreach ($checks as [$path, $status, $response]) {
+        $response->assertStatus($status);
+        $content = $spec['paths'][$path]['post']['responses'][(string) $status]['content']['application/json']['schema'] ?? null;
+
+        expect($content)->toBeArray();
+        assertMatchesOpenApiSchema($spec, (array) $content, $response->json(), '$');
+    }
+});
+
+it('answers OFREP\'s 500 the way OFREP describes it', function (): void {
+    $spec = ofrepSpec();
+    $project = projectWithEnvironments(User::factory()->create());
+    $flag = flagIn($project, 'broken');
+    $flag->newQuery()->whereKey($flag->id)->update(['variants' => json_encode([['value' => true]])]);
+
+    $response = ofrep('flags/broken', sdkKey($project))->assertStatus(500);
+    $schema = $spec['paths']['/ofrep/v1/evaluate/flags/{key}']['post']['responses']['500']['content']['application/json']['schema'] ?? null;
+
+    expect($schema)->toBeArray();
     assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
 });

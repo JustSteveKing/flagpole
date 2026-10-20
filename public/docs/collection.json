@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel API Documentation",
-        "_postman_id": "4189d2cc-fa27-4589-a04f-9a6c7c23b380",
+        "_postman_id": "0885872f-98b1-4061-b430-c6b951162540",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -56,7 +56,7 @@
                                 {
                                     "header": [],
                                     "code": 201,
-                                    "body": "{\"data\":{\"id\":\"01m5dfr247c44abvrnmqsk7ym1\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-20T20:23:49+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5dg77m3yfh102aed43crgm1\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-20T20:32:06+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Registration succeeded."
                                 },
                                 {
@@ -100,7 +100,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5dfr291vdwg0hage43gbh2n\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-20T20:23:49+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5dg77rwhpfzb6z0rzczhzmc\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-20T20:32:06+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Login succeeded."
                                 },
                                 {
@@ -138,7 +138,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5dfr2edt2nd50a1f19w1tnm\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-20T20:23:49+00:00\",\"created_at\":null,\"updated_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5dg77y6nmca125vvt0q5pe9\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-20T20:32:06+00:00\",\"created_at\":null,\"updated_at\":null}}",
                                     "name": "Authenticated user profile."
                                 },
                                 {
@@ -1717,6 +1717,162 @@
                             "code": 428,
                             "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-required\",\"title\":\"Precondition Required\",\"status\":428,\"detail\":\"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.\"}",
                             "name": "The request has no If-Match."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "OFREP",
+            "description": "",
+            "item": [
+                {
+                    "name": "Evaluate Flags",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "ofrep\/v1\/evaluate\/flags",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/ofrep\/v1\/evaluate\/flags"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"context\":{\"targetingKey\":\"user-123\",\"email\":\"jane@example.com\",\"plan\":\"pro\"}}"
+                        },
+                        "description": "Evaluate every flag in the environment of the SDK key for one context. Called by an OpenFeature OFREP provider in the browser or on a device, which polls it with the last ETag in If-None-Match. Returns every flag with its value or its own error, or 304 with no body while nothing it would see has changed. The 304 to a POST departs from RFC 9110 on purpose, because OFREP specifies it."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"flags\":[{\"key\":\"new-checkout\",\"value\":true,\"variant\":\"on\",\"reason\":\"TARGETING_MATCH\"},{\"key\":\"theme\",\"value\":\"blue\",\"variant\":\"blue\",\"reason\":\"STATIC\"},{\"key\":\"rollout\",\"errorCode\":\"TARGETING_KEY_MISSING\",\"errorDetails\":\"The flag rollout serves a percentage rollout, which needs a targetingKey in the context.\"}]}",
+                            "name": "Every flag, evaluated, with an ETag for the next poll."
+                        },
+                        {
+                            "header": [],
+                            "code": 304,
+                            "body": null,
+                            "name": "If-None-Match still matches: nothing this context would see has changed."
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\"errorCode\":\"INVALID_CONTEXT\",\"errorDetails\":\"The context must be an object, and its targetingKey a string.\"}",
+                            "name": "The context is missing or not an object (INVALID_CONTEXT), or the body is not JSON (PARSE_ERROR)."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "The SDK key is missing, revoked or expired."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "The token is not an SDK key."
+                        },
+                        {
+                            "header": [],
+                            "code": 429,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/too-many-requests\",\"title\":\"Too Many Requests\",\"status\":429,\"detail\":\"Too many requests. Please try again later.\"}",
+                            "name": "More than 600 requests in a minute with this SDK key. Retry-After says when to try again."
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"errorDetails\":\"Flags could not be evaluated. Try again shortly.\"}",
+                            "name": "An unexpected error. The provider falls back to the defaults in code."
+                        }
+                    ]
+                },
+                {
+                    "name": "Evaluate Flag",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "ofrep\/v1\/evaluate\/flags\/:key",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/ofrep\/v1\/evaluate\/flags\/:key",
+                            "variable": [
+                                {
+                                    "id": "key",
+                                    "key": "key",
+                                    "value": "new-checkout",
+                                    "description": "The flag key."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"context\":{\"targetingKey\":\"user-123\",\"email\":\"jane@example.com\",\"plan\":\"pro\"}}"
+                        },
+                        "description": "Evaluate one flag for one context, in the environment the SDK key belongs to. Called by an OpenFeature OFREP provider on the server, once per evaluation; you rarely call it by hand. Returns the value, its variant and why, or an OFREP error body that the provider turns into the default in code."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"key\":\"new-checkout\",\"value\":true,\"variant\":\"on\",\"reason\":\"TARGETING_MATCH\"}",
+                            "name": "The flag, evaluated."
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\"key\":\"new-checkout\",\"errorCode\":\"TARGETING_KEY_MISSING\",\"errorDetails\":\"The flag new-checkout serves a percentage rollout, which needs a targetingKey in the context.\"}",
+                            "name": "A rollout was reached with no targetingKey (TARGETING_KEY_MISSING), the context is missing or not an object (INVALID_CONTEXT), or the body is not JSON (PARSE_ERROR)."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "The SDK key is missing, revoked or expired."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "The token is not an SDK key."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"key\":\"old-banner\",\"errorCode\":\"FLAG_NOT_FOUND\",\"errorDetails\":\"There is no flag old-banner in this environment.\"}",
+                            "name": "No flag with this key, or it is archived."
+                        },
+                        {
+                            "header": [],
+                            "code": 429,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/too-many-requests\",\"title\":\"Too Many Requests\",\"status\":429,\"detail\":\"Too many requests. Please try again later.\"}",
+                            "name": "More than 600 requests in a minute with this SDK key. Retry-After says when to try again."
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\"errorDetails\":\"Flags could not be evaluated. Try again shortly.\"}",
+                            "name": "An unexpected error. The provider falls back to the defaults in code."
                         }
                     ]
                 }

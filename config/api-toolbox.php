@@ -86,6 +86,12 @@ return [
                     'service-desc' => ['href' => '/docs/openapi.yaml', 'type' => 'application/vnd.oai.openapi'],
                     'service-doc' => ['href' => '/docs', 'type' => 'text/html'],
                 ],
+                // Flag evaluation, at the paths OFREP fixes (ADR-0001).
+                [
+                    'href' => '/ofrep/v1',
+                    'service-desc' => ['href' => 'https://raw.githubusercontent.com/open-feature/protocol/98c4e0de5583c0d79dd938b82975c80125335e92/service/openapi.yaml', 'type' => 'application/vnd.oai.openapi'],
+                    'service-doc' => ['href' => 'https://openfeature.dev/docs/reference/other-technologies/ofrep/', 'type' => 'text/html'],
+                ],
             ],
             // Other API catalogs this one links to.
             'catalogs' => [],

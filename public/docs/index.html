@@ -190,6 +190,19 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-ofrep" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="ofrep">
+                    <a href="#ofrep">OFREP</a>
+                </li>
+                                    <ul id="tocify-subheader-ofrep" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="ofrep-POSTofrep-v1-evaluate-flags">
+                                <a href="#ofrep-POSTofrep-v1-evaluate-flags">Evaluate Flags</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="ofrep-POSTofrep-v1-evaluate-flags--key-">
+                                <a href="#ofrep-POSTofrep-v1-evaluate-flags--key-">Evaluate Flag</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-projects" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="projects">
                     <a href="#projects">Projects</a>
@@ -364,10 +377,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dfr247c44abvrnmqsk7ym1&quot;,
+        &quot;id&quot;: &quot;01m5dg77m3yfh102aed43crgm1&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:23:49+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:32:06+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -574,10 +587,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dfr291vdwg0hage43gbh2n&quot;,
+        &quot;id&quot;: &quot;01m5dg77rwhpfzb6z0rzczhzmc&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:23:49+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:32:06+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -762,10 +775,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dfr2edt2nd50a1f19w1tnm&quot;,
+        &quot;id&quot;: &quot;01m5dg77y6nmca125vvt0q5pe9&quot;,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:23:49+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:32:06+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     }
@@ -6443,6 +6456,525 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>Up to 50 rules, tried in order; the first whose conditions all match decides. The whole list is replaced: a merge patch replaces an array whole.</p>
+        </div>
+        </form>
+
+                <h1 id="ofrep">OFREP</h1>
+
+    
+
+                                <h2 id="ofrep-POSTofrep-v1-evaluate-flags">Evaluate Flags</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Evaluate every flag in the environment of the SDK key for one context. Called by an OpenFeature OFREP provider in the browser or on a device, which polls it with the last ETag in If-None-Match. Returns every flag with its value or its own error, or 304 with no body while nothing it would see has changed. The 304 to a POST departs from RFC 9110 on purpose, because OFREP specifies it.</p>
+
+<span id="example-requests-POSTofrep-v1-evaluate-flags">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/ofrep/v1/evaluate/flags" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"context\": {
+        \"targetingKey\": \"user-123\",
+        \"email\": \"jane@example.com\",
+        \"plan\": \"pro\"
+    }
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/ofrep/v1/evaluate/flags"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "context": {
+        "targetingKey": "user-123",
+        "email": "jane@example.com",
+        "plan": "pro"
+    }
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTofrep-v1-evaluate-flags">
+            <blockquote>
+            <p>Example response (200, Every flag, evaluated, with an ETag for the next poll.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;flags&quot;: [
+        {
+            &quot;key&quot;: &quot;new-checkout&quot;,
+            &quot;value&quot;: true,
+            &quot;variant&quot;: &quot;on&quot;,
+            &quot;reason&quot;: &quot;TARGETING_MATCH&quot;
+        },
+        {
+            &quot;key&quot;: &quot;theme&quot;,
+            &quot;value&quot;: &quot;blue&quot;,
+            &quot;variant&quot;: &quot;blue&quot;,
+            &quot;reason&quot;: &quot;STATIC&quot;
+        },
+        {
+            &quot;key&quot;: &quot;rollout&quot;,
+            &quot;errorCode&quot;: &quot;TARGETING_KEY_MISSING&quot;,
+            &quot;errorDetails&quot;: &quot;The flag rollout serves a percentage rollout, which needs a targetingKey in the context.&quot;
+        }
+    ]
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (304, If-None-Match still matches: nothing this context would see has changed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;"></code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, The context is missing or not an object (INVALID_CONTEXT), or the body is not JSON (PARSE_ERROR).):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;errorCode&quot;: &quot;INVALID_CONTEXT&quot;,
+    &quot;errorDetails&quot;: &quot;The context must be an object, and its targetingKey a string.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, The SDK key is missing, revoked or expired.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, The token is not an SDK key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (429, More than 600 requests in a minute with this SDK key. Retry-After says when to try again.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/too-many-requests&quot;,
+    &quot;title&quot;: &quot;Too Many Requests&quot;,
+    &quot;status&quot;: 429,
+    &quot;detail&quot;: &quot;Too many requests. Please try again later.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500, An unexpected error. The provider falls back to the defaults in code.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;errorDetails&quot;: &quot;Flags could not be evaluated. Try again shortly.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTofrep-v1-evaluate-flags" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTofrep-v1-evaluate-flags"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTofrep-v1-evaluate-flags"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTofrep-v1-evaluate-flags" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTofrep-v1-evaluate-flags">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTofrep-v1-evaluate-flags" data-method="POST"
+      data-path="ofrep/v1/evaluate/flags"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTofrep-v1-evaluate-flags', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTofrep-v1-evaluate-flags"
+                    onclick="tryItOut('POSTofrep-v1-evaluate-flags');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTofrep-v1-evaluate-flags"
+                    onclick="cancelTryOut('POSTofrep-v1-evaluate-flags');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTofrep-v1-evaluate-flags"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>ofrep/v1/evaluate/flags</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTofrep-v1-evaluate-flags"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTofrep-v1-evaluate-flags"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTofrep-v1-evaluate-flags"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>context</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>The evaluation context: any properties the rules of the flags look at, such as email or plan.</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>targetingKey</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="context.targetingKey"                data-endpoint="POSTofrep-v1-evaluate-flags"
+               value="user-123"
+               data-component="body">
+    <br>
+<p>Who the evaluation is for. Required by percentage rollouts, which put the same subject in the same variant every time. Example: <code>user-123</code></p>
+                    </div>
+                                    </details>
+        </div>
+        </form>
+
+                    <h2 id="ofrep-POSTofrep-v1-evaluate-flags--key-">Evaluate Flag</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Evaluate one flag for one context, in the environment the SDK key belongs to. Called by an OpenFeature OFREP provider on the server, once per evaluation; you rarely call it by hand. Returns the value, its variant and why, or an OFREP error body that the provider turns into the default in code.</p>
+
+<span id="example-requests-POSTofrep-v1-evaluate-flags--key-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/ofrep/v1/evaluate/flags/new-checkout" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"context\": {
+        \"targetingKey\": \"user-123\",
+        \"email\": \"jane@example.com\",
+        \"plan\": \"pro\"
+    }
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/ofrep/v1/evaluate/flags/new-checkout"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "context": {
+        "targetingKey": "user-123",
+        "email": "jane@example.com",
+        "plan": "pro"
+    }
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTofrep-v1-evaluate-flags--key-">
+            <blockquote>
+            <p>Example response (200, The flag, evaluated.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;key&quot;: &quot;new-checkout&quot;,
+    &quot;value&quot;: true,
+    &quot;variant&quot;: &quot;on&quot;,
+    &quot;reason&quot;: &quot;TARGETING_MATCH&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, A rollout was reached with no targetingKey (TARGETING_KEY_MISSING), the context is missing or not an object (INVALID_CONTEXT), or the body is not JSON (PARSE_ERROR).):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;key&quot;: &quot;new-checkout&quot;,
+    &quot;errorCode&quot;: &quot;TARGETING_KEY_MISSING&quot;,
+    &quot;errorDetails&quot;: &quot;The flag new-checkout serves a percentage rollout, which needs a targetingKey in the context.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, The SDK key is missing, revoked or expired.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, The token is not an SDK key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No flag with this key, or it is archived.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;key&quot;: &quot;old-banner&quot;,
+    &quot;errorCode&quot;: &quot;FLAG_NOT_FOUND&quot;,
+    &quot;errorDetails&quot;: &quot;There is no flag old-banner in this environment.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (429, More than 600 requests in a minute with this SDK key. Retry-After says when to try again.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/too-many-requests&quot;,
+    &quot;title&quot;: &quot;Too Many Requests&quot;,
+    &quot;status&quot;: 429,
+    &quot;detail&quot;: &quot;Too many requests. Please try again later.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500, An unexpected error. The provider falls back to the defaults in code.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;errorDetails&quot;: &quot;Flags could not be evaluated. Try again shortly.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTofrep-v1-evaluate-flags--key-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTofrep-v1-evaluate-flags--key-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTofrep-v1-evaluate-flags--key-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTofrep-v1-evaluate-flags--key-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTofrep-v1-evaluate-flags--key-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTofrep-v1-evaluate-flags--key-" data-method="POST"
+      data-path="ofrep/v1/evaluate/flags/{key}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTofrep-v1-evaluate-flags--key-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTofrep-v1-evaluate-flags--key-"
+                    onclick="tryItOut('POSTofrep-v1-evaluate-flags--key-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTofrep-v1-evaluate-flags--key-"
+                    onclick="cancelTryOut('POSTofrep-v1-evaluate-flags--key-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTofrep-v1-evaluate-flags--key-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>ofrep/v1/evaluate/flags/{key}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTofrep-v1-evaluate-flags--key-"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTofrep-v1-evaluate-flags--key-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTofrep-v1-evaluate-flags--key-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>key</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="key"                data-endpoint="POSTofrep-v1-evaluate-flags--key-"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key. Example: <code>new-checkout</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>context</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>The evaluation context: any properties the rules of the flags look at, such as email or plan.</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>targetingKey</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="context.targetingKey"                data-endpoint="POSTofrep-v1-evaluate-flags--key-"
+               value="user-123"
+               data-component="body">
+    <br>
+<p>Who the evaluation is for. Required by percentage rollouts, which put the same subject in the same variant every time. Example: <code>user-123</code></p>
+                    </div>
+                                    </details>
         </div>
         </form>
 
