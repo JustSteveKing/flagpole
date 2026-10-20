@@ -1,0 +1,39 @@
+name: archdoc lint
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  archdoc:
+    name: Check the specification
+    runs-on: ubuntu-latest
+    steps:
+      # The full history is needed: the frozen-document rule compares every
+      # terminal document against the branch, and a shallow checkout has no
+      # commits to compare against. On a pull request the checkout is detached
+      # with no local branch at all, which archdoc handles by falling back to
+      # the remote-tracking ref, but the objects still have to be present.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Pinned to the version that scaffolded this repository, so the rules it
+      # is held to do not change underneath it. Raise it deliberately.
+      #
+      # The action reports each finding as an annotation on the line of the
+      # document that caused it, and leaves archdoc on PATH for the step below.
+      - uses: archdochq/lint@v1
+        with:
+          version: v0.5.1
+
+      # Both generated files. A stale glossary is not cosmetic: every link to
+      # a term resolves to an anchor on it, so one that has not been
+      # regenerated leaves those links pointing at nothing.
+      - name: Check the generated files are current
+        run: |
+          archdoc index --check
+          archdoc glossary --check

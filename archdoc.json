@@ -1,0 +1,7 @@
+{
+  "name": "Flagpole",
+  "branch": "main",
+  "root": "architecture",
+  "strict": true,
+  "ref_stale_days": 180
+}
