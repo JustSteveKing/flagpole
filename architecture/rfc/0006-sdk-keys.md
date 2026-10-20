@@ -87,7 +87,7 @@ Creating and revoking a key are logged with `SecurityAudit`, as `sdk_keys.create
   the same reason. An owner who thinks their account was used by someone else revokes them here.
 - **They die with their environment** and with the project ([RFC-0003: Projects and environments](0003-projects-and-environments.md)).
 
-### Two costs taken on for v1
+### Two things worth knowing
 
 **Every evaluation writes.** Sanctum sets `last_used_at` on the token for every authenticated
 request, so each OFREP call is one `UPDATE`. Under polling that is the bulk of Flagpole's writes.
@@ -96,10 +96,10 @@ tells which key is still deployed before revoking one. If it ever matters, the f
 Sanctum's update for SDK keys and record use at a coarser grain.
 
 **A replay returns the secret.** Creating a key is `idempotent`, so a replayed request within a day
-gets the original `201` again, secret included, which means the idempotency store holds the secret
-for that day. Kit's own API key creation works the same way. Whether replays of responses holding
-secrets should be stored at all is a question for Kit and api-toolbox, and it is raised there under
-[ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md) and not solved in Flagpole alone.
+gets the original `201` again, secret included. That is what a client that lost the first response
+needs. Since api-toolbox 0.3.2 the stored response is encrypted with a key derived from `APP_KEY` and
+the client's `Idempotency-Key`, so the idempotency store cannot be read without the key the client
+sent. It was raised and fixed there under [ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md).
 
 ### Tests
 

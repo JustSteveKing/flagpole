@@ -4,7 +4,7 @@ title: Projects and environments
 status: draft
 created: 2026-10-20
 decided:
-depends: [RFC-0001, RFC-0002, ADR-0005]
+depends: [RFC-0001, RFC-0002, ADR-0005, ADR-0008]
 updates: []
 obsoletes: []
 ---
@@ -113,24 +113,20 @@ counts changes to what the environment evaluates to.
 
 ### Merge patch under Kit's route group
 
-Kit's `v1` group sits behind `consumes:application/json`, which refuses
-`application/merge-patch+json` with a `415` before the route's own middleware runs. Each `PATCH`
-route lifts the group's declaration and adds its own, the way Kit's guide shows for uploads:
+Kit's `v1` group sits behind `consumes:application/json`. Each `PATCH` route declares
+`consumes:application/merge-patch+json` itself, and since api-toolbox 0.3.2 a route's own
+declaration replaces its group's:
 
 ```php
 Route::patch('/projects/{project}', UpdateProjectController::class)
-    ->withoutMiddleware('consumes:application/json')
     ->middleware(['abilities:projects:write', 'consumes:application/merge-patch+json', 'merge-patch', 'conditional', 'preconditions.required'])
     ->name('v1.projects.update');
 ```
 
 Both `conditional` and `preconditions.required` are needed on a write. The second only insists
 that a precondition is present, answering `428` without one. The first is what compares `If-Match`
-with the current ETag and answers `412`.
-
-Kit's HTTP standards guide gets both of these wrong by omission. It recommends merge patch without
-saying the group refuses it, and says `preconditions.required` alone gives the `412`. Both are
-fixed in Kit's guide under [ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md).
+with the current ETag and answers `412`. Kit's guide said otherwise until it was corrected under
+[ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md).
 
 ### Translations
 

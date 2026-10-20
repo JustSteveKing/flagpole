@@ -128,17 +128,13 @@ parameter before it: `{project}` among the owner's projects, `{flag}` and `{envi
 that project, and `{settings}` to the row for that flag in that environment. A key that does not
 resolve is a `404`, so another owner's project looks exactly like one that does not exist.
 
-### A change needed in api-toolbox
+### Nested routes in api-toolbox
 
-api-toolbox takes a route's validators from the **first** bound parameter that implements
-`HasValidators`. On a nested route the first one is the parent, so
-`GET /v1/projects/{project}/flags/{flag}` would send the project's ETag, and a `PATCH` to a flag
-would check `If-Match` against the project.
-
-Flagpole needs the last one, the resource the URL names. That is the right default for every
-nested route, not only Flagpole's, so under [ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md) it is changed in api-toolbox first, by
-pull request, and Kit and Flagpole pick it up from a release. Until then the management routes
-that need ETags cannot be finished.
+api-toolbox takes a route's validators from the last bound parameter that implements
+`HasValidators`, the resource the URL names. Before 0.3.2 it took the first, so
+`GET /v1/projects/{project}/flags/{flag}` would have sent the project's ETag, and a `PATCH` to a
+flag would have checked `If-Match` against the project. That was fixed in api-toolbox under
+[ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md), and Flagpole requires 0.3.2 or later.
 
 ### Documentation and checks
 
