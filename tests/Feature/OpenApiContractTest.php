@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Flags\SdkKeys;
 use App\Models\Environment;
 use App\Models\Project;
 use App\Models\User;
@@ -505,4 +506,22 @@ it('keeps flag and flag settings responses aligned with their documented schemas
         expect($schema)->not->toBeNull();
         assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
     }
+});
+
+it('keeps SDK key responses aligned with their documented schemas, nulls included', function (): void {
+    $spec = generateOpenApiSpec(forceGenerate: true);
+    $user = User::factory()->create();
+    $project = projectWithEnvironments($user);
+    $production = $project->environments()->where('key', 'production')->sole();
+    app(SdkKeys::class)->issue($production, 'never used', null);
+    $used = app(SdkKeys::class)->issue($production, 'used', now()->addYear())->accessToken;
+    $used->forceFill(['last_used_at' => now()])->save();
+
+    $response = $this->withToken($user->createToken('contract', ['sdk-keys:read'])->plainTextToken)
+        ->getJson('/v1/projects/checkout/environments/production/sdk-keys')
+        ->assertOk();
+    $schema = documentedResponseSchema($spec, '/v1/projects/{project}/environments/{environment}/sdk-keys', 'GET', 200);
+
+    expect($schema)->not->toBeNull();
+    assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
 });

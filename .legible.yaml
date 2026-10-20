@@ -22,6 +22,7 @@ ignore:
       - POST /v1/projects/*/flags
       - PATCH /v1/projects/*/flags/*
       - PATCH /v1/projects/*/flags/*/settings/*
+      - POST /v1/projects/*/environments/*/sdk-keys
     reason: >
       Validation problems add an errors member keyed by field, which apiguide.dev's
       validation-failed type defines. Every problem shares type, title, status and detail.

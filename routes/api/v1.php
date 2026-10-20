@@ -35,6 +35,9 @@ use App\Http\Controllers\Api\V1\Projects\DeleteProjectController;
 use App\Http\Controllers\Api\V1\Projects\ListProjectsController;
 use App\Http\Controllers\Api\V1\Projects\ShowProjectController;
 use App\Http\Controllers\Api\V1\Projects\UpdateProjectController;
+use App\Http\Controllers\Api\V1\SdkKeys\CreateSdkKeyController;
+use App\Http\Controllers\Api\V1\SdkKeys\DeleteSdkKeyController;
+use App\Http\Controllers\Api\V1\SdkKeys\ListSdkKeysController;
 use App\Http\Controllers\Api\V1\Webhooks\CreateWebhookController;
 use App\Http\Controllers\Api\V1\Webhooks\DeleteWebhookController;
 use App\Http\Controllers\Api\V1\Webhooks\GrantWebhookConsentController;
@@ -178,6 +181,17 @@ Route::middleware(['auth:sanctum', 'throttle:auth-protected'])
         Route::delete('/projects/{project}/environments/{environment}', DeleteEnvironmentController::class)
             ->middleware('abilities:projects:write')
             ->name('v1.environments.destroy');
+
+        Route::get('/projects/{project}/environments/{environment}/sdk-keys', ListSdkKeysController::class)
+            ->middleware('abilities:sdk-keys:read')
+            ->name('v1.sdk-keys.index');
+        Route::post('/projects/{project}/environments/{environment}/sdk-keys', CreateSdkKeyController::class)
+            ->middleware(['abilities:sdk-keys:write', 'idempotent'])
+            ->name('v1.sdk-keys.store');
+        Route::delete('/projects/{project}/environments/{environment}/sdk-keys/{key_id}', DeleteSdkKeyController::class)
+            ->whereNumber('key_id')
+            ->middleware('abilities:sdk-keys:write')
+            ->name('v1.sdk-keys.destroy');
 
         Route::get('/projects/{project}/flags', ListFlagsController::class)
             ->middleware('abilities:flags:read')

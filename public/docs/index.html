@@ -212,6 +212,22 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-sdk-keys" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="sdk-keys">
+                    <a href="#sdk-keys">SDK keys</a>
+                </li>
+                                    <ul id="tocify-subheader-sdk-keys" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="sdk-keys-GETv1-projects--project--environments--environment--sdk-keys">
+                                <a href="#sdk-keys-GETv1-projects--project--environments--environment--sdk-keys">List SDK Keys</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="sdk-keys-POSTv1-projects--project--environments--environment--sdk-keys">
+                                <a href="#sdk-keys-POSTv1-projects--project--environments--environment--sdk-keys">Create SDK Key</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="sdk-keys-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-">
+                                <a href="#sdk-keys-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-">Delete SDK Key</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-webhooks" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="webhooks">
                     <a href="#webhooks">Webhooks</a>
@@ -348,10 +364,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dfmzsdrhecykeqz3es0w2k&quot;,
+        &quot;id&quot;: &quot;01m5dfr247c44abvrnmqsk7ym1&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:22:08+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:23:49+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -558,10 +574,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dfmzyas8jnjjrwyykat30s&quot;,
+        &quot;id&quot;: &quot;01m5dfr291vdwg0hage43gbh2n&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:22:08+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:23:49+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -746,10 +762,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dfn03ryadpv939zyw4xt5r&quot;,
+        &quot;id&quot;: &quot;01m5dfr2edt2nd50a1f19w1tnm&quot;,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:22:08+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:23:49+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     }
@@ -7474,6 +7490,742 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="url">
     <br>
 <p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    </form>
+
+                <h1 id="sdk-keys">SDK keys</h1>
+
+    
+
+                                <h2 id="sdk-keys-GETv1-projects--project--environments--environment--sdk-keys">List SDK Keys</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>List the SDK keys of an environment, newest first, 25 to a page. Use it to see which keys exist and when each was last used, before revoking one. Returns an array of keys without their secrets; follow the Link header's rel=&quot;next&quot; for the next page.</p>
+
+<span id="example-requests-GETv1-projects--project--environments--environment--sdk-keys">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/v1/projects/checkout/environments/production/sdk-keys?cursor=architecto" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/environments/production/sdk-keys"
+);
+
+const params = {
+    "cursor": "architecto",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETv1-projects--project--environments--environment--sdk-keys">
+            <blockquote>
+            <p>Example response (200, One page of SDK keys.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: &quot;41&quot;,
+        &quot;name&quot;: &quot;checkout-web production&quot;,
+        &quot;last_used_at&quot;: &quot;2026-10-21T09:12:00+00:00&quot;,
+        &quot;expires_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+]</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the sdk-keys:read ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no environment with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETv1-projects--project--environments--environment--sdk-keys" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETv1-projects--project--environments--environment--sdk-keys"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETv1-projects--project--environments--environment--sdk-keys"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETv1-projects--project--environments--environment--sdk-keys" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETv1-projects--project--environments--environment--sdk-keys">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETv1-projects--project--environments--environment--sdk-keys" data-method="GET"
+      data-path="v1/projects/{project}/environments/{environment}/sdk-keys"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETv1-projects--project--environments--environment--sdk-keys', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETv1-projects--project--environments--environment--sdk-keys"
+                    onclick="tryItOut('GETv1-projects--project--environments--environment--sdk-keys');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETv1-projects--project--environments--environment--sdk-keys"
+                    onclick="cancelTryOut('GETv1-projects--project--environments--environment--sdk-keys');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETv1-projects--project--environments--environment--sdk-keys"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>v1/projects/{project}/environments/{environment}/sdk-keys</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETv1-projects--project--environments--environment--sdk-keys"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETv1-projects--project--environments--environment--sdk-keys"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETv1-projects--project--environments--environment--sdk-keys"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="GETv1-projects--project--environments--environment--sdk-keys"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>environment</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="environment"                data-endpoint="GETv1-projects--project--environments--environment--sdk-keys"
+               value="production"
+               data-component="url">
+    <br>
+<p>The environment key, unique within the project. Example: <code>production</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>cursor</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="cursor"                data-endpoint="GETv1-projects--project--environments--environment--sdk-keys"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Opaque cursor from a Link header. Omit it for the first page. Example: <code>architecto</code></p>
+            </div>
+                </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <p>The request body is an array (<code>object[]</code>`). Each item has the following properties:</p>
+
+                                            <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>last_used_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When an application last used the key, or null if none has.</p>
+                    </div>
+                                                                <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>expires_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the key stops working, or null if it never does.</p>
+                    </div>
+                                                    <h2 id="sdk-keys-POSTv1-projects--project--environments--environment--sdk-keys">Create SDK Key</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Create a key that an OpenFeature OFREP provider uses to evaluate the flags of this environment, and nothing else. Use it once per application or deployment; send an Idempotency-Key so a retry does not create a second key. Returns the key with its secret in meta.token, shown only this once.</p>
+
+<span id="example-requests-POSTv1-projects--project--environments--environment--sdk-keys">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/v1/projects/checkout/environments/production/sdk-keys" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"checkout-web production\",
+    \"expires_at\": \"architecto\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/environments/production/sdk-keys"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "checkout-web production",
+    "expires_at": "architecto"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTv1-projects--project--environments--environment--sdk-keys">
+            <blockquote>
+            <p>Example response (201, SDK key created. meta.token is the only time its secret is returned.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: &quot;41&quot;,
+        &quot;name&quot;: &quot;checkout-web production&quot;,
+        &quot;last_used_at&quot;: &quot;2026-10-21T09:12:00+00:00&quot;,
+        &quot;expires_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    },
+    &quot;meta&quot;: {
+        &quot;token&quot;: &quot;41|ofrep-example-secret&quot;,
+        &quot;token_type&quot;: &quot;Bearer&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the sdk-keys:write ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no environment with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The name is missing, or expires_at is not a date in the future.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/validation-failed&quot;,
+    &quot;title&quot;: &quot;Validation Failed&quot;,
+    &quot;status&quot;: 422,
+    &quot;detail&quot;: &quot;The name field is required.&quot;,
+    &quot;errors&quot;: {
+        &quot;name&quot;: [
+            &quot;The name field is required.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTv1-projects--project--environments--environment--sdk-keys" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTv1-projects--project--environments--environment--sdk-keys"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTv1-projects--project--environments--environment--sdk-keys"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTv1-projects--project--environments--environment--sdk-keys" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTv1-projects--project--environments--environment--sdk-keys">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTv1-projects--project--environments--environment--sdk-keys" data-method="POST"
+      data-path="v1/projects/{project}/environments/{environment}/sdk-keys"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTv1-projects--project--environments--environment--sdk-keys', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTv1-projects--project--environments--environment--sdk-keys"
+                    onclick="tryItOut('POSTv1-projects--project--environments--environment--sdk-keys');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTv1-projects--project--environments--environment--sdk-keys"
+                    onclick="cancelTryOut('POSTv1-projects--project--environments--environment--sdk-keys');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTv1-projects--project--environments--environment--sdk-keys"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>v1/projects/{project}/environments/{environment}/sdk-keys</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>environment</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="environment"                data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value="production"
+               data-component="url">
+    <br>
+<p>The environment key, unique within the project. Example: <code>production</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value="checkout-web production"
+               data-component="body">
+    <br>
+<p>A label, so the key can be told apart from others when revoking one. Up to 255 characters. Example: <code>checkout-web production</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>expires_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="expires_at"                data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>When the key stops working, in the future. Leave it out for a key that never expires: one that expires on its own turns every flag back to its code default. Example: <code>architecto</code></p>
+        </div>
+        </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>data</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>last_used_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When an application last used the key, or null if none has.</p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>expires_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the key stops working, or null if it never does.</p>
+                    </div>
+                                    </details>
+        </div>
+                        <h2 id="sdk-keys-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-">Delete SDK Key</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Revoke an SDK key. Use it after its replacement is deployed, to rotate a key, or at once when a key has leaked; the next request that uses it gets 401. Returns 204 with no body.</p>
+
+<span id="example-requests-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/v1/projects/checkout/environments/production/sdk-keys/41" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/environments/production/sdk-keys/41"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-">
+            <blockquote>
+            <p>Example response (204, SDK key revoked.):</p>
+        </blockquote>
+                <pre>
+<code>Empty response</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the sdk-keys:write ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project, environment, or SDK key of that environment matches.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-" data-method="DELETE"
+      data-path="v1/projects/{project}/environments/{environment}/sdk-keys/{key_id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEv1-projects--project--environments--environment--sdk-keys--key_id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+                    onclick="tryItOut('DELETEv1-projects--project--environments--environment--sdk-keys--key_id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+                    onclick="cancelTryOut('DELETEv1-projects--project--environments--environment--sdk-keys--key_id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>v1/projects/{project}/environments/{environment}/sdk-keys/{key_id}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>environment</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="environment"                data-endpoint="DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+               value="production"
+               data-component="url">
+    <br>
+<p>The environment key, unique within the project. Example: <code>production</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>key_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="key_id"                data-endpoint="DELETEv1-projects--project--environments--environment--sdk-keys--key_id-"
+               value="41"
+               data-component="url">
+    <br>
+<p>The ID of the SDK key, from List SDK Keys. Example: <code>41</code></p>
             </div>
                     </form>
 

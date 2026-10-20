@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use JustSteveKing\Toolbox\ConditionalRequests\Contracts\HasValidators;
+use Laravel\Sanctum\PersonalAccessToken;
 use Override;
 
 /**
@@ -76,6 +77,20 @@ final class Project extends Model implements HasValidators
     public function flags(): HasMany
     {
         return $this->hasMany(Flag::class);
+    }
+
+    /**
+     * Deleting a project removes its environments through the foreign key, which fires no model
+     * events, so their SDK keys are removed here first.
+     */
+    protected static function booted(): void
+    {
+        self::deleting(static function (Project $project): void {
+            PersonalAccessToken::query()
+                ->where('tokenable_type', Environment::class)
+                ->whereIn('tokenable_id', $project->environments()->select('id'))
+                ->delete();
+        });
     }
 
     /**

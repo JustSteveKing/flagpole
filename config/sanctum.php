@@ -96,6 +96,8 @@ return [
             'projects:write',
             'flags:read',
             'flags:write',
+            'sdk-keys:read',
+            'sdk-keys:write',
         ],
         'default' => [
             'auth:me',
@@ -110,6 +112,8 @@ return [
             'projects:write',
             'flags:read',
             'flags:write',
+            'sdk-keys:read',
+            'sdk-keys:write',
         ],
     ],
 

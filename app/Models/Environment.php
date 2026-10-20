@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use JustSteveKing\Toolbox\ConditionalRequests\Contracts\HasValidators;
+use Laravel\Sanctum\HasApiTokens;
 use Override;
 
 /**
@@ -28,6 +29,7 @@ use Override;
  */
 final class Environment extends Model implements HasValidators
 {
+    use HasApiTokens;
     /** @use HasFactory<EnvironmentFactory> */
     use HasFactory;
     use HasRevision;
@@ -61,6 +63,17 @@ final class Environment extends Model implements HasValidators
     public function flagSettings(): HasMany
     {
         return $this->hasMany(FlagSetting::class);
+    }
+
+    /**
+     * SDK keys are Sanctum tokens owned by an environment (ADR-0004). A morph relationship has no
+     * foreign key, so nothing in the database removes them when the environment goes.
+     */
+    protected static function booted(): void
+    {
+        self::deleting(static function (Environment $environment): void {
+            $environment->tokens()->delete();
+        });
     }
 
     /**

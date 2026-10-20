@@ -23,6 +23,9 @@ tags:
     name: Projects
     description: ''
   -
+    name: 'SDK keys'
+    description: ''
+  -
     name: Webhooks
     description: ''
 components:
@@ -50,10 +53,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5dfmzsdrhecykeqz3es0w2k
+                    id: 01m5dfr247c44abvrnmqsk7ym1
                     name: 'Justina Gaylord'
                     email: lafayette.considine@example.com
-                    email_verified_at: '2026-10-20T20:22:08+00:00'
+                    email_verified_at: '2026-10-20T20:23:49+00:00'
                     created_at: null
                     updated_at: null
                   meta:
@@ -66,7 +69,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5dfmzsdrhecykeqz3es0w2k
+                        example: 01m5dfr247c44abvrnmqsk7ym1
                       name:
                         type: string
                         example: 'Justina Gaylord'
@@ -75,7 +78,7 @@ paths:
                         example: lafayette.considine@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-20T20:22:08+00:00'
+                        example: '2026-10-20T20:23:49+00:00'
                       created_at:
                         type: string
                         example: null
@@ -178,10 +181,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5dfmzyas8jnjjrwyykat30s
+                    id: 01m5dfr291vdwg0hage43gbh2n
                     name: 'Justina Gaylord'
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-10-20T20:22:08+00:00'
+                    email_verified_at: '2026-10-20T20:23:49+00:00'
                     created_at: null
                     updated_at: null
                   meta:
@@ -194,7 +197,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5dfmzyas8jnjjrwyykat30s
+                        example: 01m5dfr291vdwg0hage43gbh2n
                       name:
                         type: string
                         example: 'Justina Gaylord'
@@ -203,7 +206,7 @@ paths:
                         example: cormier.nick@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-20T20:22:08+00:00'
+                        example: '2026-10-20T20:23:49+00:00'
                       created_at:
                         type: string
                         example: null
@@ -627,10 +630,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5dfn03ryadpv939zyw4xt5r
+                    id: 01m5dfr2edt2nd50a1f19w1tnm
                     name: 'Morgan Hirthe'
                     email: dare.emelie@example.com
-                    email_verified_at: '2026-10-20T20:22:08+00:00'
+                    email_verified_at: '2026-10-20T20:23:49+00:00'
                     created_at: null
                     updated_at: null
                 properties:
@@ -639,7 +642,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5dfn03ryadpv939zyw4xt5r
+                        example: 01m5dfr2edt2nd50a1f19w1tnm
                       name:
                         type: string
                         example: 'Morgan Hirthe'
@@ -648,7 +651,7 @@ paths:
                         example: dare.emelie@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-20T20:22:08+00:00'
+                        example: '2026-10-20T20:23:49+00:00'
                       created_at:
                         type: string
                         example: null
@@ -4687,6 +4690,439 @@ paths:
         required: true
         schema:
           type: string
+  '/v1/projects/{project}/environments/{environment}/sdk-keys':
+    get:
+      summary: 'List SDK Keys'
+      operationId: listSDKKeys
+      description: 'List the SDK keys of an environment, newest first, 25 to a page. Use it to see which keys exist and when each was last used, before revoking one. Returns an array of keys without their secrets; follow the Link header''s rel="next" for the next page.'
+      parameters:
+        -
+          in: query
+          name: cursor
+          description: 'Opaque cursor from a Link header. Omit it for the first page.'
+          example: architecto
+          required: false
+          schema:
+            type: string
+            description: 'Opaque cursor from a Link header. Omit it for the first page.'
+            example: architecto
+      responses:
+        200:
+          description: 'One page of SDK keys.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: '41'
+                    name:
+                      type: string
+                      example: 'checkout-web production'
+                    last_used_at:
+                      type: string
+                      example: '2026-10-21T09:12:00+00:00'
+                      nullable: true
+                    expires_at:
+                      type: string
+                      example: null
+                      nullable: true
+                    created_at:
+                      type: string
+                      example: '2026-10-21T09:00:00+00:00'
+                example:
+                  -
+                    id: '41'
+                    name: 'checkout-web production'
+                    last_used_at: '2026-10-21T09:12:00+00:00'
+                    expires_at: null
+                    created_at: '2026-10-21T09:00:00+00:00'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the sdk-keys:read ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - 'SDK keys'
+    post:
+      summary: 'Create SDK Key'
+      operationId: createSDKKey
+      description: 'Create a key that an OpenFeature OFREP provider uses to evaluate the flags of this environment, and nothing else. Use it once per application or deployment; send an Idempotency-Key so a retry does not create a second key. Returns the key with its secret in meta.token, shown only this once.'
+      parameters: []
+      responses:
+        201:
+          description: 'SDK key created. meta.token is the only time its secret is returned.'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: '41'
+                    name: 'checkout-web production'
+                    last_used_at: '2026-10-21T09:12:00+00:00'
+                    expires_at: null
+                    created_at: '2026-10-21T09:00:00+00:00'
+                  meta:
+                    token: 41|ofrep-example-secret
+                    token_type: Bearer
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '41'
+                      name:
+                        type: string
+                        example: 'checkout-web production'
+                      last_used_at:
+                        type: string
+                        example: '2026-10-21T09:12:00+00:00'
+                        description: 'When an application last used the key, or null if none has.'
+                        nullable: true
+                      expires_at:
+                        type: string
+                        example: null
+                        description: 'When the key stops working, or null if it never does.'
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-10-21T09:00:00+00:00'
+                    required:
+                      - last_used_at
+                      - expires_at
+                  meta:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: 41|ofrep-example-secret
+                      token_type:
+                        type: string
+                        example: Bearer
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the sdk-keys:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project with this key belongs to the authenticated user, or it has no environment with this key.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+        422:
+          description: 'The name is missing, or expires_at is not a date in the future.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/validation-failed'
+                  title: 'Validation Failed'
+                  status: 422
+                  detail: 'The name field is required.'
+                  errors:
+                    name:
+                      - 'The name field is required.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/validation-failed'
+                  title:
+                    type: string
+                    example: 'Validation Failed'
+                  status:
+                    type: integer
+                    example: 422
+                  detail:
+                    type: string
+                    example: 'The name field is required.'
+                  errors:
+                    type: object
+                    properties:
+                      name:
+                        type: array
+                        example:
+                          - 'The name field is required.'
+                        items:
+                          type: string
+      tags:
+        - 'SDK keys'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'A label, so the key can be told apart from others when revoking one. Up to 255 characters.'
+                  example: 'checkout-web production'
+                expires_at:
+                  type: string
+                  description: 'When the key stops working, in the future. Leave it out for a key that never expires: one that expires on its own turns every flag back to its code default.'
+                  example: architecto
+              required:
+                - name
+    parameters:
+      -
+        in: path
+        name: project
+        description: 'The project key.'
+        example: checkout
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: environment
+        description: 'The environment key, unique within the project.'
+        example: production
+        required: true
+        schema:
+          type: string
+  '/v1/projects/{project}/environments/{environment}/sdk-keys/{key_id}':
+    delete:
+      summary: 'Delete SDK Key'
+      operationId: deleteSDKKey
+      description: 'Revoke an SDK key. Use it after its replacement is deployed, to rotate a key, or at once when a key has leaked; the next request that uses it gets 401. Returns 204 with no body.'
+      parameters: []
+      responses:
+        204:
+          description: 'SDK key revoked.'
+        401:
+          description: 'Authentication failed.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/unauthorized'
+                  title: Unauthorized
+                  status: 401
+                  detail: Unauthenticated.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/unauthorized'
+                  title:
+                    type: string
+                    example: Unauthorized
+                  status:
+                    type: integer
+                    example: 401
+                  detail:
+                    type: string
+                    example: Unauthenticated.
+        403:
+          description: 'Token is missing the sdk-keys:write ability.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/forbidden'
+                  title: Forbidden
+                  status: 403
+                  detail: Forbidden.
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/forbidden'
+                  title:
+                    type: string
+                    example: Forbidden
+                  status:
+                    type: integer
+                    example: 403
+                  detail:
+                    type: string
+                    example: Forbidden.
+        404:
+          description: 'No project, environment, or SDK key of that environment matches.'
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                example:
+                  type: 'https://apiguide.dev/errors/resource-not-found'
+                  title: 'Resource Not Found'
+                  status: 404
+                  detail: 'The resource was not found.'
+                properties:
+                  type:
+                    type: string
+                    example: 'https://apiguide.dev/errors/resource-not-found'
+                  title:
+                    type: string
+                    example: 'Resource Not Found'
+                  status:
+                    type: integer
+                    example: 404
+                  detail:
+                    type: string
+                    example: 'The resource was not found.'
+      tags:
+        - 'SDK keys'
+    parameters:
+      -
+        in: path
+        name: project
+        description: 'The project key.'
+        example: checkout
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: environment
+        description: 'The environment key, unique within the project.'
+        example: production
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: key_id
+        description: 'The ID of the SDK key, from List SDK Keys.'
+        example: 41
+        required: true
+        schema:
+          type: integer
   '/v1/webhooks/{webhook}/consent':
     get:
       summary: 'Open Webhook Consent Link'
