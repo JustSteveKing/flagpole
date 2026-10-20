@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 return [
-    'paths' => ['v1/*'],
+    // ofrep/* for OpenFeature providers running in a browser (RFC-0005).
+    'paths' => ['v1/*', 'ofrep/*'],
 
     'allowed_methods' => ['*'],
 
