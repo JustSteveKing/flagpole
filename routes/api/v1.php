@@ -23,6 +23,7 @@ use App\Http\Controllers\Api\V1\Environments\ShowEnvironmentController;
 use App\Http\Controllers\Api\V1\Environments\UpdateEnvironmentController;
 use App\Http\Controllers\Api\V1\Flags\ArchiveFlagController;
 use App\Http\Controllers\Api\V1\Flags\CreateFlagController;
+use App\Http\Controllers\Api\V1\Flags\ListFlagHistoryController;
 use App\Http\Controllers\Api\V1\Flags\ListFlagsController;
 use App\Http\Controllers\Api\V1\Flags\RestoreFlagController;
 use App\Http\Controllers\Api\V1\Flags\ShowFlagController;
@@ -211,6 +212,9 @@ Route::middleware(['auth:sanctum', 'throttle:auth-protected'])
         Route::post('/projects/{project}/flags/{flag}/restore', RestoreFlagController::class)
             ->middleware(['abilities:flags:write', 'conditional', 'preconditions.required:POST'])
             ->name('v1.flags.restore');
+        Route::get('/projects/{project}/flags/{flag}/history', ListFlagHistoryController::class)
+            ->middleware('abilities:flags:read')
+            ->name('v1.flags.history');
 
         Route::get('/projects/{project}/flags/{flag}/settings', ListFlagSettingsController::class)
             ->middleware('abilities:flags:read')

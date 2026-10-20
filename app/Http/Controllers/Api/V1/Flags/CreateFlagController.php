@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Flags;
 
+use App\Flags\Actor;
 use App\Flags\FlagWriter;
 use App\Http\Payloads\V1\CreateFlagPayload;
 use App\Http\Requests\Flags\CreateFlagRequest;
 use App\Http\Resources\FlagResource;
 use App\Models\Project;
+use App\Models\User;
+use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Http\JsonResponse;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
@@ -87,11 +90,11 @@ use Knuckles\Scribe\Attributes\UrlParam;
 )]
 final class CreateFlagController
 {
-    public function __invoke(CreateFlagRequest $request, Project $project, FlagWriter $flags): JsonResponse
+    public function __invoke(CreateFlagRequest $request, Project $project, FlagWriter $flags, #[CurrentUser] User $user): JsonResponse
     {
         $payload = CreateFlagPayload::fromRequest($request);
 
-        $flag = $flags->create($project, $payload->key, $payload->name, $payload->description, $payload->type, $payload->variants);
+        $flag = $flags->create($project, $payload->key, $payload->name, $payload->description, $payload->type, $payload->variants, Actor::of($user));
 
         return FlagResource::make($flag)->response()->setStatusCode(201);
     }

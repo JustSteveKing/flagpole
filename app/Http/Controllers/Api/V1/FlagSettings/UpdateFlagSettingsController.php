@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\FlagSettings;
 
+use App\Flags\Actor;
 use App\Flags\FlagWriter;
 use App\Http\Payloads\V1\UpdateFlagSettingsPayload;
 use App\Http\Requests\FlagSettings\UpdateFlagSettingsRequest;
@@ -11,6 +12,8 @@ use App\Http\Resources\FlagSettingResource;
 use App\Models\Flag;
 use App\Models\FlagSetting;
 use App\Models\Project;
+use App\Models\User;
+use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Http\JsonResponse;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
@@ -129,11 +132,11 @@ use Knuckles\Scribe\Attributes\UrlParam;
 )]
 final class UpdateFlagSettingsController
 {
-    public function __invoke(UpdateFlagSettingsRequest $request, Project $project, Flag $flag, FlagSetting $settings, FlagWriter $flags): JsonResponse
+    public function __invoke(UpdateFlagSettingsRequest $request, Project $project, Flag $flag, FlagSetting $settings, FlagWriter $flags, #[CurrentUser] User $user): JsonResponse
     {
         abort_if($flag->isArchived(), 409, __('api.flags.archived'));
 
-        $settings = $flags->updateSettings($settings, UpdateFlagSettingsPayload::fromRequest($request)->settings());
+        $settings = $flags->updateSettings($settings, UpdateFlagSettingsPayload::fromRequest($request)->settings(), Actor::of($user));
 
         return FlagSettingResource::make($settings)->response();
     }

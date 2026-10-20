@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Flags\Actor;
 use App\Flags\FlagType;
+use App\Flags\FlagWriter;
 use App\Flags\SdkKeys;
 use App\Models\Environment;
 use App\Models\Project;
@@ -603,5 +605,22 @@ it('answers OFREP\'s 500 the way OFREP describes it', function (): void {
     $schema = $spec['paths']['/ofrep/v1/evaluate/flags/{key}']['post']['responses']['500']['content']['application/json']['schema'] ?? null;
 
     expect($schema)->toBeArray();
+    assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
+});
+
+it('keeps flag history aligned with its documented schema, nulls included', function (): void {
+    $spec = generateOpenApiSpec(forceGenerate: true);
+    $user = User::factory()->create();
+    $flag = flagIn(projectWithEnvironments($user));
+    setSettings($flag, 'production', ['enabled' => true]);
+    app(FlagWriter::class)->update($flag, ['name' => 'Renamed'], Actor::of($user->withAccessToken($user->createToken('ci', ['flags:write'])->accessToken)));
+
+    $response = $this->withToken($user->createToken('contract', ['flags:read'])->plainTextToken)
+        ->getJson('/v1/projects/checkout/flags/new-checkout/history')
+        ->assertOk()
+        ->assertJsonCount(3);
+    $schema = documentedResponseSchema($spec, '/v1/projects/{project}/flags/{flag}/history', 'GET', 200);
+
+    expect($schema)->not->toBeNull();
     assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
 });

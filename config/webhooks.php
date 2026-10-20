@@ -16,7 +16,11 @@ return [
     */
 
     'events' => [
-        // 'project.created',
+        'flag.created',
+        'flag.updated',
+        'flag.archived',
+        'flag.restored',
+        'flag.settings.updated',
     ],
 
     /*

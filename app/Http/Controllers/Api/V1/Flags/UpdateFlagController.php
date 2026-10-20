@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Flags;
 
+use App\Flags\Actor;
 use App\Flags\FlagWriter;
 use App\Http\Payloads\V1\UpdateFlagPayload;
 use App\Http\Requests\Flags\UpdateFlagRequest;
 use App\Http\Resources\FlagResource;
 use App\Models\Flag;
 use App\Models\Project;
+use App\Models\User;
+use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Http\JsonResponse;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
@@ -131,11 +134,11 @@ use Knuckles\Scribe\Attributes\UrlParam;
 )]
 final class UpdateFlagController
 {
-    public function __invoke(UpdateFlagRequest $request, Project $project, Flag $flag, FlagWriter $flags): JsonResponse
+    public function __invoke(UpdateFlagRequest $request, Project $project, Flag $flag, FlagWriter $flags, #[CurrentUser] User $user): JsonResponse
     {
         abort_if($flag->isArchived(), 409, __('api.flags.archived'));
 
-        $flag = $flags->update($flag, UpdateFlagPayload::fromRequest($request, $flag)->changes());
+        $flag = $flags->update($flag, UpdateFlagPayload::fromRequest($request, $flag)->changes(), Actor::of($user));
 
         return FlagResource::make($flag)->response();
     }

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Flags;
 
+use App\Flags\Actor;
 use App\Flags\FlagWriter;
 use App\Http\Resources\FlagResource;
 use App\Models\Flag;
 use App\Models\Project;
+use App\Models\User;
+use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Http\JsonResponse;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Endpoint;
@@ -88,8 +91,8 @@ use Knuckles\Scribe\Attributes\UrlParam;
 )]
 final class RestoreFlagController
 {
-    public function __invoke(Project $project, Flag $flag, FlagWriter $flags): JsonResponse
+    public function __invoke(Project $project, Flag $flag, FlagWriter $flags, #[CurrentUser] User $user): JsonResponse
     {
-        return FlagResource::make($flags->restore($flag))->response();
+        return FlagResource::make($flags->restore($flag, Actor::of($user)))->response();
     }
 }

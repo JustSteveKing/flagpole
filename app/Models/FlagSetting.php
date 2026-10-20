@@ -59,6 +59,16 @@ final class FlagSetting extends Model implements HasValidators
     }
 
     /**
+     * The settings as their history records them (RFC-0007).
+     *
+     * @return array{enabled: bool, off_variant: string, default: array<string, mixed>, rules: list<array<string, mixed>>}
+     */
+    public function document(): array
+    {
+        return ['enabled' => $this->enabled, 'off_variant' => $this->off_variant, 'default' => $this->default, 'rules' => $this->rules];
+    }
+
+    /**
      * Every variant these settings name: the off variant, the default, and each rule's serve.
      *
      * @return list<string>

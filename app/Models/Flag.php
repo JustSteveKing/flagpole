@@ -73,6 +73,31 @@ final class Flag extends Model implements HasValidators
         return $this->hasMany(FlagSetting::class);
     }
 
+    /**
+     * @return HasMany<FlagChange, $this>
+     */
+    public function changes(): HasMany
+    {
+        return $this->hasMany(FlagChange::class);
+    }
+
+    /**
+     * The flag as its history records it (RFC-0007).
+     *
+     * @return array<string, mixed>
+     */
+    public function document(): array
+    {
+        return [
+            'key' => $this->key,
+            'name' => $this->name,
+            'description' => $this->description,
+            'type' => $this->type->value,
+            'variants' => $this->variants,
+            'archived_at' => $this->archived_at?->toAtomString(),
+        ];
+    }
+
     public function isArchived(): bool
     {
         return null !== $this->archived_at;

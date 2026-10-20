@@ -172,6 +172,9 @@
                                                                                 <li class="tocify-item level-2" data-unique="flags-POSTv1-projects--project--flags--flag--restore">
                                 <a href="#flags-POSTv1-projects--project--flags--flag--restore">Restore Flag</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="flags-GETv1-projects--project--flags--flag--history">
+                                <a href="#flags-GETv1-projects--project--flags--flag--history">List Flag History</a>
+                            </li>
                                                                         </ul>
                             </ul>
                     <ul id="tocify-header-flag-settings" class="tocify-header">
@@ -377,10 +380,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dg77m3yfh102aed43crgm1&quot;,
+        &quot;id&quot;: &quot;01m5dgexecbentcrezm5ckj0k2&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:32:06+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:36:17+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -587,10 +590,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dg77rwhpfzb6z0rzczhzmc&quot;,
+        &quot;id&quot;: &quot;01m5dgexk56s1n74j31z0cx649&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:32:06+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:36:18+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -775,10 +778,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dg77y6nmca125vvt0q5pe9&quot;,
+        &quot;id&quot;: &quot;01m5dgexrm2kymj9m9wngncd7e&quot;,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:32:06+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:36:18+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     }
@@ -5607,7 +5610,299 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     </div>
                                     </details>
         </div>
-                    <h1 id="flag-settings">Flag settings</h1>
+                        <h2 id="flags-GETv1-projects--project--flags--flag--history">List Flag History</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>List every change to a flag and its settings, newest first, 25 to a page: who changed what, through which token, and the value before and after. Use it to find out what changed when a flag misbehaves; pass environment to see one environment only. Returns an array of changes; follow the Link header's rel=&quot;next&quot; for the next page.</p>
+
+<span id="example-requests-GETv1-projects--project--flags--flag--history">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/v1/projects/checkout/flags/new-checkout/history?environment=production&amp;cursor=architecto" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout/history"
+);
+
+const params = {
+    "environment": "production",
+    "cursor": "architecto",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETv1-projects--project--flags--flag--history">
+            <blockquote>
+            <p>Example response (200, One page of changes.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: &quot;01jb8z6v4t9n3q2w5e7r8y0u1i&quot;,
+        &quot;action&quot;: &quot;flag.settings.updated&quot;,
+        &quot;environment&quot;: &quot;production&quot;,
+        &quot;token&quot;: {
+            &quot;id&quot;: &quot;12&quot;,
+            &quot;name&quot;: &quot;ci-pipeline&quot;
+        },
+        &quot;before&quot;: {
+            &quot;enabled&quot;: true,
+            &quot;off_variant&quot;: &quot;off&quot;,
+            &quot;default&quot;: {
+                &quot;variant&quot;: &quot;off&quot;
+            },
+            &quot;rules&quot;: []
+        },
+        &quot;after&quot;: {
+            &quot;enabled&quot;: false,
+            &quot;off_variant&quot;: &quot;off&quot;,
+            &quot;default&quot;: {
+                &quot;variant&quot;: &quot;off&quot;
+            },
+            &quot;rules&quot;: []
+        },
+        &quot;created_at&quot;: &quot;2026-10-21T09:30:00+00:00&quot;
+    }
+]</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:read ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no flag with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETv1-projects--project--flags--flag--history" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETv1-projects--project--flags--flag--history"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETv1-projects--project--flags--flag--history"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETv1-projects--project--flags--flag--history" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETv1-projects--project--flags--flag--history">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETv1-projects--project--flags--flag--history" data-method="GET"
+      data-path="v1/projects/{project}/flags/{flag}/history"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETv1-projects--project--flags--flag--history', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETv1-projects--project--flags--flag--history"
+                    onclick="tryItOut('GETv1-projects--project--flags--flag--history');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETv1-projects--project--flags--flag--history"
+                    onclick="cancelTryOut('GETv1-projects--project--flags--flag--history');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETv1-projects--project--flags--flag--history"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>v1/projects/{project}/flags/{flag}/history</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETv1-projects--project--flags--flag--history"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETv1-projects--project--flags--flag--history"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETv1-projects--project--flags--flag--history"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="GETv1-projects--project--flags--flag--history"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="GETv1-projects--project--flags--flag--history"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>environment</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="environment"                data-endpoint="GETv1-projects--project--flags--flag--history"
+               value="production"
+               data-component="query">
+    <br>
+<p>An environment key: only changes to the settings in that environment. Example: <code>production</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>cursor</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="cursor"                data-endpoint="GETv1-projects--project--flags--flag--history"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Opaque cursor from a Link header. Omit it for the first page. Example: <code>architecto</code></p>
+            </div>
+                </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <p>The request body is an array (<code>object[]</code>`). Each item has the following properties:</p>
+
+                                            <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>environment</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>The environment whose settings changed, or null for a change to the flag itself.</p>
+                    </div>
+                                                                <div style=" margin-left: 28px; clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>token</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>The token that made the change, or null when it was not made through the API.</p>
+            </summary>
+                                                <div style="margin-left: 42px; clear: unset;">
+                        <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>The ID of the token, or null once it has been deleted.</p>
+                    </div>
+                                    </details>
+        </div>
+                                                                    <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>before</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>The flag or settings before the change, or null when the flag was created.</p>
+                    </div>
+                                                <h1 id="flag-settings">Flag settings</h1>
 
     
 
