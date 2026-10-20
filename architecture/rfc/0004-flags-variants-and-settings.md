@@ -1,9 +1,9 @@
 ---
 id: RFC-0004
 title: Flags, variants and settings
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [RFC-0001, RFC-0002, RFC-0003, ADR-0006]
 updates: []
 obsoletes: []

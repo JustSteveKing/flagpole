@@ -1,9 +1,9 @@
 ---
 id: ADR-0002
 title: OFREP endpoints answer in OFREP's error format
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [ADR-0001]
 updates: []
 obsoletes: []

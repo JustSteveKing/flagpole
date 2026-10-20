@@ -1,9 +1,9 @@
 ---
 id: ADR-0007
 title: Clients poll with ETags and there are no event streams in v1
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [ADR-0003]
 updates: []
 obsoletes: []

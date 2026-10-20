@@ -1,9 +1,9 @@
 ---
 id: RFC-0001
 title: Flagpole v1
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: []
 updates: []
 obsoletes: []

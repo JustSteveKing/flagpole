@@ -1,9 +1,9 @@
 ---
 id: RFC-0006
 title: SDK keys
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [RFC-0001, RFC-0003, ADR-0004, ADR-0008]
 updates: []
 obsoletes: []

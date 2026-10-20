@@ -1,9 +1,9 @@
 ---
 id: ADR-0001
 title: Flags are evaluated over OFREP
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [RFC-0001]
 updates: []
 obsoletes: []

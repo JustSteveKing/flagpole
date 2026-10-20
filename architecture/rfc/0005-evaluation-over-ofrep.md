@@ -1,9 +1,9 @@
 ---
 id: RFC-0005
 title: Evaluation over OFREP
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [RFC-0002, RFC-0004, ADR-0001, ADR-0002, ADR-0003, ADR-0004, ADR-0006, ADR-0007]
 updates: []
 obsoletes: []
@@ -126,6 +126,19 @@ When `If-None-Match` is present, it is compared before anything is evaluated:
 
 A matching request still costs a version lookup and a hash, and no evaluation.
 
+### Browsers
+
+A client-side provider runs in the browser, so the OFREP routes need CORS. Kit's `config/cors.php`
+covers only `v1/*`, allows neither `If-None-Match` nor `If-Match`, and does not expose `ETag`, so
+as it stands a browser could not reach these routes, and could not use an ETag on any route.
+
+- Flagpole adds `ofrep/*` to `paths`.
+- `If-None-Match` and `If-Match` join `allowed_headers`, and `ETag` joins `exposed_headers`. That
+  is wrong for every Kit application with a browser client, so it is fixed in Kit
+  ([ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md)) and comes into Flagpole from there.
+
+Origins are still the owner's choice, through `CORS_ALLOWED_ORIGINS`.
+
 ### Errors that are not OFREP's
 
 Authentication, the ability check, `sdk-key`, `consumes:` and the rate limiter answer as Kit
@@ -151,7 +164,9 @@ The API catalog at `/.well-known/api-catalog` gains an entry pointing at OFREP's
   each lock: a user's token, an SDK key for another environment, a revoked key, an archived flag.
 - **Conformance.** OFREP's `openapi.yaml` is kept in the repository at version 0.4.0 with its
   licence, and every response the feature tests produce is checked against the schema for its
-  status. If OFREP changes, updating that file is how Flagpole finds out what broke.
+  status. The check reuses the schema helpers in Kit's `OpenApiContractTest`, extended
+  to handle `allOf`, which OFREP's evaluation schemas are built from. No JSON Schema package is
+  added. The `allOf` support is general, so it goes to Kit as well ([ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md)). If OFREP changes, updating that file is how Flagpole finds out what broke.
 - **One real provider.** The README shows the OpenFeature JavaScript web SDK with its OFREP
   provider against a local Flagpole. Whether that becomes an automated test is decided when it is
   built.
@@ -182,11 +197,5 @@ rendered as problem details, which OFREP providers cannot read ([ADR-0002: OFREP
 Nothing breaks. This is new behaviour with no existing callers.
 
 ## Open questions
-
-1. **Schema validation in the conformance tests.** Kit's contract tests check documented schemas
-   with helpers written in the test file, and have no JSON Schema package. Those helpers handle
-   `oneOf` but not `allOf`, which OFREP's evaluation schemas are built from. The options are
-   extending the helpers to cover `allOf`, which Kit would want too, or adding a JSON Schema
-   validator as a dev dependency, which needs your approval and a Vet review.
 
 ## Changelog

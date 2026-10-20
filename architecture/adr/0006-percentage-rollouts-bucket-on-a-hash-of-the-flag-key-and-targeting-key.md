@@ -1,9 +1,9 @@
 ---
 id: ADR-0006
 title: Percentage rollouts bucket on a hash of the flag key and targeting key
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [RFC-0001]
 updates: []
 obsoletes: []

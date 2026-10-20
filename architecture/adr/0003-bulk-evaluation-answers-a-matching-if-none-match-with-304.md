@@ -1,9 +1,9 @@
 ---
 id: ADR-0003
 title: Bulk evaluation answers a matching If-None-Match with 304
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [ADR-0001, RFC-0002]
 updates: []
 obsoletes: []

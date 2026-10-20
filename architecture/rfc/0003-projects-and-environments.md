@@ -1,9 +1,9 @@
 ---
 id: RFC-0003
 title: Projects and environments
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [RFC-0001, RFC-0002, ADR-0005, ADR-0008]
 updates: []
 obsoletes: []

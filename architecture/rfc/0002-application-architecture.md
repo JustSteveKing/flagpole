@@ -1,9 +1,9 @@
 ---
 id: RFC-0002
 title: Application architecture
-status: draft
+status: accepted
 created: 2026-10-20
-decided:
+decided: 2026-10-20
 depends: [RFC-0001, ADR-0008]
 updates: []
 obsoletes: []
