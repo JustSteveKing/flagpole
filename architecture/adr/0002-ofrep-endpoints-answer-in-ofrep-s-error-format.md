@@ -23,10 +23,12 @@ example, a clear "flag not found".
 
 ## Decision
 
-Responses from the OFREP routes use OFREP's error bodies and status codes, served as
-`application/json`. `errorCode` is OFREP's code and is never translated. `errorDetails` is
-translated from `Accept-Language`, as Kit translates `detail`. Everything else in Flagpole answers
-with problem details, unchanged.
+Where OFREP defines an error body, the OFREP routes send it, as `application/json`: `400` and
+`404` with `key`, `errorCode` and `errorDetails`, the bulk endpoint's `400` without `key`, and
+`500` with `errorDetails` alone. `errorCode` is OFREP's code and is never translated.
+`errorDetails` is translated from `Accept-Language`, as Kit translates `detail`. Where OFREP
+defines no body, for `401`, `403`, `415` and `429`, Kit's problem details are sent unchanged.
+Everything outside the OFREP routes answers with problem details as before.
 
 ## Alternatives
 
@@ -40,11 +42,12 @@ in `detail` and `errorDetails`. It is clever, and the example should not be clev
 
 ## Consequences
 
-- OFREP providers behave as their authors intended.
-- The OFREP routes need their own exception rendering, and Kit's problem details rendering must not
-  reach them. That is a deliberate exception to Kit's rule that error JSON is never built by hand,
-  and the code says so where it does it.
-- OFREP defines no body for `401`, `403` and `429`. Flagpole sends none, so a rate-limited client
-  gets `Retry-After` and nothing else.
-- Kit's problem details generator for Scribe must skip these routes, or the reference will
-  describe bodies the API never sends.
+- OFREP providers get the bodies their authors wrote them to read.
+- `400` and `404` are results the controllers produce, so they are built there and never thrown.
+- A `500` is thrown from anywhere, so the OFREP routes need one exception render callback of their
+  own. Kit's rule is that render callbacks in `bootstrap/app.php` only write the audit log; this is
+  the one deliberate exception, and the callback says so.
+- Authentication, abilities, media types and rate limits stay Kit's, with Kit's problem bodies.
+  Providers act on those statuses alone, and `429` still carries `Retry-After`.
+- Scribe must document the OFREP routes with OFREP's bodies for `400`, `404` and `500`, so Kit's
+  problem details generator has to skip those statuses on these routes.

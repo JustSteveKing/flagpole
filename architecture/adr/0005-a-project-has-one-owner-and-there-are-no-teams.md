@@ -4,7 +4,7 @@ title: A project has one owner and there are no teams
 status: draft
 created: 2026-10-20
 decided:
-depends: [RFC-0001]
+depends: [RFC-0001, RFC-0002]
 updates: []
 obsoletes: []
 ---
@@ -34,7 +34,7 @@ and it still brings invitations, removal, and the question of whose webhooks fir
 
 ## Consequences
 
-- Every query is scoped by the owner, and route model binding does it in one place.
+- Every lookup is scoped by the owner, in one place: the route parameter bindings ([RFC-0002: Application architecture](../rfc/0002-application-architecture.md)).
 - Another owner's project answers `404`, the same as a missing one.
 - A team that wants Flagpole shares an account or builds teams itself. The README says so.
 - Adding teams later means a new owner for projects and webhooks, and a new ADR that replaces this

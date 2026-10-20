@@ -196,6 +196,8 @@ can act without fetching anything first.
 - **Event streams for evaluation** ([ADR-0007: Clients poll with ETags and there are no event streams in v1](../adr/0007-clients-poll-with-etags-and-there-are-no-event-streams-in-v1.md)).
 - **Reusable segments.** Each rule lists its own conditions.
 - **Flags that depend on other flags**, scheduled changes, approvals, and experiment analysis.
+- **Deprecation.** A new application has nothing honest to deprecate, and principle 1 rules out
+  faking it. `Deprecation` and `Sunset` appear the first time a released endpoint has to change.
 - **A hosted demo**, with the registration limits and data retention it would need.
 - **Recording evaluations.** Flagpole does not know which flags were evaluated, or for whom.
 
@@ -239,9 +241,5 @@ backed by Flagpole would be a reasonable thing for someone to build on top of it
 Nothing breaks. This is a new application with no existing callers.
 
 ## Open questions
-
-1. **Deprecation.** A new application has nothing to deprecate, and principle 1 rules out faking
-   it. The suggestion is to leave it out of v1, and to show it for real the first time a released
-   endpoint changes. The alternative is a deliberate v1 change that a later commit makes.
 
 ## Changelog

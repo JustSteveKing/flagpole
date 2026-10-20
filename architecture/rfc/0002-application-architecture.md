@@ -4,7 +4,7 @@ title: Application architecture
 status: draft
 created: 2026-10-20
 decided:
-depends: [RFC-0001]
+depends: [RFC-0001, ADR-0008]
 updates: []
 obsoletes: []
 ---
@@ -68,7 +68,7 @@ turn the resolutions into OFREP responses. They are the only place that knows OF
 | `environments` | `id`, `project_id`, `key`, `name`, `version`, timestamps. Unique on `project_id` and `key` |
 | `flags` | `id`, `project_id`, `key`, `name`, `description`, `type`, `variants` (JSON), `archived_at`, timestamps. Unique on `project_id` and `key` |
 | `flag_settings` | `id`, `flag_id`, `environment_id`, `enabled`, `off_variant`, `default` (JSON), `rules` (JSON), timestamps. Unique on `flag_id` and `environment_id` |
-| `flag_changes` | `id`, `flag_id`, `environment_id` (null for a change to the flag itself), `user_id`, `token_id`, `before` and `after` (JSON), `created_at` |
+| `flag_changes` | `id`, `flag_id`, `environment_id` (null for a change to the flag itself), `action`, `user_id`, `token_id`, `token_name`, `before` and `after` (JSON), `created_at`. See [RFC-0007: History and webhook events](0007-history-and-webhook-events.md) |
 | `personal_access_tokens` | Kit's table, unchanged. SDK keys are rows whose `tokenable` is an environment ([ADR-0004: SDK keys are Sanctum tokens owned by an environment](../adr/0004-sdk-keys-are-sanctum-tokens-owned-by-an-environment.md)) |
 
 `environments.version` goes up by one in the same transaction as any change that alters what the
@@ -107,13 +107,38 @@ Resources are addressed by their keys, nested under the project:
 /v1/projects/{project}/environments/{environment}
 /v1/projects/{project}/environments/{environment}/sdk-keys
 /v1/projects/{project}/flags/{flag}
-/v1/projects/{project}/flags/{flag}/settings/{environment}
+/v1/projects/{project}/flags/{flag}/settings/{settings}
 /v1/projects/{project}/flags/{flag}/history
 ```
 
 Keys make URLs a person can type and read in a log, and they never change, so they are safe to
-build URLs from. Route model binding scopes each child to its parent and to the authenticated
-owner, so another owner's project is a `404`, the same as one that does not exist.
+build URLs from. `{settings}` is an environment key: the settings of that flag in that environment.
+
+### Binding route parameters
+
+Kit's controllers do not use route model binding. They read the parameter and look the row up
+through the user's relationship, as in `$user->webhookSubscriptions()->findOrFail(...)`. That works
+for Kit because its routes are flat.
+
+Flagpole binds its parameters, because api-toolbox needs it to. The `conditional` and
+`preconditions.required` middleware find a route's validators in its bound parameters, so a
+resource that is never bound can have no ETag and no `If-Match` check. Each parameter has an
+explicit binding in `AppServiceProvider` that resolves it within the authenticated owner and the
+parameter before it: `{project}` among the owner's projects, `{flag}` and `{environment}` within
+that project, and `{settings}` to the row for that flag in that environment. A key that does not
+resolve is a `404`, so another owner's project looks exactly like one that does not exist.
+
+### A change needed in api-toolbox
+
+api-toolbox takes a route's validators from the **first** bound parameter that implements
+`HasValidators`. On a nested route the first one is the parent, so
+`GET /v1/projects/{project}/flags/{flag}` would send the project's ETag, and a `PATCH` to a flag
+would check `If-Match` against the project.
+
+Flagpole needs the last one, the resource the URL names. That is the right default for every
+nested route, not only Flagpole's, so under [ADR-0008: Kit is upstream](../adr/0008-kit-is-upstream.md) it is changed in api-toolbox first, by
+pull request, and Kit and Flagpole pick it up from a release. Until then the management routes
+that need ETags cannot be finished.
 
 ### Documentation and checks
 
@@ -150,9 +175,5 @@ handling, so a shared group would mean lifting most of its middleware route by r
 Nothing breaks. This is a new application with no existing callers.
 
 ## Open questions
-
-1. **`flag_changes.token_id`.** Recording which token made a change means a revoked key leaves a
-   dangling ID. The alternative is to record the token's name at the time. Recording both is
-   probably right; settle it in the history RFC.
 
 ## Changelog

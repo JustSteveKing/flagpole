@@ -20,8 +20,9 @@ off between requests. OFREP gives the server the context, and its `targetingKey`
 
 ## Decision
 
-A split puts a subject in one of 10,000 buckets: the first eight bytes of the SHA-256 of the flag
-key, a full stop and the `targetingKey`, read as an unsigned integer, modulo 10,000. Variant weights
+A split puts a subject in one of 10,000 buckets: the first four bytes of the SHA-256 of the flag
+key, a full stop and the `targetingKey`, read as an unsigned big-endian 32-bit integer, modulo
+10,000. Variant weights
 are in hundredths of a percent and fill the buckets in the order the split lists them. A split
 evaluated without a `targetingKey` fails with `TARGETING_KEY_MISSING`.
 
@@ -45,5 +46,8 @@ PHP has no built-in one, and SHA-256 is fast enough for this.
   move. Reordering the variants in a split does move people, and the settings documentation must
   say so.
 - Renaming a flag would move every subject, which is one more reason flag keys cannot change.
+- Four bytes fit in a PHP integer on every platform. Eight would overflow PHP's signed 64-bit
+  integers and need GMP or BCMath. The modulo bias from 2^32 not dividing evenly by 10,000 is
+  a few in a million, which no rollout will notice.
 - The hash is part of the contract. Changing it reshuffles every running rollout, so it changes
   only through a new ADR.
