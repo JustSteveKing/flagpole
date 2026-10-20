@@ -57,3 +57,19 @@ it('requires the projects:write ability', function (): void {
         ->postJson('/v1/projects/checkout/environments', ['key' => 'staging', 'name' => 'Staging'])
         ->assertProblem(403);
 });
+
+it('gives every flag in the project, archived ones included, settings in the new environment', function (): void {
+    $user = User::factory()->create();
+    $project = projectWithEnvironments($user);
+    flagIn($project, 'live');
+    flagIn($project, 'old')->forceFill(['archived_at' => now()])->save();
+
+    $this->withToken(ownerToken($user))
+        ->postJson('/v1/projects/checkout/environments', ['key' => 'staging', 'name' => 'Staging'])
+        ->assertCreated();
+
+    $staging = $project->environments()->where('key', 'staging')->sole();
+
+    expect($staging->flagSettings()->count())->toBe(2)
+        ->and($staging->flagSettings()->where('enabled', true)->exists())->toBeFalse();
+});

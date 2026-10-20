@@ -51,4 +51,28 @@ return [
     'environments' => [
         'key_taken' => 'Este proyecto ya tiene un entorno con esta clave.',
     ],
+    'flags' => [
+        'key_taken' => 'Este proyecto ya tiene un flag con esta clave.',
+        'boolean_variants' => 'Un flag booleano siempre tiene exactamente dos variantes, on y off, que no se pueden cambiar.',
+        'variant_type' => 'Todas las variantes de un flag :type deben tener un valor :type.',
+        'variant_repeated' => 'Los nombres de las variantes deben ser únicos dentro de un flag.',
+        'variant_in_use' => 'Una variante eliminada o renombrada todavía se usa en: :environments.',
+        'type_immutable' => 'El tipo de un flag no se puede cambiar.',
+        'archived' => 'El flag está archivado. Restáuralo antes de cambiarlo.',
+        'unknown_variant' => 'La variante seleccionada no existe en este flag.',
+        'split_repeats_variant' => 'Una variante solo puede aparecer una vez en un reparto.',
+        'split_total' => 'Los pesos de un reparto deben sumar :total.',
+        'read_only' => 'Este campo no se puede cambiar.',
+        'operator_values' => [
+            'in' => 'Los valores deben ser cadenas, números o booleanos.',
+            'not_in' => 'Los valores deben ser cadenas, números o booleanos.',
+            'starts_with' => 'Los valores deben ser cadenas.',
+            'ends_with' => 'Los valores deben ser cadenas.',
+            'contains' => 'Los valores deben ser cadenas.',
+            'lt' => 'Debe haber exactamente un valor, y debe ser un número.',
+            'lte' => 'Debe haber exactamente un valor, y debe ser un número.',
+            'gt' => 'Debe haber exactamente un valor, y debe ser un número.',
+            'gte' => 'Debe haber exactamente un valor, y debe ser un número.',
+        ],
+    ],
 ];

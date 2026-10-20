@@ -149,6 +149,47 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-flags" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="flags">
+                    <a href="#flags">Flags</a>
+                </li>
+                                    <ul id="tocify-subheader-flags" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="flags-GETv1-projects--project--flags">
+                                <a href="#flags-GETv1-projects--project--flags">List Flags</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="flags-POSTv1-projects--project--flags">
+                                <a href="#flags-POSTv1-projects--project--flags">Create Flag</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="flags-GETv1-projects--project--flags--flag-">
+                                <a href="#flags-GETv1-projects--project--flags--flag-">Show Flag</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="flags-PATCHv1-projects--project--flags--flag-">
+                                <a href="#flags-PATCHv1-projects--project--flags--flag-">Update Flag</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="flags-POSTv1-projects--project--flags--flag--archive">
+                                <a href="#flags-POSTv1-projects--project--flags--flag--archive">Archive Flag</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="flags-POSTv1-projects--project--flags--flag--restore">
+                                <a href="#flags-POSTv1-projects--project--flags--flag--restore">Restore Flag</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-flag-settings" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="flag-settings">
+                    <a href="#flag-settings">Flag settings</a>
+                </li>
+                                    <ul id="tocify-subheader-flag-settings" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="flag-settings-GETv1-projects--project--flags--flag--settings">
+                                <a href="#flag-settings-GETv1-projects--project--flags--flag--settings">List Flag Settings</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="flag-settings-GETv1-projects--project--flags--flag--settings--settings-">
+                                <a href="#flag-settings-GETv1-projects--project--flags--flag--settings--settings-">Show Flag Settings</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="flag-settings-PATCHv1-projects--project--flags--flag--settings--settings-">
+                                <a href="#flag-settings-PATCHv1-projects--project--flags--flag--settings--settings-">Update Flag Settings</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-projects" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="projects">
                     <a href="#projects">Projects</a>
@@ -307,10 +348,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5df512gv50sdatpvtmykq97&quot;,
+        &quot;id&quot;: &quot;01m5dfmzsdrhecykeqz3es0w2k&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:13:25+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:22:08+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -517,10 +558,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5df5179j2n5kzrfeb096zp2&quot;,
+        &quot;id&quot;: &quot;01m5dfmzyas8jnjjrwyykat30s&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:13:25+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:22:08+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -705,10 +746,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5df51cjjefthxwyg7mjmpfj&quot;,
+        &quot;id&quot;: &quot;01m5dfn03ryadpv939zyw4xt5r&quot;,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:13:25+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-20T20:22:08+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     }
@@ -3712,6 +3753,2682 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The environment key, unique within the project. Example: <code>production</code></p>
             </div>
                     </form>
+
+                <h1 id="flags">Flags</h1>
+
+    
+
+                                <h2 id="flags-GETv1-projects--project--flags">List Flags</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>List a project's flags, ordered by key, 25 to a page. Use it to find the keys applications evaluate, or pass archived=true to list only archived flags. Returns an array of flags without their settings; follow the Link header's rel=&quot;next&quot; for the next page.</p>
+
+<span id="example-requests-GETv1-projects--project--flags">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/v1/projects/checkout/flags?archived=&amp;cursor=architecto" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags"
+);
+
+const params = {
+    "archived": "0",
+    "cursor": "architecto",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETv1-projects--project--flags">
+            <blockquote>
+            <p>Example response (200, One page of flags.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;key&quot;: &quot;new-checkout&quot;,
+        &quot;name&quot;: &quot;New checkout&quot;,
+        &quot;description&quot;: &quot;The redesigned checkout flow.&quot;,
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;variants&quot;: [
+            {
+                &quot;name&quot;: &quot;on&quot;,
+                &quot;value&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;off&quot;,
+                &quot;value&quot;: false
+            }
+        ],
+        &quot;archived_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+]</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:read ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETv1-projects--project--flags" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETv1-projects--project--flags"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETv1-projects--project--flags"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETv1-projects--project--flags" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETv1-projects--project--flags">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETv1-projects--project--flags" data-method="GET"
+      data-path="v1/projects/{project}/flags"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETv1-projects--project--flags', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETv1-projects--project--flags"
+                    onclick="tryItOut('GETv1-projects--project--flags');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETv1-projects--project--flags"
+                    onclick="cancelTryOut('GETv1-projects--project--flags');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETv1-projects--project--flags"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>v1/projects/{project}/flags</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETv1-projects--project--flags"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETv1-projects--project--flags"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETv1-projects--project--flags"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="GETv1-projects--project--flags"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>archived</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETv1-projects--project--flags" style="display: none">
+            <input type="radio" name="archived"
+                   value="1"
+                   data-endpoint="GETv1-projects--project--flags"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETv1-projects--project--flags" style="display: none">
+            <input type="radio" name="archived"
+                   value="0"
+                   data-endpoint="GETv1-projects--project--flags"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>true lists only archived flags. Without it, archived flags are left out. Example: <code>false</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>cursor</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="cursor"                data-endpoint="GETv1-projects--project--flags"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Opaque cursor from a Link header. Omit it for the first page. Example: <code>architecto</code></p>
+            </div>
+                </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <p>The request body is an array (<code>object[]</code>`). Each item has the following properties:</p>
+
+                                            <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>What the flag is for, or null.</p>
+                    </div>
+                                                                <div style="margin-left: 28px; clear: unset;">
+                        <b style="line-height: 2;"><code>archived_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the flag was archived, or null while it is in use.</p>
+                    </div>
+                                                    <h2 id="flags-POSTv1-projects--project--flags">Create Flag</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Create a flag, disabled in every environment of the project. Use it from a deploy script or CI when code that reads a new flag ships; send an Idempotency-Key so a retry does not fail on the key it just took. Returns the flag; its key and type cannot change afterwards.</p>
+
+<span id="example-requests-POSTv1-projects--project--flags">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/v1/projects/checkout/flags" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"key\": \"new-checkout\",
+    \"name\": \"New checkout\",
+    \"description\": \"The redesigned checkout flow.\",
+    \"type\": \"boolean\",
+    \"variants\": [
+        {
+            \"name\": \"blue\",
+            \"value\": \"#0055ff\"
+        }
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "key": "new-checkout",
+    "name": "New checkout",
+    "description": "The redesigned checkout flow.",
+    "type": "boolean",
+    "variants": [
+        {
+            "name": "blue",
+            "value": "#0055ff"
+        }
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTv1-projects--project--flags">
+            <blockquote>
+            <p>Example response (201, Flag created, disabled everywhere.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;key&quot;: &quot;new-checkout&quot;,
+        &quot;name&quot;: &quot;New checkout&quot;,
+        &quot;description&quot;: &quot;The redesigned checkout flow.&quot;,
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;variants&quot;: [
+            {
+                &quot;name&quot;: &quot;on&quot;,
+                &quot;value&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;off&quot;,
+                &quot;value&quot;: false
+            }
+        ],
+        &quot;archived_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:write ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The key is malformed or taken, the type is unknown, or a variant is missing, repeated or of the wrong type.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/validation-failed&quot;,
+    &quot;title&quot;: &quot;Validation Failed&quot;,
+    &quot;status&quot;: 422,
+    &quot;detail&quot;: &quot;Keys are lowercase letters and digits, in runs separated by single hyphens.&quot;,
+    &quot;errors&quot;: {
+        &quot;key&quot;: [
+            &quot;Keys are lowercase letters and digits, in runs separated by single hyphens.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTv1-projects--project--flags" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTv1-projects--project--flags"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTv1-projects--project--flags"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTv1-projects--project--flags" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTv1-projects--project--flags">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTv1-projects--project--flags" data-method="POST"
+      data-path="v1/projects/{project}/flags"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTv1-projects--project--flags', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTv1-projects--project--flags"
+                    onclick="tryItOut('POSTv1-projects--project--flags');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTv1-projects--project--flags"
+                    onclick="cancelTryOut('POSTv1-projects--project--flags');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTv1-projects--project--flags"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>v1/projects/{project}/flags</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTv1-projects--project--flags"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTv1-projects--project--flags"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTv1-projects--project--flags"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="POSTv1-projects--project--flags"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>key</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="key"                data-endpoint="POSTv1-projects--project--flags"
+               value="new-checkout"
+               data-component="body">
+    <br>
+<p>What applications ask for: lowercase letters and digits in runs separated by single hyphens, at most 64 characters, unique within the project. Example: <code>new-checkout</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTv1-projects--project--flags"
+               value="New checkout"
+               data-component="body">
+    <br>
+<p>A name for people to read, up to 255 characters. Example: <code>New checkout</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTv1-projects--project--flags"
+               value="The redesigned checkout flow."
+               data-component="body">
+    <br>
+<p>What the flag is for, up to 1,000 characters. Example: <code>The redesigned checkout flow.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="type"                data-endpoint="POSTv1-projects--project--flags"
+               value="boolean"
+               data-component="body">
+    <br>
+<p>boolean, string, integer, float or object. Every variant has a value of this type. Example: <code>boolean</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>variants</code></b>&nbsp;&nbsp;
+<small>object[]</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+<br>
+<p>Between 2 and 20 variants, each a name and a value, for any type but boolean. A boolean flag always has on and off, and must not send variants. A new flag serves the first variant.</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="variants.0.name"                data-endpoint="POSTv1-projects--project--flags"
+               value="blue"
+               data-component="body">
+    <br>
+<p>The name of the variant, unique within the flag, in the same form as a key. Example: <code>blue</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>value</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="variants.0.value"                data-endpoint="POSTv1-projects--project--flags"
+               value="#0055ff"
+               data-component="body">
+    <br>
+<p>The value served, of the type of the flag. Example: <code>#0055ff</code></p>
+                    </div>
+                                    </details>
+        </div>
+        </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>data</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>What the flag is for, or null.</p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>archived_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the flag was archived, or null while it is in use.</p>
+                    </div>
+                                    </details>
+        </div>
+                        <h2 id="flags-GETv1-projects--project--flags--flag-">Show Flag</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Fetch one flag by its key, archived or not. Use it before changing a flag: the ETag of the response goes in If-Match on the update, archive or restore. Returns the flag without its settings, or 304 with no body when If-None-Match still matches.</p>
+
+<span id="example-requests-GETv1-projects--project--flags--flag-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/v1/projects/checkout/flags/new-checkout" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETv1-projects--project--flags--flag-">
+            <blockquote>
+            <p>Example response (200, The flag, with its ETag.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;key&quot;: &quot;new-checkout&quot;,
+        &quot;name&quot;: &quot;New checkout&quot;,
+        &quot;description&quot;: &quot;The redesigned checkout flow.&quot;,
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;variants&quot;: [
+            {
+                &quot;name&quot;: &quot;on&quot;,
+                &quot;value&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;off&quot;,
+                &quot;value&quot;: false
+            }
+        ],
+        &quot;archived_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:read ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no flag with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETv1-projects--project--flags--flag-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETv1-projects--project--flags--flag-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETv1-projects--project--flags--flag-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETv1-projects--project--flags--flag-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETv1-projects--project--flags--flag-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETv1-projects--project--flags--flag-" data-method="GET"
+      data-path="v1/projects/{project}/flags/{flag}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETv1-projects--project--flags--flag-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETv1-projects--project--flags--flag-"
+                    onclick="tryItOut('GETv1-projects--project--flags--flag-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETv1-projects--project--flags--flag-"
+                    onclick="cancelTryOut('GETv1-projects--project--flags--flag-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETv1-projects--project--flags--flag-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>v1/projects/{project}/flags/{flag}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETv1-projects--project--flags--flag-"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETv1-projects--project--flags--flag-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETv1-projects--project--flags--flag-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="GETv1-projects--project--flags--flag-"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="GETv1-projects--project--flags--flag-"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>data</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>What the flag is for, or null.</p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>archived_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the flag was archived, or null while it is in use.</p>
+                    </div>
+                                    </details>
+        </div>
+                        <h2 id="flags-PATCHv1-projects--project--flags--flag-">Update Flag</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Change the name, description or variants of a flag with a JSON Merge Patch (application/merge-patch+json). Use it to rename a flag or change what a variant serves; the key and type are permanent, and a variant any environment still uses cannot be removed. Send the ETag from Show Flag in If-Match. Returns the updated flag.</p>
+
+<span id="example-requests-PATCHv1-projects--project--flags--flag-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/v1/projects/checkout/flags/new-checkout" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"key\": \"new-checkout\",
+    \"type\": \"boolean\",
+    \"name\": \"Checkout redesign\",
+    \"description\": \"The redesigned checkout flow, phase two.\",
+    \"variants\": [
+        {
+            \"name\": \"on\",
+            \"value\": \"true\"
+        }
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "key": "new-checkout",
+    "type": "boolean",
+    "name": "Checkout redesign",
+    "description": "The redesigned checkout flow, phase two.",
+    "variants": [
+        {
+            "name": "on",
+            "value": "true"
+        }
+    ]
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHv1-projects--project--flags--flag-">
+            <blockquote>
+            <p>Example response (200, The flag after the change.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;key&quot;: &quot;new-checkout&quot;,
+        &quot;name&quot;: &quot;New checkout&quot;,
+        &quot;description&quot;: &quot;The redesigned checkout flow.&quot;,
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;variants&quot;: [
+            {
+                &quot;name&quot;: &quot;on&quot;,
+                &quot;value&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;off&quot;,
+                &quot;value&quot;: false
+            }
+        ],
+        &quot;archived_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:write ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no flag with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, The flag is archived.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-conflict&quot;,
+    &quot;title&quot;: &quot;Resource Conflict&quot;,
+    &quot;status&quot;: 409,
+    &quot;detail&quot;: &quot;The flag is archived. Restore it before changing it.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (412, If-Match does not match the current ETag: someone else changed it first.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-failed&quot;,
+    &quot;title&quot;: &quot;Precondition Failed&quot;,
+    &quot;status&quot;: 412,
+    &quot;detail&quot;: &quot;The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (415, The body is not application/merge-patch+json.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unsupported-media-type&quot;,
+    &quot;title&quot;: &quot;Unsupported Media Type&quot;,
+    &quot;status&quot;: 415,
+    &quot;detail&quot;: &quot;The Content-Type &#039;application/json&#039; is not supported. Supported content types: application/merge-patch+json.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, The key or type differs from the current one, a variant is malformed, or a variant still in use was removed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/validation-failed&quot;,
+    &quot;title&quot;: &quot;Validation Failed&quot;,
+    &quot;status&quot;: 422,
+    &quot;detail&quot;: &quot;The variant blue is still used in: production.&quot;,
+    &quot;errors&quot;: {
+        &quot;variants&quot;: [
+            &quot;The variant blue is still used in: production.&quot;
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (428, The request has no If-Match.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-required&quot;,
+    &quot;title&quot;: &quot;Precondition Required&quot;,
+    &quot;status&quot;: 428,
+    &quot;detail&quot;: &quot;This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHv1-projects--project--flags--flag-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHv1-projects--project--flags--flag-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHv1-projects--project--flags--flag-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHv1-projects--project--flags--flag-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHv1-projects--project--flags--flag-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHv1-projects--project--flags--flag-" data-method="PATCH"
+      data-path="v1/projects/{project}/flags/{flag}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHv1-projects--project--flags--flag-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHv1-projects--project--flags--flag-"
+                    onclick="tryItOut('PATCHv1-projects--project--flags--flag-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHv1-projects--project--flags--flag-"
+                    onclick="cancelTryOut('PATCHv1-projects--project--flags--flag-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHv1-projects--project--flags--flag-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>v1/projects/{project}/flags/{flag}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>key</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="key"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="new-checkout"
+               data-component="body">
+    <br>
+<p>May be sent only with its current value. Example: <code>new-checkout</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="type"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="boolean"
+               data-component="body">
+    <br>
+<p>May be sent only with its current value. Example: <code>boolean</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="Checkout redesign"
+               data-component="body">
+    <br>
+<p>A new name, up to 255 characters. Example: <code>Checkout redesign</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="The redesigned checkout flow, phase two."
+               data-component="body">
+    <br>
+<p>A new description, or null to remove it. Example: <code>The redesigned checkout flow, phase two.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>variants</code></b>&nbsp;&nbsp;
+<small>object[]</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+<br>
+<p>The complete list of variants: a merge patch replaces an array whole. The variants of a boolean flag cannot change.</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="variants.0.name"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="on"
+               data-component="body">
+    <br>
+<p>The name of the variant, unique within the flag, in the same form as a key. Example: <code>on</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>value</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="variants.0.value"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value="true"
+               data-component="body">
+    <br>
+<p>The value served, of the type of the flag. Example: <code>true</code></p>
+                    </div>
+                                    </details>
+        </div>
+        </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>data</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>What the flag is for, or null.</p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>archived_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the flag was archived, or null while it is in use.</p>
+                    </div>
+                                    </details>
+        </div>
+                        <h2 id="flags-POSTv1-projects--project--flags--flag--archive">Archive Flag</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Take a flag out of evaluation and make it read-only, keeping its settings and history. Use it when the code that reads the flag is gone. Send the ETag from Show Flag in If-Match. Returns the archived flag; applications asking for it are told it was not found.</p>
+
+<span id="example-requests-POSTv1-projects--project--flags--flag--archive">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/v1/projects/checkout/flags/new-checkout/archive" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout/archive"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTv1-projects--project--flags--flag--archive">
+            <blockquote>
+            <p>Example response (200, The flag after the change.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;key&quot;: &quot;new-checkout&quot;,
+        &quot;name&quot;: &quot;New checkout&quot;,
+        &quot;description&quot;: &quot;The redesigned checkout flow.&quot;,
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;variants&quot;: [
+            {
+                &quot;name&quot;: &quot;on&quot;,
+                &quot;value&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;off&quot;,
+                &quot;value&quot;: false
+            }
+        ],
+        &quot;archived_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:write ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no flag with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (412, If-Match does not match the current ETag: someone else changed it first.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-failed&quot;,
+    &quot;title&quot;: &quot;Precondition Failed&quot;,
+    &quot;status&quot;: 412,
+    &quot;detail&quot;: &quot;The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (428, The request has no If-Match.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-required&quot;,
+    &quot;title&quot;: &quot;Precondition Required&quot;,
+    &quot;status&quot;: 428,
+    &quot;detail&quot;: &quot;This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTv1-projects--project--flags--flag--archive" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTv1-projects--project--flags--flag--archive"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTv1-projects--project--flags--flag--archive"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTv1-projects--project--flags--flag--archive" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTv1-projects--project--flags--flag--archive">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTv1-projects--project--flags--flag--archive" data-method="POST"
+      data-path="v1/projects/{project}/flags/{flag}/archive"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTv1-projects--project--flags--flag--archive', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTv1-projects--project--flags--flag--archive"
+                    onclick="tryItOut('POSTv1-projects--project--flags--flag--archive');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTv1-projects--project--flags--flag--archive"
+                    onclick="cancelTryOut('POSTv1-projects--project--flags--flag--archive');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTv1-projects--project--flags--flag--archive"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>v1/projects/{project}/flags/{flag}/archive</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTv1-projects--project--flags--flag--archive"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTv1-projects--project--flags--flag--archive"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTv1-projects--project--flags--flag--archive"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="POSTv1-projects--project--flags--flag--archive"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="POSTv1-projects--project--flags--flag--archive"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>data</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>What the flag is for, or null.</p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>archived_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the flag was archived, or null while it is in use.</p>
+                    </div>
+                                    </details>
+        </div>
+                        <h2 id="flags-POSTv1-projects--project--flags--flag--restore">Restore Flag</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Bring an archived flag back into evaluation with its settings exactly as they were. Use it when an archived flag is needed again. Send the ETag from Show Flag in If-Match. Returns the restored flag.</p>
+
+<span id="example-requests-POSTv1-projects--project--flags--flag--restore">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/v1/projects/checkout/flags/new-checkout/restore" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout/restore"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTv1-projects--project--flags--flag--restore">
+            <blockquote>
+            <p>Example response (200, The flag after the change.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;key&quot;: &quot;new-checkout&quot;,
+        &quot;name&quot;: &quot;New checkout&quot;,
+        &quot;description&quot;: &quot;The redesigned checkout flow.&quot;,
+        &quot;type&quot;: &quot;boolean&quot;,
+        &quot;variants&quot;: [
+            {
+                &quot;name&quot;: &quot;on&quot;,
+                &quot;value&quot;: true
+            },
+            {
+                &quot;name&quot;: &quot;off&quot;,
+                &quot;value&quot;: false
+            }
+        ],
+        &quot;archived_at&quot;: null,
+        &quot;created_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:write ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no flag with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (412, If-Match does not match the current ETag: someone else changed it first.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-failed&quot;,
+    &quot;title&quot;: &quot;Precondition Failed&quot;,
+    &quot;status&quot;: 412,
+    &quot;detail&quot;: &quot;The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (428, The request has no If-Match.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-required&quot;,
+    &quot;title&quot;: &quot;Precondition Required&quot;,
+    &quot;status&quot;: 428,
+    &quot;detail&quot;: &quot;This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTv1-projects--project--flags--flag--restore" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTv1-projects--project--flags--flag--restore"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTv1-projects--project--flags--flag--restore"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTv1-projects--project--flags--flag--restore" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTv1-projects--project--flags--flag--restore">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTv1-projects--project--flags--flag--restore" data-method="POST"
+      data-path="v1/projects/{project}/flags/{flag}/restore"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTv1-projects--project--flags--flag--restore', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTv1-projects--project--flags--flag--restore"
+                    onclick="tryItOut('POSTv1-projects--project--flags--flag--restore');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTv1-projects--project--flags--flag--restore"
+                    onclick="cancelTryOut('POSTv1-projects--project--flags--flag--restore');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTv1-projects--project--flags--flag--restore"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>v1/projects/{project}/flags/{flag}/restore</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTv1-projects--project--flags--flag--restore"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTv1-projects--project--flags--flag--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTv1-projects--project--flags--flag--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="POSTv1-projects--project--flags--flag--restore"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="POSTv1-projects--project--flags--flag--restore"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+    <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>data</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>What the flag is for, or null.</p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>archived_at</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>When the flag was archived, or null while it is in use.</p>
+                    </div>
+                                    </details>
+        </div>
+                    <h1 id="flag-settings">Flag settings</h1>
+
+    
+
+                                <h2 id="flag-settings-GETv1-projects--project--flags--flag--settings">List Flag Settings</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>List the settings of a flag in every environment, ordered by environment key, 25 to a page. Use it to compare how a flag is set up across environments. Returns an array of settings documents; follow the Link header's rel=&quot;next&quot; for the next page.</p>
+
+<span id="example-requests-GETv1-projects--project--flags--flag--settings">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/v1/projects/checkout/flags/new-checkout/settings?cursor=architecto" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout/settings"
+);
+
+const params = {
+    "cursor": "architecto",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETv1-projects--project--flags--flag--settings">
+            <blockquote>
+            <p>Example response (200, One page of settings.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;environment&quot;: &quot;production&quot;,
+        &quot;enabled&quot;: true,
+        &quot;off_variant&quot;: &quot;off&quot;,
+        &quot;default&quot;: {
+            &quot;variant&quot;: &quot;off&quot;
+        },
+        &quot;rules&quot;: [
+            {
+                &quot;description&quot;: &quot;Staff see it first&quot;,
+                &quot;conditions&quot;: [
+                    {
+                        &quot;attribute&quot;: &quot;email&quot;,
+                        &quot;operator&quot;: &quot;ends_with&quot;,
+                        &quot;values&quot;: [
+                            &quot;@example.com&quot;
+                        ]
+                    }
+                ],
+                &quot;serve&quot;: {
+                    &quot;variant&quot;: &quot;on&quot;
+                }
+            }
+        ],
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+]</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:read ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, No project with this key belongs to the authenticated user, or it has no flag with this key.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETv1-projects--project--flags--flag--settings" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETv1-projects--project--flags--flag--settings"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETv1-projects--project--flags--flag--settings"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETv1-projects--project--flags--flag--settings" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETv1-projects--project--flags--flag--settings">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETv1-projects--project--flags--flag--settings" data-method="GET"
+      data-path="v1/projects/{project}/flags/{flag}/settings"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETv1-projects--project--flags--flag--settings', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETv1-projects--project--flags--flag--settings"
+                    onclick="tryItOut('GETv1-projects--project--flags--flag--settings');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETv1-projects--project--flags--flag--settings"
+                    onclick="cancelTryOut('GETv1-projects--project--flags--flag--settings');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETv1-projects--project--flags--flag--settings"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>v1/projects/{project}/flags/{flag}/settings</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETv1-projects--project--flags--flag--settings"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETv1-projects--project--flags--flag--settings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETv1-projects--project--flags--flag--settings"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="GETv1-projects--project--flags--flag--settings"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="GETv1-projects--project--flags--flag--settings"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>cursor</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="cursor"                data-endpoint="GETv1-projects--project--flags--flag--settings"
+               value="architecto"
+               data-component="query">
+    <br>
+<p>Opaque cursor from a Link header. Omit it for the first page. Example: <code>architecto</code></p>
+            </div>
+                </form>
+
+                    <h2 id="flag-settings-GETv1-projects--project--flags--flag--settings--settings-">Show Flag Settings</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Fetch the settings of a flag in one environment: whether it is on, its rules and what it serves by default. Use it before changing them: the ETag of the response goes in If-Match on the update. Returns the settings, or 304 with no body when If-None-Match still matches.</p>
+
+<span id="example-requests-GETv1-projects--project--flags--flag--settings--settings-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETv1-projects--project--flags--flag--settings--settings-">
+            <blockquote>
+            <p>Example response (200, The settings, with their ETag.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;environment&quot;: &quot;production&quot;,
+        &quot;enabled&quot;: true,
+        &quot;off_variant&quot;: &quot;off&quot;,
+        &quot;default&quot;: {
+            &quot;variant&quot;: &quot;off&quot;
+        },
+        &quot;rules&quot;: [
+            {
+                &quot;description&quot;: &quot;Staff see it first&quot;,
+                &quot;conditions&quot;: [
+                    {
+                        &quot;attribute&quot;: &quot;email&quot;,
+                        &quot;operator&quot;: &quot;ends_with&quot;,
+                        &quot;values&quot;: [
+                            &quot;@example.com&quot;
+                        ]
+                    }
+                ],
+                &quot;serve&quot;: {
+                    &quot;variant&quot;: &quot;on&quot;
+                }
+            }
+        ],
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:read ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The project, the flag, or an environment with this key in the project does not exist.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETv1-projects--project--flags--flag--settings--settings-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETv1-projects--project--flags--flag--settings--settings-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETv1-projects--project--flags--flag--settings--settings-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETv1-projects--project--flags--flag--settings--settings-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETv1-projects--project--flags--flag--settings--settings-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETv1-projects--project--flags--flag--settings--settings-" data-method="GET"
+      data-path="v1/projects/{project}/flags/{flag}/settings/{settings}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETv1-projects--project--flags--flag--settings--settings-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETv1-projects--project--flags--flag--settings--settings-"
+                    onclick="tryItOut('GETv1-projects--project--flags--flag--settings--settings-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETv1-projects--project--flags--flag--settings--settings-"
+                    onclick="cancelTryOut('GETv1-projects--project--flags--flag--settings--settings-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETv1-projects--project--flags--flag--settings--settings-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>v1/projects/{project}/flags/{flag}/settings/{settings}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETv1-projects--project--flags--flag--settings--settings-"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETv1-projects--project--flags--flag--settings--settings-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETv1-projects--project--flags--flag--settings--settings-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="GETv1-projects--project--flags--flag--settings--settings-"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="GETv1-projects--project--flags--flag--settings--settings-"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>settings</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="settings"                data-endpoint="GETv1-projects--project--flags--flag--settings--settings-"
+               value="production"
+               data-component="url">
+    <br>
+<p>The key of the environment whose settings these are. Example: <code>production</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="flag-settings-PATCHv1-projects--project--flags--flag--settings--settings-">Update Flag Settings</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Change the settings of a flag in one environment with a JSON Merge Patch (application/merge-patch+json): turn it on or off, change its rules, or change what it serves. Send {&quot;enabled&quot;: false} to switch a flag off. Send the ETag from Show Flag Settings in If-Match, so a change someone else made first is not overwritten. Returns the settings after the change.</p>
+
+<span id="example-requests-PATCHv1-projects--project--flags--flag--settings--settings-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PATCH \
+    "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production" \
+    --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"enabled\": false,
+    \"off_variant\": \"off\",
+    \"default\": {
+        \"variant\": \"off\"
+    },
+    \"rules\": []
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "enabled": false,
+    "off_variant": "off",
+    "default": {
+        "variant": "off"
+    },
+    "rules": []
+};
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PATCHv1-projects--project--flags--flag--settings--settings-">
+            <blockquote>
+            <p>Example response (200, The settings after the change.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;environment&quot;: &quot;production&quot;,
+        &quot;enabled&quot;: true,
+        &quot;off_variant&quot;: &quot;off&quot;,
+        &quot;default&quot;: {
+            &quot;variant&quot;: &quot;off&quot;
+        },
+        &quot;rules&quot;: [
+            {
+                &quot;description&quot;: &quot;Staff see it first&quot;,
+                &quot;conditions&quot;: [
+                    {
+                        &quot;attribute&quot;: &quot;email&quot;,
+                        &quot;operator&quot;: &quot;ends_with&quot;,
+                        &quot;values&quot;: [
+                            &quot;@example.com&quot;
+                        ]
+                    }
+                ],
+                &quot;serve&quot;: {
+                    &quot;variant&quot;: &quot;on&quot;
+                }
+            }
+        ],
+        &quot;updated_at&quot;: &quot;2026-10-21T09:00:00+00:00&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (401, Authentication failed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unauthorized&quot;,
+    &quot;title&quot;: &quot;Unauthorized&quot;,
+    &quot;status&quot;: 401,
+    &quot;detail&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (403, Token is missing the flags:write ability.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/forbidden&quot;,
+    &quot;title&quot;: &quot;Forbidden&quot;,
+    &quot;status&quot;: 403,
+    &quot;detail&quot;: &quot;Forbidden.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, The project, the flag, or an environment with this key in the project does not exist.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-not-found&quot;,
+    &quot;title&quot;: &quot;Resource Not Found&quot;,
+    &quot;status&quot;: 404,
+    &quot;detail&quot;: &quot;The resource was not found.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, The flag is archived.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/resource-conflict&quot;,
+    &quot;title&quot;: &quot;Resource Conflict&quot;,
+    &quot;status&quot;: 409,
+    &quot;detail&quot;: &quot;The flag is archived. Restore it before changing it.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (412, If-Match does not match the current ETag: someone else changed it first.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-failed&quot;,
+    &quot;title&quot;: &quot;Precondition Failed&quot;,
+    &quot;status&quot;: 412,
+    &quot;detail&quot;: &quot;The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (415, The body is not application/merge-patch+json.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/unsupported-media-type&quot;,
+    &quot;title&quot;: &quot;Unsupported Media Type&quot;,
+    &quot;status&quot;: 415,
+    &quot;detail&quot;: &quot;The Content-Type &#039;application/json&#039; is not supported. Supported content types: application/merge-patch+json.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, A variant does not exist, a split does not add up to 10000, the values of a condition do not suit its operator, or a read-only field changed.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/validation-failed&quot;,
+    &quot;title&quot;: &quot;Validation Failed&quot;,
+    &quot;status&quot;: 422,
+    &quot;detail&quot;: &quot;The selected variant does not exist on this flag.&quot;,
+    &quot;errors&quot;: {
+        &quot;off_variant&quot;: [
+            &quot;The selected variant does not exist on this flag.&quot;
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (428, The request has no If-Match.):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;type&quot;: &quot;https://apiguide.dev/errors/precondition-required&quot;,
+    &quot;title&quot;: &quot;Precondition Required&quot;,
+    &quot;status&quot;: 428,
+    &quot;detail&quot;: &quot;This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PATCHv1-projects--project--flags--flag--settings--settings-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PATCHv1-projects--project--flags--flag--settings--settings-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHv1-projects--project--flags--flag--settings--settings-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PATCHv1-projects--project--flags--flag--settings--settings-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHv1-projects--project--flags--flag--settings--settings-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PATCHv1-projects--project--flags--flag--settings--settings-" data-method="PATCH"
+      data-path="v1/projects/{project}/flags/{flag}/settings/{settings}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PATCHv1-projects--project--flags--flag--settings--settings-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PATCHv1-projects--project--flags--flag--settings--settings-"
+                    onclick="tryItOut('PATCHv1-projects--project--flags--flag--settings--settings-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PATCHv1-projects--project--flags--flag--settings--settings-"
+                    onclick="cancelTryOut('PATCHv1-projects--project--flags--flag--settings--settings-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PATCHv1-projects--project--flags--flag--settings--settings-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>v1/projects/{project}/flags/{flag}/settings/{settings}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value="Bearer {YOUR_BEARER_TOKEN}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>project</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="project"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value="checkout"
+               data-component="url">
+    <br>
+<p>The project key. Example: <code>checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>flag</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="flag"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value="new-checkout"
+               data-component="url">
+    <br>
+<p>The flag key, unique within the project. Example: <code>new-checkout</code></p>
+            </div>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>settings</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="settings"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value="production"
+               data-component="url">
+    <br>
+<p>The key of the environment whose settings these are. Example: <code>production</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>enabled</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-" style="display: none">
+            <input type="radio" name="enabled"
+                   value="true"
+                   data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-" style="display: none">
+            <input type="radio" name="enabled"
+                   value="false"
+                   data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>false serves the off variant to everyone, and nothing else is consulted. Example: <code>false</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>off_variant</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="off_variant"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value="off"
+               data-component="body">
+    <br>
+<p>The variant served while the flag is disabled. Example: <code>off</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>default</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="default"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value=""
+               data-component="body">
+    <br>
+<p>What is served when the flag is enabled and no rule matches: {&quot;variant&quot;: name} or {&quot;split&quot;: [{&quot;variant&quot;: name, &quot;weight&quot;: hundredths of a percent}]}, the weights adding up to 10000.</p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>rules</code></b>&nbsp;&nbsp;
+<small>object[]</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="rules[0]"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="rules[1]"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               data-component="body">
+    <br>
+<p>Up to 50 rules, tried in order; the first whose conditions all match decides. The whole list is replaced: a merge patch replaces an array whole.</p>
+        </div>
+        </form>
 
                 <h1 id="projects">Projects</h1>
 

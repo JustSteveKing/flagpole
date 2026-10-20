@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Environments;
 
+use App\Flags\FlagWriter;
 use App\Http\Payloads\V1\CreateEnvironmentPayload;
 use App\Http\Requests\Environments\CreateEnvironmentRequest;
 use App\Http\Resources\EnvironmentResource;
+use App\Models\Environment;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Endpoint;
@@ -74,11 +77,16 @@ use Knuckles\Scribe\Attributes\UrlParam;
 )]
 final class CreateEnvironmentController
 {
-    public function __invoke(CreateEnvironmentRequest $request, Project $project): JsonResponse
+    public function __invoke(CreateEnvironmentRequest $request, Project $project, FlagWriter $flags): JsonResponse
     {
         $payload = CreateEnvironmentPayload::fromRequest($request);
 
-        $environment = $project->environments()->create(['key' => $payload->key, 'name' => $payload->name]);
+        $environment = DB::transaction(function () use ($project, $payload, $flags): Environment {
+            $environment = $project->environments()->create(['key' => $payload->key, 'name' => $payload->name]);
+            $flags->addEnvironment($environment);
+
+            return $environment;
+        });
 
         return EnvironmentResource::make($environment)->response()->setStatusCode(201);
     }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Environment;
+use App\Models\Flag;
+use App\Models\FlagSetting;
 use App\Models\Project;
 use App\Models\User;
 use App\Support\ProductionSecurityChecks;
@@ -12,6 +14,7 @@ use App\Webhooks\DnsHostResolver;
 use App\Webhooks\HostResolver;
 use App\Webhooks\SubscriptionSigningKeys;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route as RoutingRoute;
@@ -96,6 +99,31 @@ final class AppServiceProvider extends ServiceProvider
             }
 
             return $project->environments()->where('key', $key)->firstOrFail();
+        });
+
+        // Archived flags included: they can still be read, and restored.
+        Route::bind('flag', static function (string $key, RoutingRoute $route): Flag {
+            $project = $route->parameter('project');
+
+            if ( ! $project instanceof Project) {
+                throw new ModelNotFoundException()->setModel(Flag::class);
+            }
+
+            return $project->flags()->where('key', $key)->firstOrFail();
+        });
+
+        // {settings} is an environment key: the flag's settings in that environment.
+        Route::bind('settings', static function (string $key, RoutingRoute $route): FlagSetting {
+            $flag = $route->parameter('flag');
+
+            if ( ! $flag instanceof Flag) {
+                throw new ModelNotFoundException()->setModel(FlagSetting::class);
+            }
+
+            return $flag->settings()
+                ->whereHas('environment', static fn(Builder $query) => $query->where('key', $key))
+                ->with('environment')
+                ->firstOrFail();
         });
     }
 }

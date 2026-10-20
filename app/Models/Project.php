@@ -71,6 +71,14 @@ final class Project extends Model implements HasValidators
     }
 
     /**
+     * @return HasMany<Flag, $this>
+     */
+    public function flags(): HasMany
+    {
+        return $this->hasMany(Flag::class);
+    }
+
+    /**
      * @return array<string, string>
      */
     #[Override]

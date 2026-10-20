@@ -51,4 +51,28 @@ return [
     'environments' => [
         'key_taken' => 'This project already has an environment with this key.',
     ],
+    'flags' => [
+        'key_taken' => 'This project already has a flag with this key.',
+        'boolean_variants' => 'A boolean flag always has exactly two variants, on and off, which cannot be changed.',
+        'variant_type' => 'Every variant of a :type flag must have a :type value.',
+        'variant_repeated' => 'Variant names must be unique within a flag.',
+        'variant_in_use' => 'A variant that is removed or renamed is still used in: :environments.',
+        'type_immutable' => 'A flag\'s type cannot be changed.',
+        'archived' => 'The flag is archived. Restore it before changing it.',
+        'unknown_variant' => 'The selected variant does not exist on this flag.',
+        'split_repeats_variant' => 'A variant can appear in a split only once.',
+        'split_total' => 'The weights of a split must add up to :total.',
+        'read_only' => 'This field cannot be changed.',
+        'operator_values' => [
+            'in' => 'The values must be strings, numbers or booleans.',
+            'not_in' => 'The values must be strings, numbers or booleans.',
+            'starts_with' => 'The values must be strings.',
+            'ends_with' => 'The values must be strings.',
+            'contains' => 'The values must be strings.',
+            'lt' => 'There must be exactly one value, and it must be a number.',
+            'lte' => 'There must be exactly one value, and it must be a number.',
+            'gt' => 'There must be exactly one value, and it must be a number.',
+            'gte' => 'There must be exactly one value, and it must be a number.',
+        ],
+    ],
 ];

@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel API Documentation",
-        "_postman_id": "f92c3e99-b783-442d-b406-9e8720986c81",
+        "_postman_id": "7dd7aced-ad39-42e0-a3cf-14e812fbbada",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -56,7 +56,7 @@
                                 {
                                     "header": [],
                                     "code": 201,
-                                    "body": "{\"data\":{\"id\":\"01m5df512gv50sdatpvtmykq97\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-20T20:13:25+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5dfmzsdrhecykeqz3es0w2k\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-20T20:22:08+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Registration succeeded."
                                 },
                                 {
@@ -100,7 +100,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5df5179j2n5kzrfeb096zp2\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-20T20:13:25+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5dfmzyas8jnjjrwyykat30s\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-20T20:22:08+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Login succeeded."
                                 },
                                 {
@@ -138,7 +138,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5df51cjjefthxwyg7mjmpfj\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-20T20:13:25+00:00\",\"created_at\":null,\"updated_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5dfn03ryadpv939zyw4xt5r\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-20T20:22:08+00:00\",\"created_at\":null,\"updated_at\":null}}",
                                     "name": "Authenticated user profile."
                                 },
                                 {
@@ -1010,6 +1010,713 @@
                             "code": 404,
                             "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
                             "name": "No project with this key belongs to the authenticated user, or it has no environment with this key."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Flags",
+            "description": "",
+            "item": [
+                {
+                    "name": "List Flags",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags",
+                            "query": [
+                                {
+                                    "key": "archived",
+                                    "value": "",
+                                    "description": "true lists only archived flags. Without it, archived flags are left out.",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "cursor",
+                                    "value": "architecto",
+                                    "description": "Opaque cursor from a Link header. Omit it for the first page.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags?archived=&cursor=architecto",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "List a project's flags, ordered by key, 25 to a page. Use it to find the keys applications evaluate, or pass archived=true to list only archived flags. Returns an array of flags without their settings; follow the Link header's rel=\"next\" for the next page."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "[{\"key\":\"new-checkout\",\"name\":\"New checkout\",\"description\":\"The redesigned checkout flow.\",\"type\":\"boolean\",\"variants\":[{\"name\":\"on\",\"value\":true},{\"name\":\"off\",\"value\":false}],\"archived_at\":null,\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}]",
+                            "name": "One page of flags."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:read ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user."
+                        }
+                    ]
+                },
+                {
+                    "name": "Create Flag",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"key\":\"new-checkout\",\"name\":\"New checkout\",\"description\":\"The redesigned checkout flow.\",\"type\":\"boolean\",\"variants\":[{\"name\":\"blue\",\"value\":\"#0055ff\"}]}"
+                        },
+                        "description": "Create a flag, disabled in every environment of the project. Use it from a deploy script or CI when code that reads a new flag ships; send an Idempotency-Key so a retry does not fail on the key it just took. Returns the flag; its key and type cannot change afterwards."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"key\":\"new-checkout\",\"name\":\"New checkout\",\"description\":\"The redesigned checkout flow.\",\"type\":\"boolean\",\"variants\":[{\"name\":\"on\",\"value\":true},{\"name\":\"off\",\"value\":false}],\"archived_at\":null,\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "Flag created, disabled everywhere."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/validation-failed\",\"title\":\"Validation Failed\",\"status\":422,\"detail\":\"Keys are lowercase letters and digits, in runs separated by single hyphens.\",\"errors\":{\"key\":[\"Keys are lowercase letters and digits, in runs separated by single hyphens.\"]}}",
+                            "name": "The key is malformed or taken, the type is unknown, or a variant is missing, repeated or of the wrong type."
+                        }
+                    ]
+                },
+                {
+                    "name": "Show Flag",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags\/:flag",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags\/:flag",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "flag",
+                                    "key": "flag",
+                                    "value": "new-checkout",
+                                    "description": "The flag key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Fetch one flag by its key, archived or not. Use it before changing a flag: the ETag of the response goes in If-Match on the update, archive or restore. Returns the flag without its settings, or 304 with no body when If-None-Match still matches."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"new-checkout\",\"name\":\"New checkout\",\"description\":\"The redesigned checkout flow.\",\"type\":\"boolean\",\"variants\":[{\"name\":\"on\",\"value\":true},{\"name\":\"off\",\"value\":false}],\"archived_at\":null,\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The flag, with its ETag."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:read ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no flag with this key."
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Flag",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags\/:flag",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags\/:flag",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "flag",
+                                    "key": "flag",
+                                    "value": "new-checkout",
+                                    "description": "The flag key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"key\":\"new-checkout\",\"type\":\"boolean\",\"name\":\"Checkout redesign\",\"description\":\"The redesigned checkout flow, phase two.\",\"variants\":[{\"name\":\"on\",\"value\":\"true\"}]}"
+                        },
+                        "description": "Change the name, description or variants of a flag with a JSON Merge Patch (application\/merge-patch+json). Use it to rename a flag or change what a variant serves; the key and type are permanent, and a variant any environment still uses cannot be removed. Send the ETag from Show Flag in If-Match. Returns the updated flag."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"new-checkout\",\"name\":\"New checkout\",\"description\":\"The redesigned checkout flow.\",\"type\":\"boolean\",\"variants\":[{\"name\":\"on\",\"value\":true},{\"name\":\"off\",\"value\":false}],\"archived_at\":null,\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The flag after the change."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no flag with this key."
+                        },
+                        {
+                            "header": [],
+                            "code": 409,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-conflict\",\"title\":\"Resource Conflict\",\"status\":409,\"detail\":\"The flag is archived. Restore it before changing it.\"}",
+                            "name": "The flag is archived."
+                        },
+                        {
+                            "header": [],
+                            "code": 412,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-failed\",\"title\":\"Precondition Failed\",\"status\":412,\"detail\":\"The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.\"}",
+                            "name": "If-Match does not match the current ETag: someone else changed it first."
+                        },
+                        {
+                            "header": [],
+                            "code": 415,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unsupported-media-type\",\"title\":\"Unsupported Media Type\",\"status\":415,\"detail\":\"The Content-Type 'application\\\/json' is not supported. Supported content types: application\\\/merge-patch+json.\"}",
+                            "name": "The body is not application\/merge-patch+json."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/validation-failed\",\"title\":\"Validation Failed\",\"status\":422,\"detail\":\"The variant blue is still used in: production.\",\"errors\":{\"variants\":[\"The variant blue is still used in: production.\"]}}",
+                            "name": "The key or type differs from the current one, a variant is malformed, or a variant still in use was removed."
+                        },
+                        {
+                            "header": [],
+                            "code": 428,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-required\",\"title\":\"Precondition Required\",\"status\":428,\"detail\":\"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.\"}",
+                            "name": "The request has no If-Match."
+                        }
+                    ]
+                },
+                {
+                    "name": "Archive Flag",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags\/:flag\/archive",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags\/:flag\/archive",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "flag",
+                                    "key": "flag",
+                                    "value": "new-checkout",
+                                    "description": "The flag key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Take a flag out of evaluation and make it read-only, keeping its settings and history. Use it when the code that reads the flag is gone. Send the ETag from Show Flag in If-Match. Returns the archived flag; applications asking for it are told it was not found."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"new-checkout\",\"name\":\"New checkout\",\"description\":\"The redesigned checkout flow.\",\"type\":\"boolean\",\"variants\":[{\"name\":\"on\",\"value\":true},{\"name\":\"off\",\"value\":false}],\"archived_at\":null,\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The flag after the change."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no flag with this key."
+                        },
+                        {
+                            "header": [],
+                            "code": 412,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-failed\",\"title\":\"Precondition Failed\",\"status\":412,\"detail\":\"The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.\"}",
+                            "name": "If-Match does not match the current ETag: someone else changed it first."
+                        },
+                        {
+                            "header": [],
+                            "code": 428,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-required\",\"title\":\"Precondition Required\",\"status\":428,\"detail\":\"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.\"}",
+                            "name": "The request has no If-Match."
+                        }
+                    ]
+                },
+                {
+                    "name": "Restore Flag",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags\/:flag\/restore",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags\/:flag\/restore",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "flag",
+                                    "key": "flag",
+                                    "value": "new-checkout",
+                                    "description": "The flag key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Bring an archived flag back into evaluation with its settings exactly as they were. Use it when an archived flag is needed again. Send the ETag from Show Flag in If-Match. Returns the restored flag."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"key\":\"new-checkout\",\"name\":\"New checkout\",\"description\":\"The redesigned checkout flow.\",\"type\":\"boolean\",\"variants\":[{\"name\":\"on\",\"value\":true},{\"name\":\"off\",\"value\":false}],\"archived_at\":null,\"created_at\":\"2026-10-21T09:00:00+00:00\",\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The flag after the change."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no flag with this key."
+                        },
+                        {
+                            "header": [],
+                            "code": 412,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-failed\",\"title\":\"Precondition Failed\",\"status\":412,\"detail\":\"The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.\"}",
+                            "name": "If-Match does not match the current ETag: someone else changed it first."
+                        },
+                        {
+                            "header": [],
+                            "code": 428,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-required\",\"title\":\"Precondition Required\",\"status\":428,\"detail\":\"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.\"}",
+                            "name": "The request has no If-Match."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Flag settings",
+            "description": "",
+            "item": [
+                {
+                    "name": "List Flag Settings",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags\/:flag\/settings",
+                            "query": [
+                                {
+                                    "key": "cursor",
+                                    "value": "architecto",
+                                    "description": "Opaque cursor from a Link header. Omit it for the first page.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags\/:flag\/settings?cursor=architecto",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "flag",
+                                    "key": "flag",
+                                    "value": "new-checkout",
+                                    "description": "The flag key, unique within the project."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "List the settings of a flag in every environment, ordered by environment key, 25 to a page. Use it to compare how a flag is set up across environments. Returns an array of settings documents; follow the Link header's rel=\"next\" for the next page."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "[{\"environment\":\"production\",\"enabled\":true,\"off_variant\":\"off\",\"default\":{\"variant\":\"off\"},\"rules\":[{\"description\":\"Staff see it first\",\"conditions\":[{\"attribute\":\"email\",\"operator\":\"ends_with\",\"values\":[\"@example.com\"]}],\"serve\":{\"variant\":\"on\"}}],\"updated_at\":\"2026-10-21T09:00:00+00:00\"}]",
+                            "name": "One page of settings."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:read ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "No project with this key belongs to the authenticated user, or it has no flag with this key."
+                        }
+                    ]
+                },
+                {
+                    "name": "Show Flag Settings",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags\/:flag\/settings\/:settings",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags\/:flag\/settings\/:settings",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "flag",
+                                    "key": "flag",
+                                    "value": "new-checkout",
+                                    "description": "The flag key, unique within the project."
+                                },
+                                {
+                                    "id": "settings",
+                                    "key": "settings",
+                                    "value": "production",
+                                    "description": "The key of the environment whose settings these are."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Fetch the settings of a flag in one environment: whether it is on, its rules and what it serves by default. Use it before changing them: the ETag of the response goes in If-Match on the update. Returns the settings, or 304 with no body when If-None-Match still matches."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"environment\":\"production\",\"enabled\":true,\"off_variant\":\"off\",\"default\":{\"variant\":\"off\"},\"rules\":[{\"description\":\"Staff see it first\",\"conditions\":[{\"attribute\":\"email\",\"operator\":\"ends_with\",\"values\":[\"@example.com\"]}],\"serve\":{\"variant\":\"on\"}}],\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The settings, with their ETag."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:read ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "The project, the flag, or an environment with this key in the project does not exist."
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Flag Settings",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "v1\/projects\/:project\/flags\/:flag\/settings\/:settings",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/v1\/projects\/:project\/flags\/:flag\/settings\/:settings",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": "checkout",
+                                    "description": "The project key."
+                                },
+                                {
+                                    "id": "flag",
+                                    "key": "flag",
+                                    "value": "new-checkout",
+                                    "description": "The flag key, unique within the project."
+                                },
+                                {
+                                    "id": "settings",
+                                    "key": "settings",
+                                    "value": "production",
+                                    "description": "The key of the environment whose settings these are."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"enabled\":false,\"off_variant\":\"off\",\"default\":{\"variant\":\"off\"},\"rules\":[]}"
+                        },
+                        "description": "Change the settings of a flag in one environment with a JSON Merge Patch (application\/merge-patch+json): turn it on or off, change its rules, or change what it serves. Send {\"enabled\": false} to switch a flag off. Send the ETag from Show Flag Settings in If-Match, so a change someone else made first is not overwritten. Returns the settings after the change."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"environment\":\"production\",\"enabled\":true,\"off_variant\":\"off\",\"default\":{\"variant\":\"off\"},\"rules\":[{\"description\":\"Staff see it first\",\"conditions\":[{\"attribute\":\"email\",\"operator\":\"ends_with\",\"values\":[\"@example.com\"]}],\"serve\":{\"variant\":\"on\"}}],\"updated_at\":\"2026-10-21T09:00:00+00:00\"}}",
+                            "name": "The settings after the change."
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"Unauthenticated.\"}",
+                            "name": "Authentication failed."
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/forbidden\",\"title\":\"Forbidden\",\"status\":403,\"detail\":\"Forbidden.\"}",
+                            "name": "Token is missing the flags:write ability."
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-not-found\",\"title\":\"Resource Not Found\",\"status\":404,\"detail\":\"The resource was not found.\"}",
+                            "name": "The project, the flag, or an environment with this key in the project does not exist."
+                        },
+                        {
+                            "header": [],
+                            "code": 409,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/resource-conflict\",\"title\":\"Resource Conflict\",\"status\":409,\"detail\":\"The flag is archived. Restore it before changing it.\"}",
+                            "name": "The flag is archived."
+                        },
+                        {
+                            "header": [],
+                            "code": 412,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-failed\",\"title\":\"Precondition Failed\",\"status\":412,\"detail\":\"The resource has changed since you last fetched it. Fetch it again and retry with its current ETag.\"}",
+                            "name": "If-Match does not match the current ETag: someone else changed it first."
+                        },
+                        {
+                            "header": [],
+                            "code": 415,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/unsupported-media-type\",\"title\":\"Unsupported Media Type\",\"status\":415,\"detail\":\"The Content-Type 'application\\\/json' is not supported. Supported content types: application\\\/merge-patch+json.\"}",
+                            "name": "The body is not application\/merge-patch+json."
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/validation-failed\",\"title\":\"Validation Failed\",\"status\":422,\"detail\":\"The selected variant does not exist on this flag.\",\"errors\":{\"off_variant\":[\"The selected variant does not exist on this flag.\"]}}",
+                            "name": "the values of a condition do not suit its operator, or a read-only field changed."
+                        },
+                        {
+                            "header": [],
+                            "code": 428,
+                            "body": "{\"type\":\"https:\\\/\\\/apiguide.dev\\\/errors\\\/precondition-required\",\"title\":\"Precondition Required\",\"status\":428,\"detail\":\"This request must be conditional. Fetch the resource, then retry with its ETag in If-Match.\"}",
+                            "name": "The request has no If-Match."
                         }
                     ]
                 }

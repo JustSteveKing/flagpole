@@ -19,6 +19,9 @@ ignore:
       - PATCH /v1/projects/*
       - POST /v1/projects/*/environments
       - PATCH /v1/projects/*/environments/*
+      - POST /v1/projects/*/flags
+      - PATCH /v1/projects/*/flags/*
+      - PATCH /v1/projects/*/flags/*/settings/*
     reason: >
       Validation problems add an errors member keyed by field, which apiguide.dev's
       validation-failed type defines. Every problem shares type, title, status and detail.

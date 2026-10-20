@@ -94,6 +94,8 @@ return [
             'webhooks:write',
             'projects:read',
             'projects:write',
+            'flags:read',
+            'flags:write',
         ],
         'default' => [
             'auth:me',
@@ -106,6 +108,8 @@ return [
             'webhooks:write',
             'projects:read',
             'projects:write',
+            'flags:read',
+            'flags:write',
         ],
     ],
 

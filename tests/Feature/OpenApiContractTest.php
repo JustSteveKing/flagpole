@@ -478,3 +478,31 @@ it('keeps project and environment responses aligned with their documented schema
         assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
     }
 });
+
+it('keeps flag and flag settings responses aligned with their documented schemas', function (): void {
+    $spec = generateOpenApiSpec(forceGenerate: true);
+    $user = User::factory()->create();
+    $project = projectWithEnvironments($user);
+    flagIn($project, 'new-checkout');
+    // A described one too, so the non-null types are checked.
+    $project->flags()->where('key', 'new-checkout')->update(['description' => 'The redesigned checkout flow.']);
+    flagIn($project, 'plain');
+
+    $token = $user->createToken('contract', ['flags:read'])->plainTextToken;
+
+    $checks = [
+        ['GET', '/v1/projects/{project}/flags', '/v1/projects/checkout/flags'],
+        ['GET', '/v1/projects/{project}/flags/{flag}', '/v1/projects/checkout/flags/new-checkout'],
+        ['GET', '/v1/projects/{project}/flags/{flag}', '/v1/projects/checkout/flags/plain'],
+        ['GET', '/v1/projects/{project}/flags/{flag}/settings', '/v1/projects/checkout/flags/new-checkout/settings'],
+        ['GET', '/v1/projects/{project}/flags/{flag}/settings/{settings}', '/v1/projects/checkout/flags/new-checkout/settings/production'],
+    ];
+
+    foreach ($checks as [$method, $documented, $uri]) {
+        $response = $this->withToken($token)->getJson($uri)->assertOk();
+        $schema = documentedResponseSchema($spec, $documented, $method, 200);
+
+        expect($schema)->not->toBeNull();
+        assertMatchesOpenApiSchema($spec, (array) $schema, $response->json(), '$');
+    }
+});

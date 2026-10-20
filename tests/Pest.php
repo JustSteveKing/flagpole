@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Flags\FlagType;
+use App\Flags\FlagWriter;
+use App\Models\Flag;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Testing\TestResponse;
@@ -82,4 +85,42 @@ function mergePatch(string $uri, array $patch, string $token, array $headers = [
 function projectFor(User $user, string $key = 'checkout'): Project
 {
     return Project::factory()->for($user)->create(['key' => $key]);
+}
+
+/**
+ * A flag made the way the API makes one, with settings in every environment of its project.
+ *
+ * @param  list<array{name: string, value: mixed}>  $variants
+ */
+function flagIn(Project $project, string $key = 'new-checkout', FlagType $type = FlagType::Boolean, array $variants = []): Flag
+{
+    return app(FlagWriter::class)->create($project, $key, 'A flag', null, $type, $variants);
+}
+
+/**
+ * A project with development and production, as creating one through the API makes it.
+ */
+function projectWithEnvironments(User $user, string $key = 'checkout'): Project
+{
+    $project = projectFor($user, $key);
+
+    foreach (Project::STARTING_ENVIRONMENTS as $environment => $name) {
+        $project->environments()->create(['key' => $environment, 'name' => $name]);
+    }
+
+    return $project;
+}
+
+/**
+ * @return array<string, int>
+ */
+function environmentVersions(Project $project): array
+{
+    /** @var array<string, int> */
+    return $project->environments()->pluck('version', 'key')->all();
+}
+
+function flagToken(User $user, array $abilities = ['flags:read', 'flags:write']): string
+{
+    return ownerToken($user, $abilities);
 }

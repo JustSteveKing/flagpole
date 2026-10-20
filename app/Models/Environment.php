@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use JustSteveKing\Toolbox\ConditionalRequests\Contracts\HasValidators;
 use Override;
@@ -52,6 +53,14 @@ final class Environment extends Model implements HasValidators
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    /**
+     * @return HasMany<FlagSetting, $this>
+     */
+    public function flagSettings(): HasMany
+    {
+        return $this->hasMany(FlagSetting::class);
     }
 
     /**

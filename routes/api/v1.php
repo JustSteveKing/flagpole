@@ -21,6 +21,15 @@ use App\Http\Controllers\Api\V1\Environments\DeleteEnvironmentController;
 use App\Http\Controllers\Api\V1\Environments\ListEnvironmentsController;
 use App\Http\Controllers\Api\V1\Environments\ShowEnvironmentController;
 use App\Http\Controllers\Api\V1\Environments\UpdateEnvironmentController;
+use App\Http\Controllers\Api\V1\Flags\ArchiveFlagController;
+use App\Http\Controllers\Api\V1\Flags\CreateFlagController;
+use App\Http\Controllers\Api\V1\Flags\ListFlagsController;
+use App\Http\Controllers\Api\V1\Flags\RestoreFlagController;
+use App\Http\Controllers\Api\V1\Flags\ShowFlagController;
+use App\Http\Controllers\Api\V1\Flags\UpdateFlagController;
+use App\Http\Controllers\Api\V1\FlagSettings\ListFlagSettingsController;
+use App\Http\Controllers\Api\V1\FlagSettings\ShowFlagSettingsController;
+use App\Http\Controllers\Api\V1\FlagSettings\UpdateFlagSettingsController;
 use App\Http\Controllers\Api\V1\Projects\CreateProjectController;
 use App\Http\Controllers\Api\V1\Projects\DeleteProjectController;
 use App\Http\Controllers\Api\V1\Projects\ListProjectsController;
@@ -136,7 +145,7 @@ Route::middleware(['auth:sanctum', 'throttle:auth-protected'])->group(function (
 });
 
 Route::middleware(['auth:sanctum', 'throttle:auth-protected'])
-    ->where(['project' => Key::ROUTE_PATTERN, 'environment' => Key::ROUTE_PATTERN])
+    ->where(['project' => Key::ROUTE_PATTERN, 'environment' => Key::ROUTE_PATTERN, 'flag' => Key::ROUTE_PATTERN, 'settings' => Key::ROUTE_PATTERN])
     ->group(function (): void {
         Route::get('/projects', ListProjectsController::class)
             ->middleware('abilities:projects:read')
@@ -169,4 +178,33 @@ Route::middleware(['auth:sanctum', 'throttle:auth-protected'])
         Route::delete('/projects/{project}/environments/{environment}', DeleteEnvironmentController::class)
             ->middleware('abilities:projects:write')
             ->name('v1.environments.destroy');
+
+        Route::get('/projects/{project}/flags', ListFlagsController::class)
+            ->middleware('abilities:flags:read')
+            ->name('v1.flags.index');
+        Route::post('/projects/{project}/flags', CreateFlagController::class)
+            ->middleware(['abilities:flags:write', 'idempotent'])
+            ->name('v1.flags.store');
+        Route::get('/projects/{project}/flags/{flag}', ShowFlagController::class)
+            ->middleware(['abilities:flags:read', 'conditional'])
+            ->name('v1.flags.show');
+        Route::patch('/projects/{project}/flags/{flag}', UpdateFlagController::class)
+            ->middleware(['abilities:flags:write', 'consumes:application/merge-patch+json', 'merge-patch', 'conditional', 'preconditions.required'])
+            ->name('v1.flags.update');
+        Route::post('/projects/{project}/flags/{flag}/archive', ArchiveFlagController::class)
+            ->middleware(['abilities:flags:write', 'conditional', 'preconditions.required:POST'])
+            ->name('v1.flags.archive');
+        Route::post('/projects/{project}/flags/{flag}/restore', RestoreFlagController::class)
+            ->middleware(['abilities:flags:write', 'conditional', 'preconditions.required:POST'])
+            ->name('v1.flags.restore');
+
+        Route::get('/projects/{project}/flags/{flag}/settings', ListFlagSettingsController::class)
+            ->middleware('abilities:flags:read')
+            ->name('v1.flags.settings.index');
+        Route::get('/projects/{project}/flags/{flag}/settings/{settings}', ShowFlagSettingsController::class)
+            ->middleware(['abilities:flags:read', 'conditional'])
+            ->name('v1.flags.settings.show');
+        Route::patch('/projects/{project}/flags/{flag}/settings/{settings}', UpdateFlagSettingsController::class)
+            ->middleware(['abilities:flags:write', 'consumes:application/merge-patch+json', 'merge-patch', 'conditional', 'preconditions.required'])
+            ->name('v1.flags.settings.update');
     });
