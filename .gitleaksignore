@@ -1,11 +1,15 @@
+# False positives in Kit's own history, by commit. An application made from Kit has different
+# commits, so none of these apply there; .gitleaks.toml covers what it inherits.
 # Idempotency-Key fixtures in tests, not secrets.
 7659aa0276ef1b02f5fdb900f2353e64c59273b2:tests/Feature/IdempotencyKeyTest.php:generic-api-key:41
 7659aa0276ef1b02f5fdb900f2353e64c59273b2:tests/Feature/IdempotencyKeyTest.php:generic-api-key:45
+b82cd5f5910bc83fb2063b8347334fed3831cc6a:tests/Feature/IdempotencyKeyTest.php:generic-api-key:71
+# A package name in an early README.
+af563d83d2cb982cfc85cc0826e30c8271abb126:README.md:generic-api-key:25
+
+# Flagpole's own history: the same Idempotency-Key fixtures as Kit committed them, and a UUID used
+# as one in CreateProjectTest. .gitleaks.toml covers Scribe's file hashes and Boost's skills.
 41e1dad317d01f4e06e7dac66fb5365049dea2b2:tests/Feature/Projects/CreateProjectTest.php:generic-api-key:29
 855b11e2db775c80239ed1b7d55115eda817d0a0:tests/Feature/IdempotencyKeyTest.php:generic-api-key:41
 855b11e2db775c80239ed1b7d55115eda817d0a0:tests/Feature/IdempotencyKeyTest.php:generic-api-key:45
 855b11e2db775c80239ed1b7d55115eda817d0a0:tests/Feature/IdempotencyKeyTest.php:generic-api-key:84
-
-# Flagpole's history: Scribe's file hashes, and a placeholder key in a Laravel Boost skill's example.
-855b11e2db775c80239ed1b7d55115eda817d0a0:.scribe/.filehashes:generic-api-key:4
-855b11e2db775c80239ed1b7d55115eda817d0a0:.agents/skills/laravel-best-practices/rules/config.md:generic-api-key:30
