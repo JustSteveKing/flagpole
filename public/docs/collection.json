@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel API Documentation",
-        "_postman_id": "9a2dfc2d-f1e1-4bbd-a784-ff1d256335e9",
+        "_postman_id": "7fe05c29-c985-4e98-93b7-03ea9d7972f3",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -60,7 +60,7 @@
                                 {
                                     "header": [],
                                     "code": 201,
-                                    "body": "{\"data\":{\"id\":\"01m5esgravqnbny1m62rhqw99d\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-21T08:33:49+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5eshbg9pv64ggyvmqdva8da\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-21T08:34:09+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Registration succeeded."
                                 },
                                 {
@@ -104,7 +104,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5esgrb385rxv14tmgax9g7s\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-21T08:33:49+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5eshbgh94p50z9x2gccbtve\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-21T08:34:09+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Login succeeded."
                                 },
                                 {
@@ -146,7 +146,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5esgrbys90y5tccjhsxj2sv\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-21T08:33:49+00:00\",\"created_at\":null,\"updated_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5eshbhctar47p33k514y254\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-21T08:34:09+00:00\",\"created_at\":null,\"updated_at\":null}}",
                                     "name": "Authenticated user profile."
                                 },
                                 {
@@ -763,6 +763,10 @@
                         "method": "POST",
                         "header": [
                             {
+                                "key": "Idempotency-Key",
+                                "value": "\"environment-retry-1\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -836,6 +840,10 @@
                         "method": "GET",
                         "header": [
                             {
+                                "key": "If-None-Match",
+                                "value": "\"a1b2c3d4e5f6\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -902,6 +910,10 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "If-Match",
+                                "value": "\"a1b2c3d4e5f6\""
                             },
                             {
                                 "key": "Accept",
@@ -1126,6 +1138,10 @@
                         "method": "POST",
                         "header": [
                             {
+                                "key": "Idempotency-Key",
+                                "value": "\"flag-retry-1\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -1199,6 +1215,10 @@
                         "method": "GET",
                         "header": [
                             {
+                                "key": "If-None-Match",
+                                "value": "\"a1b2c3d4e5f6\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -1265,6 +1285,10 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "If-Match",
+                                "value": "\"a1b2c3d4e5f6\""
                             },
                             {
                                 "key": "Accept",
@@ -1360,6 +1384,10 @@
                         "method": "POST",
                         "header": [
                             {
+                                "key": "If-Match",
+                                "value": "\"a1b2c3d4e5f6\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -1435,6 +1463,10 @@
                         },
                         "method": "POST",
                         "header": [
+                            {
+                                "key": "If-Match",
+                                "value": "\"a1b2c3d4e5f6\""
+                            },
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"
@@ -1672,6 +1704,10 @@
                         "method": "GET",
                         "header": [
                             {
+                                "key": "If-None-Match",
+                                "value": "\"a1b2c3d4e5f6\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -1744,6 +1780,10 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "If-Match",
+                                "value": "\"a1b2c3d4e5f6\""
                             },
                             {
                                 "key": "Accept",
@@ -1830,6 +1870,10 @@
                         },
                         "method": "POST",
                         "header": [
+                            {
+                                "key": "If-None-Match",
+                                "value": "\"a1b2c3d4e5f6\""
+                            },
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"
@@ -2038,6 +2082,10 @@
                         "method": "POST",
                         "header": [
                             {
+                                "key": "Idempotency-Key",
+                                "value": "\"project-retry-1\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -2099,6 +2147,10 @@
                         "method": "GET",
                         "header": [
                             {
+                                "key": "If-None-Match",
+                                "value": "\"a1b2c3d4e5f6\""
+                            },
+                            {
                                 "key": "Content-Type",
                                 "value": "application\/json"
                             },
@@ -2159,6 +2211,10 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"
+                            },
+                            {
+                                "key": "If-Match",
+                                "value": "\"a1b2c3d4e5f6\""
                             },
                             {
                                 "key": "Accept",
@@ -2382,6 +2438,10 @@
                         },
                         "method": "POST",
                         "header": [
+                            {
+                                "key": "Idempotency-Key",
+                                "value": "\"sdk-key-retry-1\""
+                            },
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"

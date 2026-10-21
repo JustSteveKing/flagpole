@@ -25,6 +25,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 #[UrlParam('project', type: 'string', description: 'The project key.', required: true, example: 'checkout')]
 #[Authenticated]
 #[Header('Content-Type', 'application/merge-patch+json')]
+#[Header('If-Match', '"a1b2c3d4e5f6"')]
 #[BodyParam('name', type: 'string', description: 'The new name, up to 255 characters.', required: false, example: 'Checkout flow')]
 #[BodyParam('key', type: 'string', description: 'May be sent only with its current value.', required: false, example: 'checkout')]
 #[Response(content: ['data' => [

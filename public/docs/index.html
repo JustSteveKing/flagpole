@@ -382,10 +382,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5esgravqnbny1m62rhqw99d&quot;,
+        &quot;id&quot;: &quot;01m5eshbg9pv64ggyvmqdva8da&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-21T08:33:49+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-21T08:34:09+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -604,10 +604,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5esgrb385rxv14tmgax9g7s&quot;,
+        &quot;id&quot;: &quot;01m5eshbgh94p50z9x2gccbtve&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-21T08:33:49+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-21T08:34:09+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -794,10 +794,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5esgrbys90y5tccjhsxj2sv&quot;,
+        &quot;id&quot;: &quot;01m5eshbhctar47p33k514y254&quot;,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-21T08:33:49+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-21T08:34:09+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     }
@@ -2936,6 +2936,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/v1/projects/checkout/environments" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Idempotency-Key: \&amp;quot;environment-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2952,6 +2953,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Idempotency-Key": "&amp;quot;environment-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3098,6 +3100,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-projects--project--environments"
+               value=""environment-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"environment-retry-1"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -3177,6 +3191,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost:8000/v1/projects/checkout/environments/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-None-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -3188,6 +3203,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-None-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -3311,6 +3327,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-None-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-None-Match"                data-endpoint="GETv1-projects--project--environments--environment-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -3378,6 +3406,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://localhost:8000/v1/projects/checkout/environments/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
+    --header "If-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Accept: application/json" \
     --data "{
     \"key\": \"production\",
@@ -3394,6 +3423,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
     "Content-Type": "application/json",
+    "If-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Accept": "application/json",
 };
 
@@ -3585,6 +3615,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="header">
     <br>
 <p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-Match"                data-endpoint="PATCHv1-projects--project--environments--environment-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
@@ -4125,6 +4167,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/v1/projects/checkout/flags" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Idempotency-Key: \&amp;quot;flag-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -4149,6 +4192,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Idempotency-Key": "&amp;quot;flag-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4314,6 +4358,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="header">
     <br>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-projects--project--flags"
+               value=""flag-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"flag-retry-1"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -4485,6 +4541,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost:8000/v1/projects/checkout/flags/new-checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-None-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -4496,6 +4553,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-None-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -4632,6 +4690,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-None-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-None-Match"                data-endpoint="GETv1-projects--project--flags--flag-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -4729,6 +4799,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://localhost:8000/v1/projects/checkout/flags/new-checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
+    --header "If-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Accept: application/json" \
     --data "{
     \"key\": \"new-checkout\",
@@ -4753,6 +4824,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
     "Content-Type": "application/json",
+    "If-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Accept": "application/json",
 };
 
@@ -4979,6 +5051,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>application/json</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-Match"                data-endpoint="PATCHv1-projects--project--flags--flag-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -5148,6 +5232,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/v1/projects/checkout/flags/new-checkout/archive" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -5159,6 +5244,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5319,6 +5405,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-Match"                data-endpoint="POSTv1-projects--project--flags--flag--archive"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -5415,6 +5513,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/v1/projects/checkout/flags/new-checkout/restore" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -5426,6 +5525,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -5584,6 +5684,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="header">
     <br>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-Match"                data-endpoint="POSTv1-projects--project--flags--flag--restore"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -6217,6 +6329,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-None-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -6228,6 +6341,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-None-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -6371,6 +6485,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-None-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-None-Match"                data-endpoint="GETv1-projects--project--flags--flag--settings--settings-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -6450,6 +6576,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
+    --header "If-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Accept: application/json" \
     --data "{
     \"enabled\": false,
@@ -6470,6 +6597,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
     "Content-Type": "application/json",
+    "If-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Accept": "application/json",
 };
 
@@ -6699,6 +6827,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>application/json</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-Match"                data-endpoint="PATCHv1-projects--project--flags--flag--settings--settings-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -6830,6 +6970,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/ofrep/v1/evaluate/flags" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-None-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -6849,6 +6990,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-None-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -7018,6 +7160,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="header">
     <br>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-None-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-None-Match"                data-endpoint="POSTofrep-v1-evaluate-flags"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
@@ -7531,6 +7685,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/v1/projects" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Idempotency-Key: \&amp;quot;project-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -7547,6 +7702,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Idempotency-Key": "&amp;quot;project-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -7681,6 +7837,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-projects"
+               value=""project-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"project-retry-1"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -7747,6 +7915,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request GET \
     --get "http://localhost:8000/v1/projects/checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-None-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -7758,6 +7927,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-None-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -7881,6 +8051,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-None-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-None-Match"                data-endpoint="GETv1-projects--project-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -7936,6 +8118,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     "http://localhost:8000/v1/projects/checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
+    --header "If-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Accept: application/json" \
     --data "{
     \"key\": \"checkout\",
@@ -7952,6 +8135,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
     "Content-Type": "application/json",
+    "If-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Accept": "application/json",
 };
 
@@ -8143,6 +8327,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="header">
     <br>
 <p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-Match"                data-endpoint="PATCHv1-projects--project-"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
@@ -8636,6 +8832,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <pre><code class="language-bash">curl --request POST \
     "http://localhost:8000/v1/projects/checkout/environments/production/sdk-keys" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Idempotency-Key: \&amp;quot;sdk-key-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -8652,6 +8849,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Idempotency-Key": "&amp;quot;sdk-key-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -8801,6 +8999,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="header">
     <br>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-projects--project--environments--environment--sdk-keys"
+               value=""sdk-key-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"sdk-key-retry-1"</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;

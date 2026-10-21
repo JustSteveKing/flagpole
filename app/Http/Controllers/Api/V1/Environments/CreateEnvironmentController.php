@@ -16,6 +16,7 @@ use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Header;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\UrlParam;
 
@@ -26,6 +27,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 )]
 #[UrlParam('project', type: 'string', description: 'The project key.', required: true, example: 'checkout')]
 #[Authenticated]
+#[Header('Idempotency-Key', '"environment-retry-1"')]
 #[BodyParam('key', type: 'string', description: 'Lowercase letters and digits in runs separated by single hyphens, at most 64 characters, unique within the project.', required: true, example: 'staging')]
 #[BodyParam('name', type: 'string', description: 'A name for people to read, up to 255 characters.', required: true, example: 'Staging')]
 #[Response(content: ['data' => [

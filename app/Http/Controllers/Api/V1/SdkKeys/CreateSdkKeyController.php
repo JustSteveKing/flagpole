@@ -18,6 +18,7 @@ use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Header;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\ResponseField;
 use Knuckles\Scribe\Attributes\UrlParam;
@@ -30,6 +31,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 #[UrlParam('project', type: 'string', description: 'The project key.', required: true, example: 'checkout')]
 #[UrlParam('environment', type: 'string', description: 'The environment key, unique within the project.', required: true, example: 'production')]
 #[Authenticated]
+#[Header('Idempotency-Key', '"sdk-key-retry-1"')]
 #[BodyParam('name', type: 'string', description: 'A label, so the key can be told apart from others when revoking one. Up to 255 characters.', required: true, example: 'checkout-web production')]
 #[BodyParam('expires_at', type: 'string', description: 'When the key stops working, in the future. Leave it out for a key that never expires: one that expires on its own turns every flag back to its code default.', required: false, example: null)]
 #[Response(content: ['data' => [

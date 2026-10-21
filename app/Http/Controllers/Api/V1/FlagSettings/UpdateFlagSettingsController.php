@@ -33,6 +33,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 #[UrlParam('settings', type: 'string', description: 'The key of the environment whose settings these are.', required: true, example: 'production')]
 #[Authenticated]
 #[Header('Content-Type', 'application/merge-patch+json')]
+#[Header('If-Match', '"a1b2c3d4e5f6"')]
 #[BodyParam('enabled', type: 'boolean', description: 'false serves the off variant to everyone, and nothing else is consulted.', required: false, example: false)]
 #[BodyParam('off_variant', type: 'string', description: 'The variant served while the flag is disabled.', required: false, example: 'off')]
 #[BodyParam('default', type: 'object', description: 'What is served when the flag is enabled and no rule matches: {"variant": name} or {"split": [{"variant": name, "weight": hundredths of a percent}]}, the weights adding up to 10000.', required: false, example: ['variant' => 'off'])]

@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Header;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\UrlParam;
 
@@ -24,6 +25,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 #[UrlParam('flag', type: 'string', description: 'The flag key, unique within the project.', required: true, example: 'new-checkout')]
 #[UrlParam('settings', type: 'string', description: 'The key of the environment whose settings these are.', required: true, example: 'production')]
 #[Authenticated]
+#[Header('If-None-Match', '"a1b2c3d4e5f6"')]
 #[Response(content: ['data' => [
     'environment' => 'production',
     'enabled' => true,

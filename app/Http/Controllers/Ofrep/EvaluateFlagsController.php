@@ -17,6 +17,7 @@ use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Header;
 use Knuckles\Scribe\Attributes\Response;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Throwable;
@@ -33,6 +34,7 @@ use Throwable;
     description: 'Evaluate every flag in the environment of the SDK key for one context. Called by an OpenFeature OFREP provider in the browser or on a device, which polls it with the last ETag in If-None-Match. Returns every flag with its value or its own error, or 304 with no body while nothing it would see has changed. The 304 to a POST departs from RFC 9110 on purpose, because OFREP specifies it.',
 )]
 #[Authenticated]
+#[Header('If-None-Match', '"a1b2c3d4e5f6"')]
 #[BodyParam('context', type: 'object', description: 'The evaluation context: any properties the rules of the flags look at, such as email or plan.', required: true, example: ['targetingKey' => 'user-123', 'email' => 'jane@example.com', 'plan' => 'pro'])]
 #[BodyParam('context.targetingKey', type: 'string', description: 'Who the evaluation is for. Required by percentage rollouts, which put the same subject in the same variant every time.', required: false, example: 'user-123')]
 #[Response(content: ['flags' => [

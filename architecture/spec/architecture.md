@@ -51,3 +51,7 @@ key.
 
 Session tokens hold `projects:read`, `projects:write`, `flags:read`, `flags:write`,
 `sdk-keys:read` and `sdk-keys:write`, beside Kit's own. `ofrep:evaluate` is held only by SDK keys.
+
+The ability is checked before route parameters are bound and before idempotency, so a token
+without it gets `403` whether or not the resource exists, and the refusal is not stored for a retry
+with the same `Idempotency-Key`.

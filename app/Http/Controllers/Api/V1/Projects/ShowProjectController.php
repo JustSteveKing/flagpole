@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Header;
 use Knuckles\Scribe\Attributes\Response;
 use Knuckles\Scribe\Attributes\UrlParam;
 
@@ -20,6 +21,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 )]
 #[UrlParam('project', type: 'string', description: 'The project key.', required: true, example: 'checkout')]
 #[Authenticated]
+#[Header('If-None-Match', '"a1b2c3d4e5f6"')]
 #[Response(content: ['data' => [
     'key' => 'checkout',
     'name' => 'Checkout',

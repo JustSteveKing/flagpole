@@ -85,6 +85,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
+      Idempotency-Key: '"project-retry-1"'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -168,6 +169,7 @@ endpoints:
       deprecated: false
     headers:
       Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
+      If-None-Match: '"a1b2c3d4e5f6"'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -240,6 +242,7 @@ endpoints:
     headers:
       Authorization: 'Bearer {YOUR_BEARER_TOKEN}'
       Content-Type: application/json
+      If-Match: '"a1b2c3d4e5f6"'
       Accept: application/json
     urlParameters:
       project:

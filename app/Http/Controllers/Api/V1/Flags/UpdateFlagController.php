@@ -32,6 +32,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 #[UrlParam('flag', type: 'string', description: 'The flag key, unique within the project.', required: true, example: 'new-checkout')]
 #[Authenticated]
 #[Header('Content-Type', 'application/merge-patch+json')]
+#[Header('If-Match', '"a1b2c3d4e5f6"')]
 #[BodyParam('name', type: 'string', description: 'A new name, up to 255 characters.', required: false, example: 'Checkout redesign')]
 #[BodyParam('description', type: 'string', description: 'A new description, or null to remove it.', required: false, example: 'The redesigned checkout flow, phase two.')]
 #[BodyParam('key', type: 'string', description: 'May be sent only with its current value.', required: false, example: 'new-checkout')]

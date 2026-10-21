@@ -117,3 +117,23 @@ it('requires the flags:write ability', function (): void {
         ->postJson('/v1/projects/checkout/flags', ['key' => 'a', 'name' => 'A', 'type' => 'boolean'])
         ->assertProblem(403);
 });
+
+it('does not store a refusal for flags:write, so a retry with the ability creates the flag', function (): void {
+    $user = User::factory()->create();
+    projectWithEnvironments($user);
+    $body = ['key' => 'new-checkout', 'name' => 'New checkout', 'type' => 'boolean'];
+
+    $this->withToken(flagToken($user, ['flags:read']))
+        ->withHeader('Idempotency-Key', 'flag-retry-1')
+        ->postJson('/v1/projects/checkout/flags', $body)
+        ->assertProblem(403);
+
+    $this->app['auth']->forgetGuards();
+
+    $this->withToken(flagToken($user))
+        ->withHeader('Idempotency-Key', 'flag-retry-1')
+        ->postJson('/v1/projects/checkout/flags', $body)
+        ->assertCreated();
+
+    expect(Flag::query()->count())->toBe(1);
+});

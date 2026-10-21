@@ -16,6 +16,7 @@ use Knuckles\Scribe\Attributes\Authenticated;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Group;
+use Knuckles\Scribe\Attributes\Header;
 use Knuckles\Scribe\Attributes\Response;
 
 #[Group(name: 'Projects')]
@@ -24,6 +25,7 @@ use Knuckles\Scribe\Attributes\Response;
     description: 'Create a project, with development and production environments to start with. Use it once per application whose flags you manage; send an Idempotency-Key so a retry does not create it twice. Returns the project; its key cannot be changed afterwards.',
 )]
 #[Authenticated]
+#[Header('Idempotency-Key', '"project-retry-1"')]
 #[BodyParam('key', type: 'string', description: 'Lowercase letters and digits in runs separated by single hyphens, at most 64 characters, unique among your projects. Used in every URL for the project.', required: true, example: 'checkout')]
 #[BodyParam('name', type: 'string', description: 'A name for people to read, up to 255 characters.', required: true, example: 'Checkout')]
 #[Response(content: ['data' => [

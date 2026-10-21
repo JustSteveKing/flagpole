@@ -63,10 +63,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5esgravqnbny1m62rhqw99d
+                    id: 01m5eshbg9pv64ggyvmqdva8da
                     name: 'Justina Gaylord'
                     email: lafayette.considine@example.com
-                    email_verified_at: '2026-10-21T08:33:49+00:00'
+                    email_verified_at: '2026-10-21T08:34:09+00:00'
                     created_at: null
                     updated_at: null
                   meta:
@@ -79,7 +79,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5esgravqnbny1m62rhqw99d
+                        example: 01m5eshbg9pv64ggyvmqdva8da
                       name:
                         type: string
                         example: 'Justina Gaylord'
@@ -88,7 +88,7 @@ paths:
                         example: lafayette.considine@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-21T08:33:49+00:00'
+                        example: '2026-10-21T08:34:09+00:00'
                       created_at:
                         type: string
                         example: null
@@ -191,10 +191,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5esgrb385rxv14tmgax9g7s
+                    id: 01m5eshbgh94p50z9x2gccbtve
                     name: 'Justina Gaylord'
                     email: cormier.nick@example.com
-                    email_verified_at: '2026-10-21T08:33:49+00:00'
+                    email_verified_at: '2026-10-21T08:34:09+00:00'
                     created_at: null
                     updated_at: null
                   meta:
@@ -207,7 +207,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5esgrb385rxv14tmgax9g7s
+                        example: 01m5eshbgh94p50z9x2gccbtve
                       name:
                         type: string
                         example: 'Justina Gaylord'
@@ -216,7 +216,7 @@ paths:
                         example: cormier.nick@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-21T08:33:49+00:00'
+                        example: '2026-10-21T08:34:09+00:00'
                       created_at:
                         type: string
                         example: null
@@ -654,10 +654,10 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 01m5esgrbys90y5tccjhsxj2sv
+                    id: 01m5eshbhctar47p33k514y254
                     name: 'Morgan Hirthe'
                     email: dare.emelie@example.com
-                    email_verified_at: '2026-10-21T08:33:49+00:00'
+                    email_verified_at: '2026-10-21T08:34:09+00:00'
                     created_at: null
                     updated_at: null
                 properties:
@@ -666,7 +666,7 @@ paths:
                     properties:
                       id:
                         type: string
-                        example: 01m5esgrbys90y5tccjhsxj2sv
+                        example: 01m5eshbhctar47p33k514y254
                       name:
                         type: string
                         example: 'Morgan Hirthe'
@@ -675,7 +675,7 @@ paths:
                         example: dare.emelie@example.com
                       email_verified_at:
                         type: string
-                        example: '2026-10-21T08:33:49+00:00'
+                        example: '2026-10-21T08:34:09+00:00'
                       created_at:
                         type: string
                         example: null
@@ -1379,7 +1379,14 @@ paths:
       summary: 'Create Environment'
       operationId: createEnvironment
       description: 'Add an environment to a project, such as staging. Use it when an application gains a deployment that needs its own flag settings; send an Idempotency-Key so a retry does not create it twice. Returns the environment; every flag in the project starts disabled in it.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: Idempotency-Key
+          description: 'A key unique to this request, such as a UUID. Send the same key when retrying: a retry with the same key and body gets the original response instead of running again, for a day. The same key with a different body is a 422.'
+          example: '"environment-retry-1"'
+          schema:
+            type: string
       responses:
         201:
           description: 'Environment created.'
@@ -1551,7 +1558,14 @@ paths:
       summary: 'Show Environment'
       operationId: showEnvironment
       description: "Fetch one environment by its key. Use it before renaming an environment: the response's ETag goes in If-Match on the update. Returns the environment, or 304 with no body when If-None-Match still matches."
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-None-Match
+          description: 'An ETag from an earlier response. While it still matches, the answer is 304 Not Modified with no body, so you can re-fetch cheaply.'
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The environment, with its ETag.'
@@ -1659,7 +1673,14 @@ paths:
       summary: 'Update Environment'
       operationId: updateEnvironment
       description: 'Rename an environment with a JSON Merge Patch (application/merge-patch+json). Use it when only the name should change; the key is permanent. Send the ETag from Show Environment in If-Match, so a change someone else made first is not overwritten. Returns the updated environment.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-Match
+          description: "The ETag from your last GET of this resource. The change is refused with 412 if the resource has changed since, so it cannot overwrite someone else's change. Leaving it out is a 428 where the endpoint requires it."
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The environment after the change.'
@@ -2156,7 +2177,14 @@ paths:
       summary: 'Create Flag'
       operationId: createFlag
       description: 'Create a flag, disabled in every environment of the project. Use it from a deploy script or CI when code that reads a new flag ships; send an Idempotency-Key so a retry does not fail on the key it just took. Returns the flag; its key and type cannot change afterwards.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: Idempotency-Key
+          description: 'A key unique to this request, such as a UUID. Send the same key when retrying: a retry with the same key and body gets the original response instead of running again, for a day. The same key with a different body is a 422.'
+          example: '"flag-retry-1"'
+          schema:
+            type: string
       responses:
         201:
           description: 'Flag created, disabled everywhere.'
@@ -2397,7 +2425,14 @@ paths:
       summary: 'Show Flag'
       operationId: showFlag
       description: 'Fetch one flag by its key, archived or not. Use it before changing a flag: the ETag of the response goes in If-Match on the update, archive or restore. Returns the flag without its settings, or 304 with no body when If-None-Match still matches.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-None-Match
+          description: 'An ETag from an earlier response. While it still matches, the answer is 304 Not Modified with no body, so you can re-fetch cheaply.'
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The flag, with its ETag.'
@@ -2549,7 +2584,14 @@ paths:
       summary: 'Update Flag'
       operationId: updateFlag
       description: 'Change the name, description or variants of a flag with a JSON Merge Patch (application/merge-patch+json). Use it to rename a flag or change what a variant serves; the key and type are permanent, and a variant any environment still uses cannot be removed. Send the ETag from Show Flag in If-Match. Returns the updated flag.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-Match
+          description: "The ETag from your last GET of this resource. The change is refused with 412 if the resource has changed since, so it cannot overwrite someone else's change. Leaving it out is a 428 where the endpoint requires it."
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The flag after the change.'
@@ -2890,7 +2932,14 @@ paths:
       summary: 'Archive Flag'
       operationId: archiveFlag
       description: 'Take a flag out of evaluation and make it read-only, keeping its settings and history. Use it when the code that reads the flag is gone. Send the ETag from Show Flag in If-Match. Returns the archived flag; applications asking for it are told it was not found.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-Match
+          description: "The ETag from your last GET of this resource. The change is refused with 412 if the resource has changed since, so it cannot overwrite someone else's change. Leaving it out is a 428 where the endpoint requires it."
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The flag after the change.'
@@ -3108,7 +3157,14 @@ paths:
       summary: 'Restore Flag'
       operationId: restoreFlag
       description: 'Bring an archived flag back into evaluation with its settings exactly as they were. Use it when an archived flag is needed again. Send the ETag from Show Flag in If-Match. Returns the restored flag.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-Match
+          description: "The ETag from your last GET of this resource. The change is refused with 412 if the resource has changed since, so it cannot overwrite someone else's change. Leaving it out is a 428 where the endpoint requires it."
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The flag after the change.'
@@ -3737,7 +3793,14 @@ paths:
       summary: 'Show Flag Settings'
       operationId: showFlagSettings
       description: 'Fetch the settings of a flag in one environment: whether it is on, its rules and what it serves by default. Use it before changing them: the ETag of the response goes in If-Match on the update. Returns the settings, or 304 with no body when If-None-Match still matches.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-None-Match
+          description: 'An ETag from an earlier response. While it still matches, the answer is 304 Not Modified with no body, so you can re-fetch cheaply.'
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The settings, with their ETag.'
@@ -3912,7 +3975,14 @@ paths:
       summary: 'Update Flag Settings'
       operationId: updateFlagSettings
       description: 'Change the settings of a flag in one environment with a JSON Merge Patch (application/merge-patch+json): turn it on or off, change its rules, or change what it serves. Send {"enabled": false} to switch a flag off. Send the ETag from Show Flag Settings in If-Match, so a change someone else made first is not overwritten. Returns the settings after the change.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-Match
+          description: "The ETag from your last GET of this resource. The change is refused with 412 if the resource has changed since, so it cannot overwrite someone else's change. Leaving it out is a 428 where the endpoint requires it."
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The settings after the change.'
@@ -4272,7 +4342,14 @@ paths:
       summary: 'Evaluate Flags'
       operationId: evaluateFlags
       description: 'Evaluate every flag in the environment of the SDK key for one context. Called by an OpenFeature OFREP provider in the browser or on a device, which polls it with the last ETag in If-None-Match. Returns every flag with its value or its own error, or 304 with no body while nothing it would see has changed. The 304 to a POST departs from RFC 9110 on purpose, because OFREP specifies it.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-None-Match
+          description: 'An ETag from an earlier response. While it still matches, the answer is 304 Not Modified with no body, so you can re-fetch cheaply.'
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'Every flag, evaluated, with an ETag for the next poll.'
@@ -4739,7 +4816,14 @@ paths:
       summary: 'Create Project'
       operationId: createProject
       description: 'Create a project, with development and production environments to start with. Use it once per application whose flags you manage; send an Idempotency-Key so a retry does not create it twice. Returns the project; its key cannot be changed afterwards.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: Idempotency-Key
+          description: 'A key unique to this request, such as a UUID. Send the same key when retrying: a retry with the same key and body gets the original response instead of running again, for a day. The same key with a different body is a 422.'
+          example: '"project-retry-1"'
+          schema:
+            type: string
       responses:
         201:
           description: 'Project created, with its two starting environments.'
@@ -4878,7 +4962,14 @@ paths:
       summary: 'Show Project'
       operationId: showProject
       description: "Fetch one project by its key. Use it before changing a project: the response's ETag goes in If-Match on the update. Returns the project, or 304 with no body when If-None-Match still matches."
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-None-Match
+          description: 'An ETag from an earlier response. While it still matches, the answer is 304 Not Modified with no body, so you can re-fetch cheaply.'
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The project, with its ETag.'
@@ -4986,7 +5077,14 @@ paths:
       summary: 'Update Project'
       operationId: updateProject
       description: 'Rename a project with a JSON Merge Patch (application/merge-patch+json). Use it when only the name should change; the key is permanent. Send the ETag from Show Project in If-Match, so a change someone else made first is not overwritten. Returns the updated project.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: If-Match
+          description: "The ETag from your last GET of this resource. The change is refused with 412 if the resource has changed since, so it cannot overwrite someone else's change. Leaving it out is a 428 where the endpoint requires it."
+          example: '"a1b2c3d4e5f6"'
+          schema:
+            type: string
       responses:
         200:
           description: 'The project after the change.'
@@ -5432,7 +5530,14 @@ paths:
       summary: 'Create SDK Key'
       operationId: createSDKKey
       description: 'Create a key that an OpenFeature OFREP provider uses to evaluate the flags of this environment, and nothing else. Use it once per application or deployment; send an Idempotency-Key so a retry does not create a second key. Returns the key with its secret in meta.token, shown only this once.'
-      parameters: []
+      parameters:
+        -
+          in: header
+          name: Idempotency-Key
+          description: 'A key unique to this request, such as a UUID. Send the same key when retrying: a retry with the same key and body gets the original response instead of running again, for a day. The same key with a different body is a 422.'
+          example: '"sdk-key-retry-1"'
+          schema:
+            type: string
       responses:
         201:
           description: 'SDK key created. meta.token is the only time its secret is returned.'

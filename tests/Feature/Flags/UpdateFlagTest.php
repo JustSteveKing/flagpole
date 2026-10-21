@@ -100,3 +100,11 @@ it('requires the flags:write ability', function (): void {
     mergePatch('/v1/projects/checkout/flags/new-checkout', ['name' => 'Renamed'], flagToken($user, ['flags:read']), ['If-Match' => flagTag()])
         ->assertProblem(403);
 });
+
+it('refuses a token without flags:write before looking up the flag', function (): void {
+    $user = User::factory()->create();
+    projectWithEnvironments($user);
+
+    mergePatch('/v1/projects/checkout/flags/missing', ['name' => 'Renamed'], flagToken($user, ['flags:read']), ['If-Match' => '"a1b2c3d4e5f6"'])
+        ->assertProblem(403);
+});

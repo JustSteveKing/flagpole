@@ -27,6 +27,7 @@ use Knuckles\Scribe\Attributes\UrlParam;
 #[UrlParam('environment', type: 'string', description: 'The environment key, unique within the project.', required: true, example: 'production')]
 #[Authenticated]
 #[Header('Content-Type', 'application/merge-patch+json')]
+#[Header('If-Match', '"a1b2c3d4e5f6"')]
 #[BodyParam('name', type: 'string', description: 'The new name, up to 255 characters.', required: false, example: 'Live')]
 #[BodyParam('key', type: 'string', description: 'May be sent only with its current value.', required: false, example: 'production')]
 #[Response(content: ['data' => [
