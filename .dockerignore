@@ -19,3 +19,4 @@ database/*.sqlite
 frankenphp
 Dockerfile
 .dockerignore
+examples/*/node_modules
