@@ -1,5 +1,75 @@
 # AGENTS.md
 
+Flagpole is a feature flag service built on Kit: a JSON API to manage projects, environments and
+flags, and evaluation over OpenFeature's Remote Evaluation Protocol (OFREP). This first section is
+Flagpole's own rules. Everything from [Building on Kit](#building-on-kit) down is Kit's guide,
+unchanged, and applies here too.
+
+## Flagpole
+
+### Read the design record first
+
+Flagpole was specified before it was built, with [ArchDoc](https://archdoc.dev), in
+[`architecture/`](architecture/INDEX.md). The spec pages in `architecture/spec/` say how it works
+now; the RFCs and ADRs say why, and what was turned down. A change to behaviour starts there:
+
+- A new feature or a change of design is a new RFC, accepted before it is built. Accepted RFCs
+  and ADRs are frozen; a later document supersedes them rather than editing them.
+- A spec page changes in the same commit as the code it describes.
+- `architecture/agents/` is ArchDoc's guide to writing each kind of document.
+
+Before calling a change done, run these as well as Kit's checks below; CI runs them too:
+
+```bash
+archdoc lint
+archdoc index --check
+archdoc glossary --check
+```
+
+### Where things are
+
+| What | Where |
+| --- | --- |
+| The domain, in plain PHP | `app/Flags/` |
+| Evaluation over OFREP | `app/Flags/Ofrep/`, `app/Http/Controllers/Ofrep/`, `routes/api/ofrep.php` |
+| The management API | `routes/api/v1.php`, Kit's usual controllers, requests and resources |
+| Resolving `{project}`, `{environment}`, `{flag}` and `{settings}` by key | `AppServiceProvider::bindRouteParameters()` |
+| OFREP's own OpenAPI document, for the conformance tests | `tests/Fixtures/ofrep/` |
+| The local demo | `database/seeders/DemoSeeder.php` |
+
+### Rules that are easy to break
+
+- **Every write to a flag or its settings goes through `FlagWriter`.** It saves the change, bumps
+  the version of every environment the change can affect, records the history entry and
+  dispatches the webhook event, in one transaction. A write that skips it leaves OFREP clients
+  holding a stale `ETag`, so they keep getting `304` for flags that have changed.
+- **Route bindings resolve within the signed-in owner.** Another owner's project is a `404`, the
+  same as one that does not exist. A new route parameter gets a binding of the same kind, and is
+  declared in the controller's signature, because api-toolbox takes a resource's `ETag` from the
+  bound parameters.
+- **`Bucket` is byte-level, and its output is fixed.** It reads the first four bytes of a raw
+  SHA-256 digest. Do not add `substr` or `strlen` there: Kit's Pint and Rector rules rewrite
+  them to `mb_` functions, which count characters, and every running rollout moves. The
+  known-answer tests in `tests/Unit/Flags/BucketTest.php` catch it; never change their expected values
+  to make them pass.
+- **`Evaluator` reads only its arguments.** No database, request or container, so it stays safe
+  under Octane and testable without HTTP.
+- **The OFREP routes are not Kit's style, on purpose.** They answer errors in OFREP's format, not
+  problem details ([ADR-0002](architecture/adr/0002-ofrep-endpoints-answer-in-ofrep-s-error-format.md)),
+  the bulk `POST` answers a matching `If-None-Match` with `304`
+  ([ADR-0003](architecture/adr/0003-bulk-evaluation-answers-a-matching-if-none-match-with-304.md)), and the
+  names are OFREP's (`targetingKey`, `errorCode`). `.legible.yaml` ignores those rules for these
+  routes only. The contract tests check them against OFREP's own OpenAPI document; keep it at the
+  pinned version.
+- **SDK keys are Sanctum tokens owned by an `Environment`**, holding only `ofrep:evaluate`. They
+  are issued through `SdkKeys`, and are not listed or revoked by Kit's `/v1/auth/tokens`. On an
+  OFREP route, `Environment::authenticating($request)` is the environment the key belongs to.
+- **Kit is upstream** ([ADR-0008](architecture/adr/0008-kit-is-upstream.md)). Change Kit's own
+  files only where Flagpole cannot work otherwise, in a commit of its own. Anything wrong in Kit
+  for every application is fixed in Kit first, and a Kit release is brought in by hand.
+
+## Building on Kit
+
 How to build on Kit without undoing what it sets up. Written for coding agents and for the people
 working with them. Kit is a Laravel 13 API starter kit: Sanctum tokens, versioned routes, RFC 9457
 errors and the other HTTP standards through [api-toolbox](https://github.com/JustSteveKing/api-toolbox),
