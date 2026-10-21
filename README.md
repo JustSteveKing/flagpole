@@ -45,7 +45,10 @@ curl -i -X POST http://127.0.0.1:8000/ofrep/v1/evaluate/flags \
 
 ```json
 {"flags": [
+  {"key": "basket-limit", "value": 20, "variant": "standard", "reason": "UNKNOWN"},
+  {"key": "discount-rate", "value": 0.0, "variant": "none", "reason": "UNKNOWN"},
   {"key": "new-checkout", "value": true, "variant": "on", "reason": "TARGETING_MATCH"},
+  {"key": "payment-providers", "value": {"providers": ["card"]}, "variant": "cards", "reason": "DISABLED"},
   {"key": "theme", "value": "#00aa55", "variant": "green", "reason": "TARGETING_MATCH"}
 ]}
 ```
@@ -94,6 +97,46 @@ curl -X PATCH http://127.0.0.1:8000/v1/projects/checkout/flags/new-checkout/sett
 
 Leave out `If-Match` and you get a `428`. Send one someone else has already changed and you get a
 `412`, which is the point: two people editing the same rules cannot overwrite each other.
+
+## Target users and roll out
+
+Rules and rollouts are settings too. This turns `new-checkout` on in production for staff, and for
+10% of everyone else:
+
+```bash
+curl -X PATCH http://127.0.0.1:8000/v1/projects/checkout/flags/new-checkout/settings/production \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/merge-patch+json" \
+  -H 'If-Match: "<the ETag from a GET of the production settings>"' \
+  -d '{
+    "enabled": true,
+    "rules": [
+      {
+        "description": "Staff see it first",
+        "conditions": [{"attribute": "email", "operator": "ends_with", "values": ["@flagpole.test"]}],
+        "serve": {"variant": "on"}
+      }
+    ],
+    "default": {"variant": null, "split": [{"variant": "on", "weight": 1000}, {"variant": "off", "weight": 9000}]}
+  }'
+```
+
+Rules are tried in order and the first whose conditions all match decides, with the reason
+`TARGETING_MATCH`. A condition compares one attribute of the context using `in`, `not_in`,
+`starts_with`, `ends_with`, `contains`, `lt`, `lte`, `gt` or `gte`. When no rule matches, the
+default serves. A split like this one gives the reason `SPLIT`. A single variant gives `STATIC`
+when the flag has no rules, and `UNKNOWN` when it has rules and none matched, which is why
+`basket-limit` and `discount-rate` say `UNKNOWN` above: OFREP has no `DEFAULT` reason. A flag that
+is switched off serves its off variant, with `DISABLED`.
+
+Split weights are hundredths of a percent and add up to 10,000. The split hashes the flag key
+with the context's `targetingKey`, so a user stays in the same variant on every evaluation and on
+every server, and a rollout of a different flag picks a different 10%. A context with no
+`targetingKey` gets `TARGETING_KEY_MISSING` instead of a guess.
+
+Two things about merge patch are worth knowing here. `rules` is an array, so the patch replaces
+the whole list. `default` is an object, so the patch merges into it: going from a single variant
+to a split means setting `"variant": null`, or the result has both and is refused with a `422`.
 
 The full reference is at `http://127.0.0.1:8000/docs/index.html`.
 
