@@ -1,0 +1,35 @@
+name: Bug report
+description: Flagpole did something it should not, or answered differently from its docs or from OFREP.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The request you sent and the response you got. Leave out real SDK keys and tokens.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: And where that comes from, if you know, such as a page in docs/flagpole, a spec page or OFREP.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce it
+      description: Starting from a freshly seeded demo (php artisan db:seed) is easiest to follow.
+  - type: input
+    id: version
+    attributes:
+      label: Flagpole version or commit
+    validations:
+      required: true
+  - type: input
+    id: provider
+    attributes:
+      label: OpenFeature provider and version
+      description: If the problem showed up through a provider.

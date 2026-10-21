@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem
+    url: https://github.com/JustSteveKing/flagpole/security/advisories/new
+    about: Privately, please. SECURITY.md says what counts.
+  - name: A problem in Kit
+    url: https://github.com/JustSteveKing/kit/issues
+    about: Authentication, errors, webhooks, CI and anything else every Kit application shares.

@@ -1,0 +1,24 @@
+name: Feature idea
+description: Something Flagpole should do. New features start as an RFC, and this is where that conversation starts.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Flagpole is specified before it is built: an idea that is taken up becomes an RFC in `architecture/` before any code is written. Some things are left out on purpose, and [RFC-0001](https://github.com/JustSteveKing/flagpole/blob/main/architecture/rfc/0001-flagpole-v1.md) says why.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What you are trying to do, and what gets in the way today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you have in mind
+  - type: textarea
+    id: rfc-0001
+    attributes:
+      label: Does RFC-0001 leave this out on purpose?
+      description: If so, what does its reasoning miss?
