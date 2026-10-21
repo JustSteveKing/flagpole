@@ -1,5 +1,9 @@
 # Kit documentation
 
+**Flagpole's own documentation is in [`flagpole/`](flagpole/README.md)**: running it, managing
+flags, targeting, evaluating with OpenFeature, and webhooks. The rest of this page is Kit's guides,
+which Flagpole is built on and which apply to it unchanged.
+
 If you are new to Kit, read [Getting started](getting-started.md) first. After that, each page
 stands on its own.
 
