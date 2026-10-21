@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "http:\/\/localhost"
+            "value": "http:\/\/localhost:8000"
         }
     ],
     "info": {
         "name": "Laravel API Documentation",
-        "_postman_id": "1c36ad15-ad1b-44e1-9989-d7d20afff927",
+        "_postman_id": "9a2dfc2d-f1e1-4bbd-a784-ff1d256335e9",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -35,6 +35,10 @@
                                 "method": "POST",
                                 "header": [
                                     {
+                                        "key": "Idempotency-Key",
+                                        "value": "\"register-retry-1\""
+                                    },
+                                    {
                                         "key": "Content-Type",
                                         "value": "application\/json"
                                     },
@@ -56,7 +60,7 @@
                                 {
                                     "header": [],
                                     "code": 201,
-                                    "body": "{\"data\":{\"id\":\"01m5dgky1m3qa3pqz4zjddxgqt\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-20T20:39:02+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5esgravqnbny1m62rhqw99d\",\"name\":\"Justina Gaylord\",\"email\":\"lafayette.considine@example.com\",\"email_verified_at\":\"2026-10-21T08:33:49+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Registration succeeded."
                                 },
                                 {
@@ -100,7 +104,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5dgky6e3xkb1v4wecn1jxr7\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-20T20:39:02+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5esgrb385rxv14tmgax9g7s\",\"name\":\"Justina Gaylord\",\"email\":\"cormier.nick@example.com\",\"email_verified_at\":\"2026-10-21T08:33:49+00:00\",\"created_at\":null,\"updated_at\":null},\"meta\":{\"token\":\"1|example-token\",\"token_type\":\"Bearer\",\"expires_at\":null}}",
                                     "name": "Login succeeded."
                                 },
                                 {
@@ -123,6 +127,10 @@
                                 "method": "GET",
                                 "header": [
                                     {
+                                        "key": "If-None-Match",
+                                        "value": "\"a1b2c3d4e5f6\""
+                                    },
+                                    {
                                         "key": "Content-Type",
                                         "value": "application\/json"
                                     },
@@ -138,7 +146,7 @@
                                 {
                                     "header": [],
                                     "code": 200,
-                                    "body": "{\"data\":{\"id\":\"01m5dgkybvw7spt5y32ajmwn8c\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-20T20:39:02+00:00\",\"created_at\":null,\"updated_at\":null}}",
+                                    "body": "{\"data\":{\"id\":\"01m5esgrbys90y5tccjhsxj2sv\",\"name\":\"Morgan Hirthe\",\"email\":\"dare.emelie@example.com\",\"email_verified_at\":\"2026-10-21T08:33:49+00:00\",\"created_at\":null,\"updated_at\":null}}",
                                     "name": "Authenticated user profile."
                                 },
                                 {
@@ -249,6 +257,10 @@
                                 },
                                 "method": "POST",
                                 "header": [
+                                    {
+                                        "key": "Idempotency-Key",
+                                        "value": "\"token-retry-1\""
+                                    },
                                     {
                                         "key": "Content-Type",
                                         "value": "application\/json"
@@ -410,6 +422,10 @@
                                 },
                                 "method": "POST",
                                 "header": [
+                                    {
+                                        "key": "Idempotency-Key",
+                                        "value": "\"forgot-retry-1\""
+                                    },
                                     {
                                         "key": "Content-Type",
                                         "value": "application\/json"
@@ -2724,6 +2740,10 @@
                         },
                         "method": "POST",
                         "header": [
+                            {
+                                "key": "Idempotency-Key",
+                                "value": "\"webhook-retry-1\""
+                            },
                             {
                                 "key": "Content-Type",
                                 "value": "application\/json"

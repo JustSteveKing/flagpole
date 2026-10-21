@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost";
+        var tryItOutBaseUrl = "http://localhost:8000";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -296,7 +296,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: October 20, 2026</li>
+        <li>Last updated: October 21, 2026</li>
     </ul>
 </div>
 
@@ -305,7 +305,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>http://localhost:8000</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -335,7 +335,8 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/auth/register" \
+    "http://localhost:8000/v1/auth/register" \
+    --header "Idempotency-Key: \&amp;quot;register-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -349,10 +350,11 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/register"
+    "http://localhost:8000/v1/auth/register"
 );
 
 const headers = {
+    "Idempotency-Key": "&amp;quot;register-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -380,10 +382,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dgky1m3qa3pqz4zjddxgqt&quot;,
+        &quot;id&quot;: &quot;01m5esgravqnbny1m62rhqw99d&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;lafayette.considine@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:39:02+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-21T08:33:49+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -459,6 +461,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <b><code>v1/auth/register</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-auth-register"
+               value=""register-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"register-retry-1"</code></p>
+            </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
@@ -547,7 +561,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/auth/login" \
+    "http://localhost:8000/v1/auth/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -560,7 +574,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/login"
+    "http://localhost:8000/v1/auth/login"
 );
 
 const headers = {
@@ -590,10 +604,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dgky6e3xkb1v4wecn1jxr7&quot;,
+        &quot;id&quot;: &quot;01m5esgrb385rxv14tmgax9g7s&quot;,
         &quot;name&quot;: &quot;Justina Gaylord&quot;,
         &quot;email&quot;: &quot;cormier.nick@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:39:02+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-21T08:33:49+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     },
@@ -746,19 +760,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/auth/me" \
+    --get "http://localhost:8000/v1/auth/me" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "If-None-Match: \&amp;quot;a1b2c3d4e5f6\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/me"
+    "http://localhost:8000/v1/auth/me"
 );
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "If-None-Match": "&amp;quot;a1b2c3d4e5f6&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -778,10 +794,10 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: &quot;01m5dgkybvw7spt5y32ajmwn8c&quot;,
+        &quot;id&quot;: &quot;01m5esgrbys90y5tccjhsxj2sv&quot;,
         &quot;name&quot;: &quot;Morgan Hirthe&quot;,
         &quot;email&quot;: &quot;dare.emelie@example.com&quot;,
-        &quot;email_verified_at&quot;: &quot;2026-10-20T20:39:02+00:00&quot;,
+        &quot;email_verified_at&quot;: &quot;2026-10-21T08:33:49+00:00&quot;,
         &quot;created_at&quot;: null,
         &quot;updated_at&quot;: null
     }
@@ -860,6 +876,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>If-None-Match</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="If-None-Match"                data-endpoint="GETv1-auth-me"
+               value=""a1b2c3d4e5f6""
+               data-component="header">
+    <br>
+<p>Example: <code>"a1b2c3d4e5f6"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -899,7 +927,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/auth/logout" \
+    "http://localhost:8000/v1/auth/logout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -907,7 +935,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/logout"
+    "http://localhost:8000/v1/auth/logout"
 );
 
 const headers = {
@@ -1042,7 +1070,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/auth/tokens?cursor=architecto" \
+    --get "http://localhost:8000/v1/auth/tokens?cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1050,7 +1078,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/tokens"
+    "http://localhost:8000/v1/auth/tokens"
 );
 
 const params = {
@@ -1231,8 +1259,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/auth/tokens" \
+    "http://localhost:8000/v1/auth/tokens" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Idempotency-Key: \&amp;quot;token-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1248,11 +1277,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/tokens"
+    "http://localhost:8000/v1/auth/tokens"
 );
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Idempotency-Key": "&amp;quot;token-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1402,6 +1432,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-auth-tokens"
+               value=""token-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"token-retry-1"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -1480,7 +1522,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/v1/auth/tokens" \
+    "http://localhost:8000/v1/auth/tokens" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1488,7 +1530,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/tokens"
+    "http://localhost:8000/v1/auth/tokens"
 );
 
 const headers = {
@@ -1635,7 +1677,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/v1/auth/tokens/42" \
+    "http://localhost:8000/v1/auth/tokens/42" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1643,7 +1685,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/tokens/42"
+    "http://localhost:8000/v1/auth/tokens/42"
 );
 
 const headers = {
@@ -1815,7 +1857,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/auth/password/forgot" \
+    "http://localhost:8000/v1/auth/password/forgot" \
+    --header "Idempotency-Key: \&amp;quot;forgot-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1826,10 +1869,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/password/forgot"
+    "http://localhost:8000/v1/auth/password/forgot"
 );
 
 const headers = {
+    "Idempotency-Key": "&amp;quot;forgot-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -1934,6 +1978,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-auth-password-forgot"
+               value=""forgot-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"forgot-retry-1"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -1985,7 +2041,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/auth/password/reset" \
+    "http://localhost:8000/v1/auth/password/reset" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1999,7 +2055,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/password/reset"
+    "http://localhost:8000/v1/auth/password/reset"
 );
 
 const headers = {
@@ -2185,14 +2241,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/auth/password/reset/reset-token-value?email=jane%40example.com" \
+    --get "http://localhost:8000/v1/auth/password/reset/reset-token-value?email=jane%40example.com" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/password/reset/reset-token-value"
+    "http://localhost:8000/v1/auth/password/reset/reset-token-value"
 );
 
 const params = {
@@ -2355,14 +2411,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/auth/email/verify/01HZX3W3T4J8Q57XNZD5BPHJ92/8c4f4370e5db9b5be6d0f4c95495f49f998fa32a" \
+    --get "http://localhost:8000/v1/auth/email/verify/01HZX3W3T4J8Q57XNZD5BPHJ92/8c4f4370e5db9b5be6d0f4c95495f49f998fa32a" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/email/verify/01HZX3W3T4J8Q57XNZD5BPHJ92/8c4f4370e5db9b5be6d0f4c95495f49f998fa32a"
+    "http://localhost:8000/v1/auth/email/verify/01HZX3W3T4J8Q57XNZD5BPHJ92/8c4f4370e5db9b5be6d0f4c95495f49f998fa32a"
 );
 
 const headers = {
@@ -2512,7 +2568,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/auth/email/verification-notification" \
+    "http://localhost:8000/v1/auth/email/verification-notification" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2520,7 +2576,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/auth/email/verification-notification"
+    "http://localhost:8000/v1/auth/email/verification-notification"
 );
 
 const headers = {
@@ -2671,7 +2727,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/environments?cursor=architecto" \
+    --get "http://localhost:8000/v1/projects/checkout/environments?cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2679,7 +2735,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments"
+    "http://localhost:8000/v1/projects/checkout/environments"
 );
 
 const params = {
@@ -2878,7 +2934,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/projects/checkout/environments" \
+    "http://localhost:8000/v1/projects/checkout/environments" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -2891,7 +2947,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments"
+    "http://localhost:8000/v1/projects/checkout/environments"
 );
 
 const headers = {
@@ -3119,7 +3175,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/environments/production" \
+    --get "http://localhost:8000/v1/projects/checkout/environments/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3127,7 +3183,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments/production"
+    "http://localhost:8000/v1/projects/checkout/environments/production"
 );
 
 const headers = {
@@ -3319,7 +3375,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/v1/projects/checkout/environments/production" \
+    "http://localhost:8000/v1/projects/checkout/environments/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -3332,7 +3388,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments/production"
+    "http://localhost:8000/v1/projects/checkout/environments/production"
 );
 
 const headers = {
@@ -3608,7 +3664,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/v1/projects/checkout/environments/production" \
+    "http://localhost:8000/v1/projects/checkout/environments/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3616,7 +3672,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments/production"
+    "http://localhost:8000/v1/projects/checkout/environments/production"
 );
 
 const headers = {
@@ -3804,7 +3860,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/flags?archived=&amp;cursor=architecto" \
+    --get "http://localhost:8000/v1/projects/checkout/flags?archived=&amp;cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3812,7 +3868,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags"
+    "http://localhost:8000/v1/projects/checkout/flags"
 );
 
 const params = {
@@ -4067,7 +4123,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/projects/checkout/flags" \
+    "http://localhost:8000/v1/projects/checkout/flags" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4088,7 +4144,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags"
+    "http://localhost:8000/v1/projects/checkout/flags"
 );
 
 const headers = {
@@ -4427,7 +4483,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/flags/new-checkout" \
+    --get "http://localhost:8000/v1/projects/checkout/flags/new-checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4435,7 +4491,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout"
 );
 
 const headers = {
@@ -4670,7 +4726,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/v1/projects/checkout/flags/new-checkout" \
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4691,7 +4747,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout"
 );
 
 const headers = {
@@ -5090,7 +5146,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/projects/checkout/flags/new-checkout/archive" \
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/archive" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5098,7 +5154,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout/archive"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/archive"
 );
 
 const headers = {
@@ -5357,7 +5413,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/projects/checkout/flags/new-checkout/restore" \
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/restore" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5365,7 +5421,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout/restore"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/restore"
 );
 
 const headers = {
@@ -5624,7 +5680,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/flags/new-checkout/history?environment=production&amp;cursor=architecto" \
+    --get "http://localhost:8000/v1/projects/checkout/flags/new-checkout/history?environment=production&amp;cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5632,7 +5688,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout/history"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/history"
 );
 
 const params = {
@@ -5920,7 +5976,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/flags/new-checkout/settings?cursor=architecto" \
+    --get "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings?cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5928,7 +5984,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout/settings"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings"
 );
 
 const params = {
@@ -6159,7 +6215,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production" \
+    --get "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6167,7 +6223,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings/production"
 );
 
 const headers = {
@@ -6391,7 +6447,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production" \
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings/production" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6408,7 +6464,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/flags/new-checkout/settings/production"
+    "http://localhost:8000/v1/projects/checkout/flags/new-checkout/settings/production"
 );
 
 const headers = {
@@ -6772,7 +6828,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/ofrep/v1/evaluate/flags" \
+    "http://localhost:8000/ofrep/v1/evaluate/flags" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6788,7 +6844,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/ofrep/v1/evaluate/flags"
+    "http://localhost:8000/ofrep/v1/evaluate/flags"
 );
 
 const headers = {
@@ -7028,7 +7084,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/ofrep/v1/evaluate/flags/new-checkout" \
+    "http://localhost:8000/ofrep/v1/evaluate/flags/new-checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -7044,7 +7100,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/ofrep/v1/evaluate/flags/new-checkout"
+    "http://localhost:8000/ofrep/v1/evaluate/flags/new-checkout"
 );
 
 const headers = {
@@ -7291,7 +7347,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects?cursor=architecto" \
+    --get "http://localhost:8000/v1/projects?cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -7299,7 +7355,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects"
+    "http://localhost:8000/v1/projects"
 );
 
 const params = {
@@ -7473,7 +7529,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/projects" \
+    "http://localhost:8000/v1/projects" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -7486,7 +7542,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects"
+    "http://localhost:8000/v1/projects"
 );
 
 const headers = {
@@ -7689,7 +7745,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout" \
+    --get "http://localhost:8000/v1/projects/checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -7697,7 +7753,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout"
+    "http://localhost:8000/v1/projects/checkout"
 );
 
 const headers = {
@@ -7877,7 +7933,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/v1/projects/checkout" \
+    "http://localhost:8000/v1/projects/checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -7890,7 +7946,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout"
+    "http://localhost:8000/v1/projects/checkout"
 );
 
 const headers = {
@@ -8154,7 +8210,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/v1/projects/checkout" \
+    "http://localhost:8000/v1/projects/checkout" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -8162,7 +8218,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout"
+    "http://localhost:8000/v1/projects/checkout"
 );
 
 const headers = {
@@ -8338,7 +8394,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/projects/checkout/environments/production/sdk-keys?cursor=architecto" \
+    --get "http://localhost:8000/v1/projects/checkout/environments/production/sdk-keys?cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -8346,7 +8402,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments/production/sdk-keys"
+    "http://localhost:8000/v1/projects/checkout/environments/production/sdk-keys"
 );
 
 const params = {
@@ -8578,7 +8634,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/projects/checkout/environments/production/sdk-keys" \
+    "http://localhost:8000/v1/projects/checkout/environments/production/sdk-keys" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -8591,7 +8647,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments/production/sdk-keys"
+    "http://localhost:8000/v1/projects/checkout/environments/production/sdk-keys"
 );
 
 const headers = {
@@ -8866,7 +8922,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/v1/projects/checkout/environments/production/sdk-keys/41" \
+    "http://localhost:8000/v1/projects/checkout/environments/production/sdk-keys/41" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -8874,7 +8930,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/projects/checkout/environments/production/sdk-keys/41"
+    "http://localhost:8000/v1/projects/checkout/environments/production/sdk-keys/41"
 );
 
 const headers = {
@@ -9073,14 +9129,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent?url_hash=3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b&amp;request=9f86d081884c7d659a2feaa0c55ad015&amp;expires=1761220800&amp;signature=0c7f4e0b2d6a9e1f5b3c8d7a6e5f4c3b2a1d0e9f8c7b6a5d4e3f2c1b0a9d8e7f" \
+    --get "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent?url_hash=3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b&amp;request=9f86d081884c7d659a2feaa0c55ad015&amp;expires=1761220800&amp;signature=0c7f4e0b2d6a9e1f5b3c8d7a6e5f4c3b2a1d0e9f8c7b6a5d4e3f2c1b0a9d8e7f" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent"
 );
 
 const params = {
@@ -9299,14 +9355,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent?url_hash=3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b&amp;request=9f86d081884c7d659a2feaa0c55ad015&amp;expires=1761220800&amp;signature=0c7f4e0b2d6a9e1f5b3c8d7a6e5f4c3b2a1d0e9f8c7b6a5d4e3f2c1b0a9d8e7f" \
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent?url_hash=3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b&amp;request=9f86d081884c7d659a2feaa0c55ad015&amp;expires=1761220800&amp;signature=0c7f4e0b2d6a9e1f5b3c8d7a6e5f4c3b2a1d0e9f8c7b6a5d4e3f2c1b0a9d8e7f" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/consent"
 );
 
 const params = {
@@ -9526,7 +9582,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/webhooks?cursor=architecto" \
+    --get "http://localhost:8000/v1/webhooks?cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -9534,7 +9590,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks"
+    "http://localhost:8000/v1/webhooks"
 );
 
 const params = {
@@ -9761,8 +9817,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/webhooks" \
+    "http://localhost:8000/v1/webhooks" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
+    --header "Idempotency-Key: \&amp;quot;webhook-retry-1\&amp;quot;" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -9777,11 +9834,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks"
+    "http://localhost:8000/v1/webhooks"
 );
 
 const headers = {
     "Authorization": "Bearer {YOUR_BEARER_TOKEN}",
+    "Idempotency-Key": "&amp;quot;webhook-retry-1&amp;quot;",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
@@ -9931,6 +9989,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Bearer {YOUR_BEARER_TOKEN}</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Idempotency-Key</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Idempotency-Key"                data-endpoint="POSTv1-webhooks"
+               value=""webhook-retry-1""
+               data-component="header">
+    <br>
+<p>Example: <code>"webhook-retry-1"</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -10063,7 +10133,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w" \
+    --get "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -10071,7 +10141,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w"
 );
 
 const headers = {
@@ -10314,7 +10384,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w" \
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -10331,7 +10401,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w"
 );
 
 const headers = {
@@ -10662,7 +10732,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w" \
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -10670,7 +10740,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w"
 );
 
 const headers = {
@@ -10842,7 +10912,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/secret" \
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/secret" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -10850,7 +10920,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/secret"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/secret"
 );
 
 const headers = {
@@ -11096,7 +11166,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/validate" \
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/validate" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -11104,7 +11174,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/validate"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/validate"
 );
 
 const headers = {
@@ -11347,7 +11417,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/ping" \
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/ping" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -11355,7 +11425,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/ping"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/ping"
 );
 
 const headers = {
@@ -11627,7 +11697,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries?cursor=architecto" \
+    --get "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries?cursor=architecto" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -11635,7 +11705,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries"
 );
 
 const params = {
@@ -11904,7 +11974,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries/01jb8x3a4b5c6d7e8f9g0h1j2k/redeliver" \
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries/01jb8x3a4b5c6d7e8f9g0h1j2k/redeliver" \
     --header "Authorization: Bearer {YOUR_BEARER_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -11912,7 +11982,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries/01jb8x3a4b5c6d7e8f9g0h1j2k/redeliver"
+    "http://localhost:8000/v1/webhooks/01jb8x2m4k5n6p7q8r9s0t1v2w/deliveries/01jb8x3a4b5c6d7e8f9g0h1j2k/redeliver"
 );
 
 const headers = {
