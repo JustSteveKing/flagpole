@@ -1,0 +1,19 @@
+{
+  "name": "flagpole-openfeature-check",
+  "private": true,
+  "description": "OpenFeature's own OFREP providers, run against Flagpole's demo.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "node --disable-warning=ExperimentalWarning check.mjs"
+  },
+  "dependencies": {
+    "@openfeature/ofrep-provider": "0.2.5",
+    "@openfeature/ofrep-web-provider": "0.4.3",
+    "@openfeature/server-sdk": "1.23.0",
+    "@openfeature/web-sdk": "1.10.0"
+  }
+}

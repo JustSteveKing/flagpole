@@ -72,9 +72,9 @@ const newCheckout = OpenFeature.getClient().getBooleanValue('new-checkout', fals
 ```
 
 On a server it is `@openfeature/server-sdk` with `@openfeature/ofrep-provider`, and the context goes
-with each evaluation. Both have been run against Flagpole: every flag type evaluates, the browser
-provider polls with `If-None-Match` and gets `304`s, and it notices a flag switched off through the
-API on its next poll.
+with each evaluation. [`examples/openfeature`](examples/openfeature/README.md) runs both against
+the demo and checks every answer: each flag type, the errors, the browser provider's polls getting
+`304`, and it noticing a flag switched off through the API on its next poll.
 
 ## Change a flag
 
