@@ -6,7 +6,7 @@ includes: [RFC-0002, ADR-0005, ADR-0008]
 # Architecture
 
 Flagpole is a Kit application. Its first commit is Kit as `laravel new --using=juststeveking/kit`
-wrote it, and Kit's guides are in `docs/`. Changes to Kit's own files are in commits of their own.
+wrote it. Kit's guides are in `docs/`, and Flagpole's in `docs/flagpole/`. Changes to Kit's own files are in commits of their own.
 
 ## Code
 

@@ -36,6 +36,7 @@ archdoc glossary --check
 | Resolving `{project}`, `{environment}`, `{flag}` and `{settings}` by key | `AppServiceProvider::bindRouteParameters()` |
 | OFREP's own OpenAPI document, for the conformance tests | `tests/Fixtures/ofrep/` |
 | The local demo | `database/seeders/DemoSeeder.php` |
+| Flagpole's guides for people using it | `docs/flagpole/`; Kit's guides are the rest of `docs/` |
 | OpenFeature's own providers, checked against the demo | `examples/openfeature/` |
 
 ### Rules that are easy to break
