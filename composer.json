@@ -1,14 +1,15 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "juststeveking/kit",
+    "name": "juststeveking/flagpole",
     "type": "project",
-    "description": "Opinionated Laravel API starter kit: token authentication, standards-compliant HTTP via api-toolbox, and contract-tested OpenAPI docs.",
+    "description": "A feature flag service built on Kit, evaluated over OpenFeature's Remote Evaluation Protocol (OFREP).",
     "keywords": [
         "laravel",
         "api",
-        "starter-kit",
-        "sanctum",
-        "rfc9457"
+        "feature-flags",
+        "openfeature",
+        "ofrep",
+        "kit"
     ],
     "license": "MIT",
     "require": {

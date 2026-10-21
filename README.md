@@ -14,7 +14,7 @@ lives.
 ## Run it
 
 ```bash
-git clone <this repository> flagpole
+git clone https://github.com/JustSteveKing/flagpole.git
 cd flagpole
 composer setup
 php artisan db:seed
@@ -138,4 +138,4 @@ flags were evaluated or for whom. Each of those is a decision in the RFCs, with 
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE).
